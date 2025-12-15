@@ -9,6 +9,7 @@ import MyRequests from "../dashboard/dashboardPage/MyRequests";
 import CreateRequest from "../dashboard/dashboardPage/CreateRequest";
 import AllRequests from "../dashboard/dashboardPage/AllRequests";
 import AllUsers from "../dashboard/dashboardPage/AllUsers";
+import Login from "../pages/Login";
 
 const router = createBrowserRouter([
   {
@@ -19,6 +20,10 @@ const router = createBrowserRouter([
       {
         path: "/",
         element: <Home></Home>,
+      },
+      {
+        path: "/login",
+        element: <Login></Login>,
       },
       {
         path: "*",

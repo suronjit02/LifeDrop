@@ -46,7 +46,9 @@ const Navbar = () => {
             </li>
           </ul>
         </div>
-        <img className="h-10 " src="/lifedrop.jpeg" alt="LifeDrop" />
+        <Link to={"/"}>
+          <img className="h-10 " src="/lifedrop.jpeg" alt="LifeDrop" />
+        </Link>
       </div>
       <div className="navbar-center hidden lg:flex w-100 max-w-100">
         <ul className="flex justify-center items-center gap-5 font-semibold">
@@ -65,7 +67,9 @@ const Navbar = () => {
         >
           Dashboard
         </Link>
-        <Link className="btn primary text-white">Login</Link>
+        <Link to={"/login"} className="btn primary text-white">
+          Login
+        </Link>
       </div>
     </div>
   );
