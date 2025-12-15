@@ -1,12 +1,22 @@
-import React from "react";
+import { useState } from "react";
 import { Outlet } from "react-router";
 import Aside from "../dashboard/dashboardComponent/Aside";
+import DashboardTopbar from "../dashboard/dashboardComponent/DashboardTopbar";
 
 const DashboardLayout = () => {
+  const [open, setOpen] = useState(false);
+
   return (
-    <div className="flex gap-5">
-      <Aside></Aside>
-      <Outlet></Outlet>
+    <div>
+      <DashboardTopbar setOpen={setOpen} />
+
+      <div className="flex">
+        <Aside isOpen={open} setOpen={setOpen} />
+
+        <main className="flex-1 p-4">
+          <Outlet />
+        </main>
+      </div>
     </div>
   );
 };

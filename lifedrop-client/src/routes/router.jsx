@@ -4,6 +4,11 @@ import Home from "../pages/Home";
 import DashboardLayout from "../layouts/DashboardLayout";
 import DashboardProfile from "../dashboard/dashboardPage/DashboardProfile";
 import NotFindPage from "../pages/NotFindPage";
+import DashboardHome from "../dashboard/dashboardPage/DashboardHome";
+import MyRequests from "../dashboard/dashboardPage/MyRequests";
+import CreateRequest from "../dashboard/dashboardPage/CreateRequest";
+import AllRequests from "../dashboard/dashboardPage/AllRequests";
+import AllUsers from "../dashboard/dashboardPage/AllUsers";
 
 const router = createBrowserRouter([
   {
@@ -28,11 +33,27 @@ const router = createBrowserRouter([
     children: [
       {
         index: true,
-        element: <DashboardProfile></DashboardProfile>,
+        element: <DashboardHome />,
       },
       {
-        path: "/dashboard/profile",
-        element: <DashboardProfile></DashboardProfile>,
+        path: "profile",
+        element: <DashboardProfile />,
+      },
+      {
+        path: "my-requests",
+        element: <MyRequests />,
+      },
+      {
+        path: "create-request",
+        element: <CreateRequest />,
+      },
+      {
+        path: "all-requests",
+        element: <AllRequests />,
+      },
+      {
+        path: "all-users",
+        element: <AllUsers />,
       },
       {
         path: "*",
