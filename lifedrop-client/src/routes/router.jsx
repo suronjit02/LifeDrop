@@ -25,6 +25,10 @@ const router = createBrowserRouter([
         index: true,
         element: <DashboardProfile></DashboardProfile>,
       },
+      {
+        path: "/dashboard/profile",
+        element: <DashboardProfile></DashboardProfile>,
+      },
     ],
   },
 ]);
