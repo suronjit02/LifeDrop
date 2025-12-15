@@ -7,13 +7,13 @@ const DashboardLayout = () => {
   const [open, setOpen] = useState(false);
 
   return (
-    <div>
+    <div className="h-screen overflow-hidden">
       <DashboardTopbar setOpen={setOpen} />
 
-      <div className="flex">
+      <div className="flex h-full">
         <Aside isOpen={open} setOpen={setOpen} />
 
-        <main className="flex-1 p-4">
+        <main className="flex-1 h-full overflow-y-auto p-4">
           <Outlet />
         </main>
       </div>
