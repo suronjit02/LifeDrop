@@ -19,7 +19,10 @@ const HeroSection = () => {
         </p>
 
         <div className="flex gap-2 sm:gap-4">
-          <Link className="btn bg-[#c6414c] hover:bg-red-700 text-white sm:px-6 transition-all duration-500 ease-in-out">
+          <Link
+            to={"/register"}
+            className="btn bg-[#c6414c] hover:bg-red-700 text-white sm:px-6 transition-all duration-500 ease-in-out"
+          >
             Join as a Donor
           </Link>
           <Link className="btn bg-white hover:bg-[#c6414c] text-[#c6414c] hover:text-white border border-[#c6414c] transition-all duration-500 ease-in-out">
