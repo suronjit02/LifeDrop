@@ -1,10 +1,13 @@
-import { Link } from "react-router";
-
-import { useEffect, useState } from "react";
+import { Link, useNavigate, useLocation } from "react-router";
+import { useContext, useEffect, useState } from "react";
 import { FaRegEye, FaRegEyeSlash } from "react-icons/fa";
 import axios from "axios";
+import { AuthContext } from "../provider/AuthProvider";
 
 const Register = () => {
+  const { createUser } = useContext(AuthContext);
+  const navigate = useNavigate();
+  const location = useLocation();
   const [error, setError] = useState("");
   const [showPass, setShowPass] = useState(false);
 
@@ -23,15 +26,85 @@ const Register = () => {
     });
   }, []);
 
-  console.log(district);
-  console.log(upazila);
+  // console.log(district);
+  // console.log(upazila);
+
+  const handleSignUp = async (event) => {
+    event.preventDefault();
+    const name = event.target.name.value;
+    const blood = event.target.blood.value;
+    const email = event.target.email.value;
+    const password = event.target.password.value;
+    const confirmPassword = event.target.confirmPassword.value;
+    const photoUrl = event.target.photoUrl;
+    const file = photoUrl.files[0];
+
+    // console.log(blood);
+
+    const passwordRegex = /^(?=.*[a-z])(?=.*[A-Z]).{6,}$/;
+
+    if (!passwordRegex.test(password)) {
+      setError(
+        "Password must be at least 6 characters long and include both uppercase and lowercase letters"
+      );
+      return;
+    }
+
+    if (password !== confirmPassword) {
+      setError("Password did not match");
+      return;
+    }
+
+    const res = await axios.post(
+      `https://api.imgbb.com/1/upload?expiration=600&key=96c9ca8c8f54ca0770ab6f539a3b5d5a`,
+      { image: file },
+
+      {
+        headers: {
+          "Content-Type": "multipart/form-data",
+        },
+      }
+    );
+    const mainPhotoUrl = res.data.data.display_url;
+
+    const formData = {
+      name,
+      email,
+      password,
+      mainPhotoUrl,
+      blood,
+      district,
+      upazila,
+    };
+
+    console.log(formData);
+
+    if (res.data.success == true) {
+      createUser(email, password, name, mainPhotoUrl)
+        .then(() => {
+          axios
+            .post("http://localhost:5000/users", formData)
+            .then((res) => {
+              console.log(res.data);
+            })
+            .catch((err) => {
+              console.log(err);
+            });
+
+          navigate(location.state?.from || "/");
+        })
+        .catch((error) => {
+          setError(error.code);
+        });
+    }
+  };
 
   return (
     <div className="w-full min-h-screen py-10 flex gap-10 items-center justify-center px-4">
       <aside className="hidden md:block">
         <img className="h-100" src="/donate.png" alt="" />
       </aside>
-      <form className="w-full sm:max-w-lg p-6 sm:p-8">
+      <form onSubmit={handleSignUp} className="w-full sm:max-w-lg p-6 sm:p-8">
         <h2 className="text-2xl sm:text-2xl font-semibold text-center text-[#05b4cd] mb-2 border p-1 ">
           Join For Humanity
         </h2>
@@ -57,7 +130,7 @@ const Register = () => {
             <input
               type="file"
               name="photoUrl"
-              className="input input-bordered focus:outline-none w-full font-semibold cursor-pointer"
+              className="file-input file-input-bordered w-full cursor-pointer focus:outline-none focus:ring-0 active:outline-none"
             />
           </div>
 
@@ -67,9 +140,9 @@ const Register = () => {
               required
               name="blood"
               defaultValue="Chose Blood Group"
-              className="select w-full"
+              className="select w-full font-semibold"
             >
-              <option disabled={true}>Chose Blood Group</option>
+              <option disabled>Chose Blood Group</option>
               <option value="A+">A+</option>
               <option value="A-">A-</option>
               <option value="B+">B+</option>
@@ -160,7 +233,7 @@ const Register = () => {
                 <input
                   required
                   type={showPass ? "text" : "password"}
-                  name="password"
+                  name="confirmPassword"
                   placeholder="Password here"
                   className="input input-bordered focus:outline-none w-full pr-10"
                   onChange={() => setError("")}

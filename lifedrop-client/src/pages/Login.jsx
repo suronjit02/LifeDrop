@@ -1,12 +1,32 @@
-import React, { useState } from "react";
-import { Link } from "react-router";
+import React, { useContext, useState } from "react";
+import { Link, useLocation, useNavigate } from "react-router";
 import { FaRegEye, FaRegEyeSlash } from "react-icons/fa";
+import { AuthContext } from "../provider/AuthProvider";
+import { CgPassword } from "react-icons/cg";
 
 const Login = () => {
+  const { logIn } = useContext(AuthContext);
   const [showPass, setShowPass] = useState(false);
+
+  const navigate = useNavigate();
+  const location = useLocation();
+
+  const handleLogin = (e) => {
+    e.preventDefault();
+
+    const email = e.target.email.value;
+    const password = e.target.password.value;
+
+    logIn(email, password).then(() => {
+      navigate(location.state?.from || "/");
+    });
+  };
   return (
     <div className="w-full min-h-screen flex items-center justify-center px-4 gap-10">
-      <form className="w-full sm:max-w-md rounded-md p-6 sm:p-8">
+      <form
+        onSubmit={handleLogin}
+        className="w-full sm:max-w-md rounded-md p-6 sm:p-8"
+      >
         <figure className="flex justify-center">
           <img className="h-10 mb-10" src="/lifedrop.jpeg" alt="" />
         </figure>
@@ -51,7 +71,6 @@ const Login = () => {
         <button className="btn border-none mt-6 w-full bg-[#05b4cd] hover:bg-sky-700 text-white transition">
           Log in
         </button>
-        <p className="my-1 text-center text-sm">or</p>
 
         <p className="mt-6 sm:mt-10 text-center text-sm">
           Don't have an account?{" "}

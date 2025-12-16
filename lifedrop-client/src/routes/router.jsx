@@ -11,6 +11,8 @@ import AllRequests from "../dashboard/dashboardPage/AllRequests";
 import AllUsers from "../dashboard/dashboardPage/AllUsers";
 import Login from "../pages/Login";
 import Register from "../pages/Register";
+import PrivateRoute from "../provider/PrivateRoutes";
+import AuthProvider from "../provider/AuthProvider";
 
 const router = createBrowserRouter([
   {
@@ -38,7 +40,11 @@ const router = createBrowserRouter([
   },
   {
     path: "/dashboard",
-    element: <DashboardLayout></DashboardLayout>,
+    element: (
+      <PrivateRoute>
+        <DashboardLayout></DashboardLayout>
+      </PrivateRoute>
+    ),
 
     children: [
       {
