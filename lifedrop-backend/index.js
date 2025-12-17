@@ -41,6 +41,21 @@ async function run() {
       res.send(result);
     });
 
+    // get all users
+    app.get("/users", async (req, res) => {
+      const users = await userCollections.find({}).toArray();
+      res.send(users);
+    });
+
+    // user role get
+    app.get("/users/role/:email", async (req, res) => {
+      const { email } = req.params;
+
+      const query = { email: email };
+      const result = await userCollections.findOne(query);
+      res.send(result);
+    });
+
     await client.db("admin").command({ ping: 1 });
     console.log(
       "Pinged your deployment. You successfully connected to MongoDB!"
