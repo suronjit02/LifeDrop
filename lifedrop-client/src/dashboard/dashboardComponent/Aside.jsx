@@ -9,7 +9,7 @@ import { NavLink, Link } from "react-router";
 import { AuthContext } from "../../provider/AuthProvider";
 
 const Aside = ({ isOpen, setOpen }) => {
-  const { user, logOut } = useContext(AuthContext);
+  const { user, logOut, role } = useContext(AuthContext);
   const linkClass = ({ isActive }) =>
     `flex items-center gap-2 p-2 rounded ${
       isActive ? "bg-white text-[#05b4cd]" : "hover:bg-white/20"
@@ -63,24 +63,29 @@ const Aside = ({ isOpen, setOpen }) => {
 
           <div className="flex items-center justify-between mt-6">
             {user?.photoURL ? (
-              <img
-                src={user.photoURL}
-                alt="profile"
-                className="w-10 h-10 rounded-full object-cover cursor-pointer border"
-              />
+              <div>
+                <img
+                  src={user.photoURL}
+                  alt="profile"
+                  className="w-10 h-10 rounded-full object-cover cursor-pointer border"
+                />
+                <h3>{role}</h3>
+              </div>
             ) : (
               <FaUserCircle className="text-4xl" />
             )}
-            <Link to={"/"}>
-              <img
-                className="h-8 rounded-sm "
-                src="/lifedrop.jpeg"
-                alt="LifeDrop"
-              />
-            </Link>
-            <Link onClick={logOut} to="/" className="btn btn-sm">
-              Logout <CiLogout />
-            </Link>
+            <div className="">
+              <Link to={"/"}>
+                <img
+                  className="h-8 rounded-sm "
+                  src="/lifedrop.jpeg"
+                  alt="LifeDrop"
+                />
+              </Link>
+              <Link onClick={logOut} to="/" className="btn btn-sm">
+                Logout <CiLogout />
+              </Link>
+            </div>
           </div>
         </div>
       </aside>
