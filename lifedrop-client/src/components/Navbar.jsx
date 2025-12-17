@@ -67,16 +67,52 @@ const Navbar = () => {
         </ul>
       </div>
       <div className="navbar-end gap-2">
-        <Link
-          to={"/dashboard"}
-          className="btn bg-white border-[#c6414c] text-primary"
-        >
-          Dashboard
-        </Link>
         {user ? (
-          <Link onClick={handleLogOut} className="btn primary text-white">
-            LogOut
-          </Link>
+          <>
+            <div className="dropdown dropdown-end">
+              <div tabIndex={0} role="button" className="m-1">
+                {user?.photoURL ? (
+                  <img
+                    src={user.photoURL}
+                    alt="profile"
+                    className="w-10 h-10 rounded-full object-cover cursor-pointer"
+                  />
+                ) : (
+                  <HiOutlineUserCircle className="text-3xl text-gray-700 cursor-pointer" />
+                )}
+              </div>
+              <ul
+                tabIndex="-1"
+                className="dropdown-content  bg-base-100 rounded-md z-1 min-w-55 p-2 shadow-sm"
+              >
+                <div className="text-sm mt-4">
+                  <li>Name: {user.displayName}</li>
+                  <li>Email: {user.email}</li>
+                  <hr className="my-3" />
+                  <li>
+                    <Link
+                      to={"/dashboard"}
+                      className=" text-primary font-semibold mb-3"
+                    >
+                      Dashboard
+                    </Link>
+                  </li>
+                </div>
+                <li>
+                  <Link
+                    to={"/"}
+                    onClick={handleLogOut}
+                    className="text-primary font-semibold "
+                  >
+                    Logout
+                  </Link>
+                </li>
+              </ul>
+            </div>
+            <Link onClick={handleLogOut} className="btn primary text-white">
+              LogOut
+            </Link>{" "}
+          </>
         ) : (
           <Link to={"/login"} className="btn primary text-white">
             Login
