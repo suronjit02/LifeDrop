@@ -1,18 +1,20 @@
 import React, { useContext, useEffect, useState } from "react";
 import { AuthContext } from "../../provider/AuthProvider";
 import Loader from "../../components/Loader";
-import axios from "axios";
 import { HiOutlineUserCircle } from "react-icons/hi";
+import useAxiosSecure from "../../hooks/useAxiosSecure";
 
 const DashboardProfile = () => {
   const { user } = useContext(AuthContext);
 
   const [userData, setUserData] = useState(null);
 
+  const axiosSecure = useAxiosSecure();
+
   useEffect(() => {
     if (user?.email) {
-      axios
-        .get(`http://localhost:5000/users/role/${user.email}`)
+      axiosSecure
+        .get(`/users/role/${user.email}`)
         .then((res) => {
           setUserData(res.data);
         })
