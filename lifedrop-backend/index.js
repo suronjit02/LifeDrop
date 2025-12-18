@@ -80,7 +80,7 @@ async function run() {
     });
 
     // get all users
-    app.get("/users", async (req, res) => {
+    app.get("/users", verifyFBToken, async (req, res) => {
       const users = await userCollections.find({}).toArray();
       res.send(users);
     });
@@ -91,6 +91,19 @@ async function run() {
 
       const query = { email: email };
       const result = await userCollections.findOne(query);
+      res.send(result);
+    });
+
+    // update status
+    app.patch("/update/user/status", verifyFBToken, async (req, res) => {
+      const { email, status } = req.query;
+
+      const query = { email };
+      const updateStatus = {
+        $set: { status },
+      };
+
+      const result = await userCollections.updateOne(query, updateStatus);
       res.send(result);
     });
 
