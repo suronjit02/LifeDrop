@@ -60,6 +60,7 @@ async function run() {
 
     const database = client.db("lifedrop");
     const userCollections = database.collection("users");
+    const requestCollections = database.collection("request");
 
     // user collection
     app.post("/users", async (req, res) => {
@@ -68,6 +69,13 @@ async function run() {
       userInfo.role = "donor";
       userInfo.status = "active";
       const result = await userCollections.insertOne(userInfo);
+      res.send(result);
+    });
+
+    // donation request
+    app.post("/requests", verifyFBToken, async (req, res) => {
+      const data = req.body;
+      const result = await requestCollections.insertOne(data);
       res.send(result);
     });
 
