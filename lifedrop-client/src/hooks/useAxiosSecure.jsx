@@ -2,7 +2,7 @@ import axios from "axios";
 import { useContext, useEffect } from "react";
 import { AuthContext } from "../provider/AuthProvider";
 
-const axiosSeccure = axios.create({
+const axiosSecure = axios.create({
   baseURL: "http://localhost:5000",
 });
 
@@ -10,13 +10,13 @@ const useAxiosSecure = () => {
   const { user } = useContext(AuthContext);
 
   useEffect(() => {
-    const reqInterceptor = axiosSeccure.interceptors.request.use((config) => {
+    const reqInterceptor = axiosSecure.interceptors.request.use((config) => {
       config.headers.Authorization = `Bearer ${user?.accessToken}`;
 
       return config;
     });
 
-    const resInterceptor = axiosSeccure.interceptors.response.use(
+    const resInterceptor = axiosSecure.interceptors.response.use(
       (response) => {
         return response;
       },
@@ -27,12 +27,12 @@ const useAxiosSecure = () => {
     );
 
     return () => {
-      axiosSeccure.interceptors.request.eject(reqInterceptor);
-      axiosSeccure.interceptors.response.eject(resInterceptor);
+      axiosSecure.interceptors.request.eject(reqInterceptor);
+      axiosSecure.interceptors.response.eject(resInterceptor);
     };
   }, [user]);
 
-  return axiosSeccure;
+  return axiosSecure;
 };
 
 export default useAxiosSecure;
