@@ -29,10 +29,19 @@ const AllUsers = () => {
       });
   };
 
+  const handleRoleChange = (email, role) => {
+    axiosSecure
+      .patch(`/update/user/role?email=${email}&role=${role}`)
+      .then((res) => {
+        console.log(res.data);
+        fetchUsers();
+      });
+  };
+
   return (
     <div className="max-w-6xl mx-auto p-6 ">
       <h2 className="text-2xl font-bold mb-4">All Users</h2>
-      <div className="overflow-x-auto md:overflow-visible rounded-md border border-[#05b4cd]">
+      <div className="overflow-x-auto md:overflow-hidden rounded-md border border-[#05b4cd]">
         <table className="table w-full ">
           <thead>
             <tr className="bg-[#05b4cd] text-white ">
@@ -68,45 +77,87 @@ const AllUsers = () => {
                 <td className="capitalize">{user.role}</td>
                 <td className="capitalize">{user.status}</td>
 
-                <td className="text-center">
-                  <div className="dropdown dropdown-end z-50">
-                    <label tabIndex={0} className="btn btn-ghost btn-sm">
-                      ⋮
-                    </label>
-                    <ul
-                      tabIndex={0}
-                      className="dropdown-content menu p-2 shadow bg-base-100 rounded-box w-44"
-                    >
-                      <li>
-                        {user.status === "active" ? (
-                          <button
-                            onClick={() =>
-                              handleStatusChange(user.email, "blocked")
-                            }
-                          >
-                            Block User
-                          </button>
+                {user.role !== "admin" && (
+                  <td className="text-center">
+                    <div className="dropdown dropdown-top dropdown-end ">
+                      <label
+                        tabIndex={0}
+                        className="btn bg-white hover:border  rounded-full btn-sm text-xl"
+                      >
+                        ⋮
+                      </label>
+                      <ul
+                        tabIndex={0}
+                        className="dropdown-content menu p-2 shadow bg-base-100 rounded-box w-44 font-semibold"
+                      >
+                        <li>
+                          {user.status === "active" ? (
+                            <button
+                              className="text-primary"
+                              onClick={() =>
+                                handleStatusChange(user.email, "blocked")
+                              }
+                            >
+                              Block User
+                            </button>
+                          ) : (
+                            <button
+                              className="text-[#00684d]"
+                              onClick={() =>
+                                handleStatusChange(user.email, "active")
+                              }
+                            >
+                              Unblock User
+                            </button>
+                          )}
+                        </li>
+                        {user.role === "donor" ? (
+                          <>
+                            <li>
+                              <button
+                                onClick={() =>
+                                  handleRoleChange(user.email, "volunteer")
+                                }
+                              >
+                                Make Volunteer
+                              </button>
+                            </li>
+                            <li>
+                              <button
+                                onClick={() =>
+                                  handleRoleChange(user.email, "admin")
+                                }
+                              >
+                                Make Admin
+                              </button>
+                            </li>
+                          </>
                         ) : (
-                          <button
-                            onClick={() =>
-                              handleStatusChange(user.email, "active")
-                            }
-                          >
-                            Unblock User
-                          </button>
+                          <>
+                            <li>
+                              <button
+                                onClick={() =>
+                                  handleRoleChange(user.email, "donor")
+                                }
+                              >
+                                Make Donor
+                              </button>
+                            </li>
+                            <li>
+                              <button
+                                onClick={() =>
+                                  handleRoleChange(user.email, "admin")
+                                }
+                              >
+                                Make Admin
+                              </button>
+                            </li>
+                          </>
                         )}
-                      </li>
-
-                      <li>
-                        <button>Make Volunteer</button>
-                      </li>
-
-                      <li>
-                        <button>Make Admin</button>
-                      </li>
-                    </ul>
-                  </div>
-                </td>
+                      </ul>
+                    </div>
+                  </td>
+                )}
               </tr>
             ))}
           </tbody>
