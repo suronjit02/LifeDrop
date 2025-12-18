@@ -1,6 +1,7 @@
 const express = require("express");
 const cors = require("cors");
 require("dotenv").config();
+const { MongoClient, ServerApiVersion } = require("mongodb");
 
 const port = process.env.PORT || 3000;
 
@@ -8,9 +9,38 @@ const app = express();
 app.use(cors());
 app.use(express.json());
 
+const admin = require("firebase-admin");
+const decoded = Buffer.from(process.env.FB_SERVICE_KEY, "base64").toString(
+  "utf8"
+);
+const serviceAccount = JSON.parse(decoded);
+
+admin.initializeApp({
+  credential: admin.credential.cert(serviceAccount),
+});
+
+const verifyFBToken = async (req, res, next) => {
+  const token = req.headers.authorization;
+
+  if (!token) {
+    return res.status(401).send({ message: "unauthorize access" });
+  }
+
+  try {
+    const idToken = token.split(" ")[1];
+    const decoded = await admin.auth().verifyIdToken(idToken);
+
+    console.log("Decoded info: ", decoded);
+
+    req.decoded_email = decoded.email;
+    next();
+  } catch (error) {
+    return res.status(401).send({ message: "unauthorize access" });
+  }
+};
+
 //------------------------------------------------------------------------
 
-const { MongoClient, ServerApiVersion } = require("mongodb");
 const uri = `mongodb+srv://${process.env.MONGO_USER}:${process.env.MONGO_PASS}@cluster0.gotmti8.mongodb.net/?appName=Cluster0`;
 
 // Create a MongoClient with a MongoClientOptions object to set the Stable API version
@@ -48,7 +78,7 @@ async function run() {
     });
 
     // user role get
-    app.get("/users/role/:email", async (req, res) => {
+    app.get("/users/role/:email", verifyFBToken, async (req, res) => {
       const { email } = req.params;
 
       const query = { email: email };
