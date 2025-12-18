@@ -19,6 +19,7 @@ const AuthProvider = ({ children }) => {
   const [user, setUser] = useState(null);
   const [loading, setLoading] = useState(true);
   const [role, setRole] = useState(null);
+  const [userStatus, setUserStatus] = useState('');
 
   const createUser = (email, password, name, photoURL) => {
     setLoading(true);
@@ -60,6 +61,7 @@ const AuthProvider = ({ children }) => {
             `http://localhost:5000/users/role/${currentUser.email}`
           );
           setRole(res.data.role);
+          setUserStatus(res.data.status);
         } catch (err) {
           console.error("Role fetch error", err);
           setRole(null);
@@ -84,6 +86,7 @@ const AuthProvider = ({ children }) => {
         logIn,
         logOut,
         role,
+        userStatus,
       }}
     >
       {children}

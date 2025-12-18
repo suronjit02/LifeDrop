@@ -4,13 +4,13 @@ import Loader from "../components/Loader";
 import { AuthContext } from "./AuthProvider";
 
 const PrivateRoute = ({ children }) => {
-  const { user, loading } = useContext(AuthContext);
+  const { user, loading, userStatus } = useContext(AuthContext);
   const location = useLocation();
 
   if (loading) {
     return <Loader />;
   }
-  if (!user) {
+  if (!user || !userStatus == "active") {
     return <Navigate to="/login" state={{ from: location.pathname }} />;
   }
 
