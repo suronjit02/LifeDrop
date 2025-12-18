@@ -13,6 +13,7 @@ import Login from "../pages/Login";
 import Register from "../pages/Register";
 import PrivateRoute from "../provider/PrivateRoutes";
 import AuthProvider from "../provider/AuthProvider";
+import AdminRouter from "../provider/AdminRouter";
 
 const router = createBrowserRouter([
   {
@@ -69,7 +70,11 @@ const router = createBrowserRouter([
       },
       {
         path: "all-users",
-        element: <AllUsers />,
+        element: (
+          <AdminRouter>
+            <AllUsers />
+          </AdminRouter>
+        ),
       },
       {
         path: "*",

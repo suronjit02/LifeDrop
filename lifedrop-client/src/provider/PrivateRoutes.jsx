@@ -10,7 +10,7 @@ const PrivateRoute = ({ children }) => {
   if (loading) {
     return <Loader />;
   }
-  if (!user || !userStatus == "active") {
+  if (!user || userStatus == "blocked") {
     return <Navigate to="/login" state={{ from: location.pathname }} />;
   }
 
