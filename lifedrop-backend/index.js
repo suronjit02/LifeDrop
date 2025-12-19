@@ -86,12 +86,44 @@ async function run() {
     });
 
     // user role get
-    app.get("/users/role/:email", verifyFBToken, async (req, res) => {
+    app.get("/users/role/:email", async (req, res) => {
       const { email } = req.params;
 
       const query = { email: email };
       const result = await userCollections.findOne(query);
       res.send(result);
+    });
+
+    // my request get
+    app.get("/my-request", verifyFBToken, async (req, res) => {
+      try {
+        const email = req.decoded_email;
+        const size = Number(req.query.size) || 10;
+        const page = Number(req.query.page) || 0;
+        const status = req.query.status;
+
+        const query = { requesterEmail: email };
+        if (status) {
+          query.status = status;
+        }
+
+        const totalRequest = await requestCollections.countDocuments(query);
+
+        const request = await requestCollections
+          .find(query)
+          .skip(size * page)
+          .limit(size)
+          .sort({ createdAt: -1 })
+          .toArray();
+
+        res.send({
+          request,
+          totalRequest,
+        });
+      } catch (error) {
+        console.error(error);
+        res.status(500).send({ message: "Internal Server Error" });
+      }
     });
 
     // update status
