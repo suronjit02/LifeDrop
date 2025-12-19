@@ -44,21 +44,29 @@ const Aside = ({ isOpen, setOpen }) => {
               <ImProfile /> Profile
             </NavLink>
 
-            <NavLink to="/dashboard/my-requests" className={linkClass}>
-              <FaCodePullRequest /> My Requests
-            </NavLink>
+            {role === "donor" && (
+              <>
+                <NavLink to="/dashboard/my-requests" className={linkClass}>
+                  <FaCodePullRequest /> My Donation Requests
+                </NavLink>
 
-            <NavLink to="/dashboard/create-request" className={linkClass}>
-              <MdAddToPhotos /> Create Request
-            </NavLink>
+                <NavLink to="/dashboard/create-request" className={linkClass}>
+                  <MdAddToPhotos /> Create Donation Request
+                </NavLink>
+              </>
+            )}
 
-            <NavLink to="/dashboard/all-requests" className={linkClass}>
-              <MdOutlineBorderAll /> All Requests
-            </NavLink>
+            {(role === "volunteer" || role === "admin") && (
+              <NavLink to="/dashboard/all-requests" className={linkClass}>
+                <MdOutlineBorderAll /> All Donation Requests
+              </NavLink>
+            )}
 
-            <NavLink to="/dashboard/all-users" className={linkClass}>
-              <FaUsers /> All Users
-            </NavLink>
+            {role === "admin" && (
+              <NavLink to="/dashboard/all-users" className={linkClass}>
+                <FaUsers /> All Users
+              </NavLink>
+            )}
           </nav>
 
           <div className="flex items-center justify-between mt-6">
