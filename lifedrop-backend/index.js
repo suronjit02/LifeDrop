@@ -126,6 +126,12 @@ async function run() {
       }
     });
 
+    // get all request
+    app.get("/all-request", verifyFBToken, async (req, res) => {
+      const request = await requestCollections.find({}).toArray();
+      res.send(request);
+    });
+
     // update status
     app.patch("/update/user/status", verifyFBToken, async (req, res) => {
       const { email, status } = req.query;
