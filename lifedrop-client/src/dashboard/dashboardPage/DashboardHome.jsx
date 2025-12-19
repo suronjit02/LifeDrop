@@ -1,96 +1,130 @@
+import { useContext, useEffect, useState } from "react";
+import useAxiosSecure from "../../hooks/useAxiosSecure";
+import Loader from "../../components/Loader";
 import { Link } from "react-router";
-import { FaPlusCircle, FaTint, FaUsers } from "react-icons/fa";
-import { MdPendingActions } from "react-icons/md";
+import { AuthContext } from "../../provider/AuthProvider";
 
 const DashboardHome = () => {
+  const axiosSecure = useAxiosSecure();
+  const { user } = useContext(AuthContext);
+
+  const [recentRequests, setRecentRequests] = useState([]);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    axiosSecure
+      .get(`/my-request?page=0&size=3`)
+      .then((res) => {
+        setRecentRequests(res.data.request);
+        setLoading(false);
+      })
+      .catch(() => setLoading(false));
+  }, [axiosSecure]);
+
+  if (loading) {
+    return <Loader />;
+  }
+
   return (
-    <div className="space-y-6">
-      <div className="bg-[#05b4cd] text-white p-6 rounded-md">
-        <h1 className="text-2xl font-bold">Welcome back 👋</h1>
-        <p className="opacity-90">
-          Your blood donation can save someone’s life today.
-        </p>
+    <div className="p-1 md:p-6">
+      <div className="bg-[#05b4cd] p-5 rounded-sm mb-6">
+        <h1 className="text-2xl md:text-3xl font-bold  text-white">
+          Welcome, {user?.displayName || "User"}!
+        </h1>
       </div>
 
-      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
-        <div className="bg-white p-4 rounded-xl shadow">
-          <FaTint className="text-3xl text-red-500 mb-2" />
-          <h3 className="text-xl font-bold">5</h3>
-          <p className="text-gray-500">My Requests</p>
-        </div>
+      {recentRequests.length > 0 && (
+        <>
+          <h2 className="text-lg md:text-2xl font-semibold mb-4">
+            Recent Donation Requests
+          </h2>
 
-        <div className="bg-white p-4 rounded-xl shadow">
-          <MdPendingActions className="text-3xl text-yellow-500 mb-2" />
-          <h3 className="text-xl font-bold">2</h3>
-          <p className="text-gray-500">Pending Requests</p>
-        </div>
+          <div className="overflow-x-auto border border-[#05b4cd] rounded-sm">
+            <table className="table table-zebra w-full">
+              <thead>
+                <tr>
+                  <th>#</th>
+                  <th>Recipient</th>
+                  <th>Location</th>
+                  <th>Date</th>
+                  <th>Time</th>
+                  <th>Blood Group</th>
+                  <th>Status</th>
+                  <th>Actions</th>
+                </tr>
+              </thead>
+              <tbody>
+                {recentRequests.map((req, index) => {
+                  const dateObj = new Date(req.donationDate);
+                  const formattedDate = dateObj.toLocaleDateString("en-GB");
+                  const [hours, minutes] = req.donationTime.split(":");
+                  const timeObj = new Date();
+                  timeObj.setHours(Number(hours), Number(minutes));
+                  const formattedTime = timeObj.toLocaleTimeString("en-US", {
+                    hour: "2-digit",
+                    minute: "2-digit",
+                    hour12: true,
+                  });
 
-        <div className="bg-white p-4 rounded-xl shadow">
-          <FaUsers className="text-3xl text-blue-500 mb-2" />
-          <h3 className="text-xl font-bold">120</h3>
-          <p className="text-gray-500">Total Donors</p>
-        </div>
+                  return (
+                    <tr key={req._id}>
+                      <td>{index + 1}</td>
+                      <td>{req.recipientName}</td>
+                      <td>
+                        {req.recipientDistrict}, {req.recipientUpazila}
+                      </td>
+                      <td>{formattedDate}</td>
+                      <td>{formattedTime}</td>
+                      <td>{req.bloodGroup}</td>
+                      <td>
+                        <span
+                          className={`badge rounded-sm ${
+                            req.status === "pending"
+                              ? "badge-warning"
+                              : req.status === "inprogress"
+                              ? "badge-info"
+                              : req.status === "done"
+                              ? "badge-success"
+                              : "badge-error"
+                          }`}
+                        >
+                          {req.status}
+                        </span>
+                      </td>
+                      <td className="flex gap-2">
+                        {req.status === "inprogress" && (
+                          <>
+                            <button className="btn btn-xs btn-success">
+                              Done
+                            </button>
+                            <button className="btn btn-xs btn-error">
+                              Cancel
+                            </button>
+                          </>
+                        )}
+                        <button className="btn btn-xs btn-info">View</button>
+                        <button className="btn btn-xs btn-warning">Edit</button>
+                        <button className="btn btn-xs btn-outline btn-error">
+                          Delete
+                        </button>
+                      </td>
+                    </tr>
+                  );
+                })}
+              </tbody>
+            </table>
+          </div>
 
-        <div className="bg-white p-4 rounded-xl shadow">
-          <FaTint className="text-3xl text-green-500 mb-2" />
-          <h3 className="text-xl font-bold">3</h3>
-          <p className="text-gray-500">Completed Donations</p>
-        </div>
-      </div>
-
-      <div className="bg-white p-6 rounded-xl shadow">
-        <h2 className="text-xl font-bold mb-4">Quick Actions</h2>
-
-        <div className="flex flex-wrap gap-4">
-          <Link
-            to="/dashboard/create-request"
-            className="btn bg-[#05b4cd] text-white"
-          >
-            <FaPlusCircle /> Create Request
-          </Link>
-
-          <Link to="/dashboard/my-requests" className="btn btn-outline">
-            View My Requests
-          </Link>
-
-          <Link to="/dashboard/all-requests" className="btn btn-outline">
-            View All Requests
-          </Link>
-        </div>
-      </div>
-
-      <div className="bg-white p-6 rounded-xl shadow">
-        <h2 className="text-xl font-bold mb-4">Recent Requests</h2>
-
-        <div className="overflow-x-auto">
-          <table className="table">
-            <thead>
-              <tr>
-                <th>Blood Group</th>
-                <th>Location</th>
-                <th>Status</th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr>
-                <td>A+</td>
-                <td>Dhaka</td>
-                <td className="text-yellow-500 font-semibold">Pending</td>
-              </tr>
-              <tr>
-                <td>B+</td>
-                <td>Chattogram</td>
-                <td className="text-green-500 font-semibold">Completed</td>
-              </tr>
-              <tr>
-                <td>O+</td>
-                <td>Sylhet</td>
-                <td className="text-blue-500 font-semibold">Approved</td>
-              </tr>
-            </tbody>
-          </table>
-        </div>
-      </div>
+          <div className="mt-4 text-right">
+            <Link
+              to={"/dashboard/my-requests"}
+              className="btn bg-[#05b4cd] text-white"
+            >
+              View All Requests
+            </Link>
+          </div>
+        </>
+      )}
     </div>
   );
 };
