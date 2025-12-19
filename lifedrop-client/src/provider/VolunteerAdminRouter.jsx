@@ -3,17 +3,17 @@ import { Navigate } from "react-router";
 import Loader from "../components/Loader";
 import { AuthContext } from "./AuthProvider";
 
-const AdminRouter = ({ children }) => {
+const VolunteerAdminRouter = ({ children }) => {
   const { loading, role } = useContext(AuthContext);
 
   if (loading) {
     return <Loader />;
   }
-  if (role !== "admin") {
+  if (role !== "volunteer" && role !== "admin") {
     return <Navigate to="/dashboard" />;
   }
 
   return children;
 };
 
-export default AdminRouter;
+export default VolunteerAdminRouter;

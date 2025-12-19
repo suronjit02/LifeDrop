@@ -14,6 +14,8 @@ import Register from "../pages/Register";
 import PrivateRoute from "../provider/PrivateRoutes";
 import AuthProvider from "../provider/AuthProvider";
 import AdminRouter from "../provider/AdminRouter";
+import DonorRouter from "../provider/DonorRouter";
+import VolunteerAdminRouter from "../provider/VolunteerAdminRouter";
 
 const router = createBrowserRouter([
   {
@@ -58,15 +60,27 @@ const router = createBrowserRouter([
       },
       {
         path: "my-requests",
-        element: <MyRequests />,
+        element: (
+          <DonorRouter>
+            <MyRequests />
+          </DonorRouter>
+        ),
       },
       {
         path: "create-request",
-        element: <CreateRequest />,
+        element: (
+          <DonorRouter>
+            <CreateRequest />
+          </DonorRouter>
+        ),
       },
       {
         path: "all-requests",
-        element: <AllRequests />,
+        element: (
+          <VolunteerAdminRouter>
+            <AllRequests />
+          </VolunteerAdminRouter>
+        ),
       },
       {
         path: "all-users",
