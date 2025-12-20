@@ -132,6 +132,32 @@ async function run() {
       res.send(request);
     });
 
+    // get all request admin
+    app.get("/all-requests", verifyFBToken, async (req, res) => {
+      try {
+        const page = Number(req.query.page) || 0;
+        const size = Number(req.query.size) || 10;
+        const status = req.query.status;
+
+        const query = {};
+        if (status) query.status = status;
+
+        const totalRequest = await requestCollections.countDocuments(query);
+
+        const request = await requestCollections
+          .find(query)
+          .skip(page * size)
+          .limit(size)
+          .sort({ createdAt: -1 })
+          .toArray();
+
+        res.send({ request, totalRequest });
+      } catch (error) {
+        console.error(error);
+        res.status(500).send({ message: "Internal Server Error" });
+      }
+    });
+
     // update status
     app.patch("/update/user/status", verifyFBToken, async (req, res) => {
       const { email, status } = req.query;
