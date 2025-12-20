@@ -184,6 +184,22 @@ async function run() {
       res.send(result);
     });
 
+    // update profile
+    app.patch("/update/profile", verifyFBToken, async (req, res) => {
+      const email = req.decoded_email;
+      const updatedData = req.body;
+
+      delete updatedData.email;
+
+      const result = await userCollections.findOneAndUpdate(
+        { email },
+        { $set: updatedData },
+        { returnDocument: "after" }
+      );
+      console.log(result);
+      res.send(result);
+    });
+
     await client.db("admin").command({ ping: 1 });
     console.log(
       "Pinged your deployment. You successfully connected to MongoDB!"
