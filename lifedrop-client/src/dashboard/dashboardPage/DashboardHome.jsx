@@ -174,7 +174,8 @@ const DashboardHome = () => {
                           </>
                         )}
                         <Link
-                          to={`/donation-request/${req._id}`}
+                          to={`donation-request-details/${req._id}`}
+                          state={{ from: window.location.pathname }}
                           className="btn btn-xs btn-info"
                         >
                           View

@@ -16,6 +16,8 @@ import AuthProvider from "../provider/AuthProvider";
 import AdminRouter from "../provider/AdminRouter";
 import DonorRouter from "../provider/DonorRouter";
 import VolunteerAdminRouter from "../provider/VolunteerAdminRouter";
+import DonationRequestDetails from "../dashboard/dashboardPage/DonationRequestDetails";
+import PublicAllRequest from "../dashboard/dashboardPage/PublicAllRequest";
 
 const router = createBrowserRouter([
   {
@@ -35,6 +37,11 @@ const router = createBrowserRouter([
         path: "/register",
         element: <Register></Register>,
       },
+      {
+        path: "/donation-requests",
+        element: <PublicAllRequest></PublicAllRequest>,
+      },
+
       {
         path: "*",
         element: <NotFindPage></NotFindPage>,
@@ -88,6 +95,14 @@ const router = createBrowserRouter([
           <AdminRouter>
             <AllUsers />
           </AdminRouter>
+        ),
+      },
+      {
+        path: "donation-request-details/:id",
+        element: (
+          <PrivateRoute>
+            <DonationRequestDetails />
+          </PrivateRoute>
         ),
       },
       {

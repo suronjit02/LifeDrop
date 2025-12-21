@@ -20,7 +20,7 @@ const Navbar = () => {
       <div className="navbar-center hidden lg:flex w-100 max-w-100">
         <ul className="flex justify-center items-center gap-5 font-semibold">
           <li>
-            <NavLink>Donation Requests</NavLink>
+            <NavLink to={"/donation-requests"}>Donation Requests</NavLink>
           </li>
           <li>
             <NavLink>Search</NavLink>
