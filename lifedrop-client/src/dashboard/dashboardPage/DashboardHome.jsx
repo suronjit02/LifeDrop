@@ -15,10 +15,20 @@ const DashboardHome = () => {
   const [loading, setLoading] = useState(true);
   const [totalUsers, setTotalUsers] = useState(0);
   const [totalRequests, setTotalRequests] = useState(0);
+  const [userData, setUserData] = useState({});
 
   useEffect(() => {
     axiosSecure.get("/users").then((res) => setTotalUsers(res.data.length));
   }, [axiosSecure]);
+
+  useEffect(() => {
+    if (user?.email) {
+      axiosSecure.get(`/users/role/${user.email}`).then((res) => {
+        setUserData(res.data);
+      });
+    }
+  }, [user, axiosSecure]);
+  console.log(userData);
 
   useEffect(() => {
     if (role === "admin" || role === "volunteer") {
@@ -62,7 +72,8 @@ const DashboardHome = () => {
     <div className="p-1 md:p-6">
       <div className="bg-[#05b4cd] p-5 rounded-sm mb-6">
         <h1 className="text-2xl md:text-3xl font-bold text-white">
-          Welcome, {user?.displayName || "User"}!
+          Welcome,{" "}
+          <span className="text-yellow-200">{userData?.name || "User"} !</span>
         </h1>
       </div>
 
