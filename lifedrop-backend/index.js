@@ -132,6 +132,24 @@ async function run() {
       res.send(request);
     });
 
+    // get details
+    app.get("/requests/:id", verifyFBToken, async (req, res) => {
+      const { id } = req.params;
+
+      try {
+        const request = await requestCollections.findOne({
+          _id: new ObjectId(id),
+        });
+        if (!request)
+          return res.status(404).send({ message: "Request not found" });
+
+        res.send(request);
+      } catch (err) {
+        console.error(err);
+        res.status(500).send({ message: "Internal Server Error" });
+      }
+    });
+
     // get all request admin
     app.get("/all-requests", verifyFBToken, async (req, res) => {
       try {
@@ -154,6 +172,21 @@ async function run() {
         res.send({ request, totalRequest });
       } catch (error) {
         console.error(error);
+        res.status(500).send({ message: "Internal Server Error" });
+      }
+    });
+
+    // pending donation request get
+    app.get("/public/requests", async (req, res) => {
+      try {
+        const requests = await requestCollections
+          .find({ status: "pending" })
+          .sort({ createdAt: -1 })
+          .toArray();
+
+        res.send(requests);
+      } catch (err) {
+        console.error(err);
         res.status(500).send({ message: "Internal Server Error" });
       }
     });
@@ -208,6 +241,45 @@ async function run() {
       const result = await requestCollections.updateOne(
         { _id: new ObjectId(id) },
         { $set: { status } }
+      );
+
+      res.send(result);
+    });
+
+    // update pending to inprogress/ for public
+    app.patch("/requests/donate/:id", verifyFBToken, async (req, res) => {
+      const { id } = req.params;
+      const { donorName, donorEmail } = req.body;
+      const loggedInEmail = req.decoded_email;
+
+      const request = await requestCollections.findOne({
+        _id: new ObjectId(id),
+      });
+
+      if (!request) {
+        return res.status(404).send({ message: "Request not found" });
+      }
+
+      if (request.requesterEmail === loggedInEmail) {
+        return res
+          .status(403)
+          .send({ message: "Requester cannot donate own request" });
+      }
+
+      if (request.status !== "pending") {
+        return res.status(400).send({ message: "Donation already accepted" });
+      }
+
+      const result = await requestCollections.updateOne(
+        { _id: new ObjectId(id) },
+        {
+          $set: {
+            status: "inprogress",
+            donorName,
+            donorEmail,
+            donatedAt: new Date(),
+          },
+        }
       );
 
       res.send(result);
