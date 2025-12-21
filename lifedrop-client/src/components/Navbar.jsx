@@ -1,11 +1,23 @@
-import React, { useContext } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { Link, NavLink } from "react-router";
 import { AuthContext } from "../provider/AuthProvider";
 import { HiOutlineUserCircle } from "react-icons/hi";
-import { RiMenu3Fill } from "react-icons/ri";
+import useAxiosSecure from "../hooks/useAxiosSecure";
 
 const Navbar = () => {
   const { user, logOut } = useContext(AuthContext);
+  const axiosSecure = useAxiosSecure();
+
+  const [userData, setUserData] = useState({});
+
+  useEffect(() => {
+    if (user?.email) {
+      axiosSecure.get(`/users/role/${user.email}`).then((res) => {
+        setUserData(res.data);
+      });
+    }
+  }, [user, axiosSecure]);
+  console.log(userData);
 
   const handleLogOut = () => {
     logOut();
@@ -68,8 +80,8 @@ const Navbar = () => {
                   <hr className="my-3 " />
 
                   <div className="text-center">
-                    <li className="font-semibold">{user.displayName}</li>
-                    <li>{user.email}</li>
+                    <li className="font-semibold">{userData.name}</li>
+                    <li>{userData.email}</li>
                   </div>
                 </div>
               </ul>
