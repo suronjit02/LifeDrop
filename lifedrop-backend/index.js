@@ -1,7 +1,7 @@
 const express = require("express");
 const cors = require("cors");
 require("dotenv").config();
-const { MongoClient, ServerApiVersion } = require("mongodb");
+const { MongoClient, ServerApiVersion, ObjectId } = require("mongodb");
 
 const port = process.env.PORT || 3000;
 
@@ -73,7 +73,7 @@ async function run() {
     });
 
     // donation request
-    app.post("/requests", verifyFBToken, async (req, res) => {
+    app.post("/requests", async (req, res) => {
       const data = req.body;
       const result = await requestCollections.insertOne(data);
       res.send(result);
@@ -197,6 +197,30 @@ async function run() {
         { returnDocument: "after" }
       );
       console.log(result);
+      res.send(result);
+    });
+
+    // update status
+    app.patch("/requests/status/:id", verifyFBToken, async (req, res) => {
+      const { id } = req.params;
+      const { status } = req.body;
+
+      const result = await requestCollections.updateOne(
+        { _id: new ObjectId(id) },
+        { $set: { status } }
+      );
+
+      res.send(result);
+    });
+
+    // delete request
+    app.delete("/requests/:id", verifyFBToken, async (req, res) => {
+      const { id } = req.params;
+
+      const result = await requestCollections.deleteOne({
+        _id: new ObjectId(id),
+      });
+
       res.send(result);
     });
 
