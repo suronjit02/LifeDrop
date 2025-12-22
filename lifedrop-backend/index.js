@@ -276,6 +276,33 @@ async function run() {
       res.send(result);
     });
 
+    // update donation request
+    app.patch("/requests/:id", verifyFBToken, async (req, res) => {
+      const { id } = req.params;
+      const updatedData = req.body;
+
+      try {
+        const result = await requestCollections.updateOne(
+          { _id: new ObjectId(id) },
+          { $set: updatedData }
+        );
+
+        if (result.modifiedCount > 0) {
+          res.send({
+            modifiedCount: result.modifiedCount,
+            message: "Request updated successfully",
+          });
+        } else {
+          res
+            .status(400)
+            .send({ modifiedCount: 0, message: "No changes made" });
+        }
+      } catch (err) {
+        console.error("Error updating request:", err);
+        res.status(500).send({ message: "Internal Server Error" });
+      }
+    });
+
     // update pending to inprogress/ for public
     app.patch("/requests/donate/:id", verifyFBToken, async (req, res) => {
       const { id } = req.params;
