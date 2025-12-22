@@ -58,7 +58,7 @@ const AuthProvider = ({ children }) => {
       if (currentUser?.email) {
         try {
           const res = await axios.get(
-            `http://localhost:5000/users/role/${currentUser.email}`
+            `https://lifedrop-backend.vercel.app//users/role/${currentUser.email}`
           );
           setRole(res.data.role);
 

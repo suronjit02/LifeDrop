@@ -31,9 +31,12 @@ const SearchPage = () => {
       if (district) params.district = district;
       if (upazila) params.upazila = upazila;
 
-      const res = await axios.get("http://localhost:5000/public/search", {
-        params,
-      });
+      const res = await axios.get(
+        "https://lifedrop-backend.vercel.app//public/search",
+        {
+          params,
+        }
+      );
 
       setDonors(res.data);
     } catch (err) {
