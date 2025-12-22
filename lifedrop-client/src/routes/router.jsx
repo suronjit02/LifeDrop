@@ -20,6 +20,7 @@ import DonationRequestDetails from "../dashboard/dashboardPage/DonationRequestDe
 import PublicAllRequest from "../dashboard/dashboardPage/PublicAllRequest";
 import SearchPage from "../dashboard/dashboardPage/SearchPage";
 import EditRequest from "../dashboard/dashboardPage/EditRequest";
+import Donate from "../pages/donate/Donate";
 
 const router = createBrowserRouter([
   {
@@ -46,6 +47,10 @@ const router = createBrowserRouter([
       {
         path: "/search-donors",
         element: <SearchPage></SearchPage>,
+      },
+      {
+        path: "/donate",
+        element: <Donate></Donate>,
       },
 
       {
