@@ -191,6 +191,36 @@ async function run() {
       }
     });
 
+    // get searching donors
+    app.get("/public/search", async (req, res) => {
+      const { bloodGroup, district, upazila } = req.query;
+
+      const query = {
+        role: "donor",
+        status: "active",
+      };
+
+      if (bloodGroup) query.blood = bloodGroup;
+      if (district) query.district = district;
+      if (upazila) query.upazila = upazila;
+
+      try {
+        const donors = await userCollections
+          .find(query)
+          .project({
+            name: 1,
+            blood: 1,
+            district: 1,
+            upazila: 1,
+          })
+          .toArray();
+
+        res.send(donors);
+      } catch (err) {
+        res.status(500).send([]);
+      }
+    });
+
     // update status
     app.patch("/update/user/status", verifyFBToken, async (req, res) => {
       const { email, status } = req.query;
