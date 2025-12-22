@@ -1,10 +1,12 @@
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { Link } from "react-router";
 import useAxiosSecure from "../../hooks/useAxiosSecure";
 import Loader from "../../components/Loader";
+import { AuthContext } from "../../provider/AuthProvider";
 
 const AllRequests = () => {
   const axiosSecure = useAxiosSecure();
+  const { role } = useContext(AuthContext);
 
   const [requests, setRequests] = useState([]);
   const [totalRequests, setTotalRequests] = useState(0);
@@ -163,19 +165,23 @@ const AllRequests = () => {
                           View
                         </Link>
 
-                        <Link
-                          to={`/dashboard/edit-request/${req._id}`}
-                          className="btn btn-xs btn-warning"
-                        >
-                          Edit
-                        </Link>
+                        {role === "admin" && (
+                          <>
+                            <Link
+                              to={`/dashboard/edit-request/${req._id}`}
+                              className="btn btn-xs btn-warning"
+                            >
+                              Edit
+                            </Link>
 
-                        <button
-                          onClick={() => handleDeleteRequest(req._id)}
-                          className="btn btn-xs btn-outline btn-error"
-                        >
-                          Delete
-                        </button>
+                            <button
+                              onClick={() => handleDeleteRequest(req._id)}
+                              className="btn btn-xs btn-outline btn-error"
+                            >
+                              Delete
+                            </button>
+                          </>
+                        )}
                       </td>
                     </tr>
                   );
