@@ -25,7 +25,10 @@ const HeroSection = () => {
           >
             Join as a Donor
           </Link>
-          <Link className="btn bg-white hover:bg-[#c6414c] text-[#c6414c] hover:text-white border border-[#c6414c] transition-all duration-500 ease-in-out">
+          <Link
+            to={"/search-donors"}
+            className="btn bg-white hover:bg-[#c6414c] text-[#c6414c] hover:text-white border border-[#c6414c] transition-all duration-500 ease-in-out"
+          >
             Search Donors
           </Link>
         </div>

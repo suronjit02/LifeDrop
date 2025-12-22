@@ -18,6 +18,7 @@ import DonorRouter from "../provider/DonorRouter";
 import VolunteerAdminRouter from "../provider/VolunteerAdminRouter";
 import DonationRequestDetails from "../dashboard/dashboardPage/DonationRequestDetails";
 import PublicAllRequest from "../dashboard/dashboardPage/PublicAllRequest";
+import SearchPage from "../dashboard/dashboardPage/SearchPage";
 
 const router = createBrowserRouter([
   {
@@ -40,6 +41,10 @@ const router = createBrowserRouter([
       {
         path: "/donation-requests",
         element: <PublicAllRequest></PublicAllRequest>,
+      },
+      {
+        path: "/search-donors",
+        element: <SearchPage></SearchPage>,
       },
 
       {
