@@ -5,10 +5,13 @@ const { MongoClient, ServerApiVersion, ObjectId } = require("mongodb");
 
 const port = process.env.PORT || 3000;
 
+const stripe = require("stripe")(process.env.STRIPE_SECRATE);
+const crypto = require("crypto");
+
 const app = express();
 app.use(
   cors({
-    origin: ["lifedrop-donation.netlify.app"],
+    origin: ["http://localhost:5173"],
     credentials: true,
   })
 );
@@ -356,6 +359,43 @@ async function run() {
       });
 
       res.send(result);
+    });
+
+    // payment
+    app.post("/create-payment-checkout", async (req, res) => {
+      try {
+        const { donateAmount, donorEmail, donorName } = req.body;
+        if (!donateAmount || !donorEmail || !donorName) {
+          return res.status(400).send({ message: "All fields required" });
+        }
+        const amount = parseInt(donateAmount) * 100;
+
+        const session = await stripe.checkout.sessions.create({
+          payment_method_types: ["card"],
+          line_items: [
+            {
+              price_data: {
+                currency: "usd",
+                unit_amount: amount,
+                product_data: {
+                  name: "Donation",
+                  description: `Donation by ${donorName}`,
+                },
+              },
+              quantity: 1,
+            },
+          ],
+          mode: "payment",
+          customer_email: donorEmail,
+          metadata: { donorName },
+          success_url: `${process.env.SITE_DOMAIN}/payment-success?session_id={CHECKOUT_SESSION_ID}`,
+          cancel_url: `${process.env.SITE_DOMAIN}/payment-cancel`,
+        });
+
+        res.send({ url: session.url });
+      } catch (err) {
+        res.status(500).send({ message: "Internal Server Error" });
+      }
     });
 
     await client.db("admin").command({ ping: 1 });
