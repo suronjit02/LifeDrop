@@ -155,14 +155,14 @@ const MyRequests = () => {
                         )}
 
                         <Link
-                          to={`/donation-request/${req._id}`}
+                          to={`/dashboard/donation-request-details/${req._id}`}
                           className="btn btn-xs btn-info"
                         >
                           View
                         </Link>
 
                         <Link
-                          to={`/dashboard/edit-request/${req._id}`}
+                          to={`/dashboard/edit-donation-request/${req._id}`}
                           className="btn btn-xs btn-warning"
                         >
                           Edit

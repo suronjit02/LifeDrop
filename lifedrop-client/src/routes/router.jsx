@@ -19,6 +19,7 @@ import VolunteerAdminRouter from "../provider/VolunteerAdminRouter";
 import DonationRequestDetails from "../dashboard/dashboardPage/DonationRequestDetails";
 import PublicAllRequest from "../dashboard/dashboardPage/PublicAllRequest";
 import SearchPage from "../dashboard/dashboardPage/SearchPage";
+import EditRequest from "../dashboard/dashboardPage/EditRequest";
 
 const router = createBrowserRouter([
   {
@@ -107,6 +108,14 @@ const router = createBrowserRouter([
         element: (
           <PrivateRoute>
             <DonationRequestDetails />
+          </PrivateRoute>
+        ),
+      },
+      {
+        path: "edit-donation-request/:id",
+        element: (
+          <PrivateRoute>
+            <EditRequest />
           </PrivateRoute>
         ),
       },
