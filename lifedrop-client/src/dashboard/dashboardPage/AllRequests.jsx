@@ -168,7 +168,7 @@ const AllRequests = () => {
                         {role === "admin" && (
                           <>
                             <Link
-                              to={`/dashboard/edit-request/${req._id}`}
+                              to={`/dashboard/edit-donation-request/${req._id}`}
                               className="btn btn-xs btn-warning"
                             >
                               Edit
