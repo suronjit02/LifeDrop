@@ -30,9 +30,18 @@ const Aside = ({ isOpen, setOpen }) => {
         ${isOpen ? "translate-x-0" : "-translate-x-full"}
         md:translate-x-0 transition-transform duration-300`}
       >
-        <h2 className="text-xl font-bold mb-6 flex items-center gap-2">
-          <MdDashboard /> Dashboard
-        </h2>
+        <div className="mb-6 flex  justify-between items-center">
+          <h2 className="text-xl font-bold  flex items-center gap-2">
+            <MdDashboard /> Dashboard
+          </h2>
+          <Link to={"/"}>
+            <img
+              className="h-6 rounded-xs "
+              src="/lifedrop.jpeg"
+              alt="LifeDrop"
+            />
+          </Link>
+        </div>
 
         <div className="flex flex-col justify-between min-h-[calc(100vh-85px)]">
           <nav className="space-y-2">
@@ -77,19 +86,12 @@ const Aside = ({ isOpen, setOpen }) => {
                   alt="profile"
                   className="w-10 h-10 rounded-full object-cover cursor-pointer border"
                 />
-                <h3>{role}</h3>
+                <h3 className="capitalize font-bold ">{role}</h3>
               </div>
             ) : (
               <FaUserCircle className="text-4xl" />
             )}
             <div className="">
-              <Link to={"/"}>
-                <img
-                  className="h-8 rounded-sm "
-                  src="/lifedrop.jpeg"
-                  alt="LifeDrop"
-                />
-              </Link>
               <Link onClick={logOut} to="/" className="btn btn-sm">
                 Logout <CiLogout />
               </Link>
