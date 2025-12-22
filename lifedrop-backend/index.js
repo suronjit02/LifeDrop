@@ -6,7 +6,12 @@ const { MongoClient, ServerApiVersion, ObjectId } = require("mongodb");
 const port = process.env.PORT || 3000;
 
 const app = express();
-app.use(cors());
+app.use(
+  cors({
+    origin: ["lifedrop-donation.netlify.app"],
+    credentials: true,
+  })
+);
 app.use(express.json());
 
 const admin = require("firebase-admin");
