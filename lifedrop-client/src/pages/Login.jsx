@@ -68,7 +68,7 @@ const Login = () => {
           </p>
         </div>
 
-        <button className="btn border-none mt-6 w-full bg-[#05b4cd] hover:bg-sky-700 text-white transition">
+        <button className="btn border-none mt-6 w-full bg-[#05b4cd]  text-white transition">
           Log in
         </button>
 
@@ -76,7 +76,7 @@ const Login = () => {
           Don't have an account?{" "}
           <Link
             to={"/register"}
-            className="hover:underline text-sky-900 font-bold"
+            className="hover:underline text-[#05b4cd] font-bold"
           >
             Join Now
           </Link>

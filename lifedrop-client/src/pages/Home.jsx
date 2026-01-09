@@ -1,16 +1,18 @@
 import ContactSection from "../components/home/ContactSection";
-import FeturedSection from "../components/home/FeturedSection";
 import HeroSection from "../components/home/HeroSection";
+import HowWorkSection from "../components/home/HowWorkSection";
 import MotoSection from "../components/home/MotoSection";
 import RecentDonationStories from "../components/home/RecentDonationStories";
+import WhyDonateBlood from "../components/home/WhyDonateBlood";
 
 const Home = () => {
   return (
     <div>
       <HeroSection></HeroSection>
       <MotoSection></MotoSection>
+      <WhyDonateBlood></WhyDonateBlood>
       <RecentDonationStories></RecentDonationStories>
-      <FeturedSection></FeturedSection>
+      <HowWorkSection></HowWorkSection>
       <ContactSection></ContactSection>
     </div>
   );

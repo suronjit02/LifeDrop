@@ -21,7 +21,7 @@ const HeroSection = () => {
         <div className="flex gap-2 sm:gap-4">
           <Link
             to={"/register"}
-            className="btn bg-[#c6414c] hover:bg-red-700 text-white sm:px-6 transition-all duration-500 ease-in-out"
+            className="btn bg-[#c6414c] hover:bg-[#e04f5b] text-white sm:px-6 transition-all duration-500 ease-in-out"
           >
             Join as a Donor
           </Link>

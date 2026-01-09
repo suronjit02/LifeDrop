@@ -4,7 +4,7 @@ import { BiDonateBlood } from "react-icons/bi";
 const stories = [
   {
     id: 1,
-    name: "Rahim Ahmed",
+    name: "Rafi Ahmed",
     blood: "A+",
     story:
       "I donated blood for the first time through this platform. Knowing that my blood saved a life made me incredibly proud.",
@@ -30,12 +30,12 @@ const stories = [
 
 const RecentDonationStories = () => {
   return (
-    <section className="primary w-full mx-auto py-20 px-2 md:px-40">
+    <section className="primary w-full mx-auto py-20 ">
       <h2 className="text-3xl font-bold text-center mb-10 text-white">
         Our Recent Donation Stories
       </h2>
 
-      <div className="grid gap-6 md:grid-cols-3">
+      <div className="grid gap-4 grid-cols-1 md:grid-cols-3  max-w-7xl mx-auto px-2 sm:px-5">
         {stories.map((item) => (
           <div
             key={item.id}

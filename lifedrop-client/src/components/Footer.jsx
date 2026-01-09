@@ -14,7 +14,7 @@ const Footer = () => {
     <footer className="footer footer-horizontal w-full footer-center bg-red-50 text-base-content p-10 pb-3">
       <nav className="grid grid-flow-row gap-10 md:gap-0 w-full justify-around md:grid-flow-col text-center md:text-left">
         <aside className="">
-          <img className="h-10 " src="/lifedrop.jpeg" alt="LifeDrop" />
+          <img className="h-10 " src="/lifedrop.png" alt="LifeDrop" />
           <p className="text-left my-2">
             Every drop matters. Every life counts. <br /> Making blood donation
             easier for everyone.
@@ -47,7 +47,7 @@ const Footer = () => {
           </Link>
           <Link className="link link-hover flex items-center gap-1">
             <IoIosMail className="text-primary" />
-            Email: contact@travelease.com
+            Email: contact@lifedrop.com
           </Link>
         </div>
 

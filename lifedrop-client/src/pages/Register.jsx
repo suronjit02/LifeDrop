@@ -251,7 +251,7 @@ const Register = () => {
 
         {error && <p className="text-red-600 text-sm mt-2">{error}</p>}
 
-        <button className="btn border-none mt-6 w-full bg-[#05b4cd] hover:bg-sky-700 text-white transition">
+        <button className="btn border-none mt-6 w-full bg-[#05b4cd] text-white transition">
           Sign Up
         </button>
 
@@ -259,7 +259,7 @@ const Register = () => {
           Already have a membership?{" "}
           <Link
             to={"/login"}
-            className="hover:underline text-sky-900 font-bold"
+            className="hover:underline text-[#05b4cd] font-bold"
           >
             Log in
           </Link>

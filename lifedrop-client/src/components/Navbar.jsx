@@ -17,16 +17,16 @@ const Navbar = () => {
       });
     }
   }, [user, axiosSecure]);
-  console.log(userData);
+  // console.log(userData);
 
   const handleLogOut = () => {
     logOut();
   };
   return (
-    <div className="navbar bg-base-100 shadow-sm px-2 md:px-30">
+    <div className="navbar bg-base-100 shadow-sm px-2 md:px-30 sticky top-0 z-50">
       <div className="navbar-start">
         <Link to={"/"}>
-          <img className="h-10 " src="/lifedrop.jpeg" alt="LifeDrop" />
+          <img className="h-10 " src="/lifedrop.png" alt="LifeDrop" />
         </Link>
       </div>
       <div className="navbar-center hidden lg:flex w-100 max-w-100">
