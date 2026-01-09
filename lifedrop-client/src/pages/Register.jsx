@@ -83,7 +83,7 @@ const Register = () => {
       createUser(email, password, name, mainPhotoUrl)
         .then(() => {
           axios
-            .post("https://lifedrop-backend.vercel.app//users", formData)
+            .post("https://lifedrop-backend.vercel.app/users", formData)
             .then((res) => {
               console.log(res.data);
             })

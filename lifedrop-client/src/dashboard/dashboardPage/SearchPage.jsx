@@ -32,7 +32,7 @@ const SearchPage = () => {
       if (upazila) params.upazila = upazila;
 
       const res = await axios.get(
-        "https://lifedrop-backend.vercel.app//public/search",
+        "https://lifedrop-backend.vercel.app/public/search",
         {
           params,
         }
