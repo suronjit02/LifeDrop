@@ -29,16 +29,22 @@ const Navbar = () => {
           <img className="h-10 " src="/lifedrop.png" alt="LifeDrop" />
         </Link>
       </div>
-      <div className="navbar-center hidden lg:flex w-100 max-w-100">
-        <ul className="flex justify-center items-center gap-5 font-semibold">
+      <div className="navbar-center hidden lg:flex w-full max-w-100">
+        <ul className="flex justify-center items-center gap-4 font-semibold">
           <li>
-            <NavLink to={"/donation-requests"}>Donation Requests</NavLink>
+            <NavLink to={"/donation-requests"}>Donation-Requests</NavLink>
           </li>
-          <li className="border-x-2 px-2">
-            <NavLink to={"/search-donors"}>Search Donors</NavLink>
+          <li className="">
+            <NavLink to={"/search-donors"}>Search-Donors</NavLink>
           </li>
           <li>
             <NavLink to={"/donate"}>Donate</NavLink>
+          </li>
+          <li>
+            <NavLink to={"/about"}>About</NavLink>
+          </li>
+          <li>
+            <NavLink to={"/faq"}>FAQ</NavLink>
           </li>
         </ul>
       </div>

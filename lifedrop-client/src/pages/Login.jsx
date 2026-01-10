@@ -23,12 +23,16 @@ const Login = () => {
   };
   return (
     <div className="w-full min-h-screen flex items-center justify-center px-4 gap-10">
+      <aside className="hidden md:block">
+        <img className="h-100" src="/donate.png" alt="" />
+      </aside>
+
       <form
         onSubmit={handleLogin}
         className="w-full sm:max-w-md rounded-md p-6 sm:p-8"
       >
         <figure className="flex justify-center">
-          <img className="h-10 mb-10" src="/lifedrop.jpeg" alt="" />
+          <img className="h-10 mb-10" src="/lifedrop.png" alt="" />
         </figure>
         <h2 className="text-2xl sm:text-3xl font-semibold text-center text-[#05b4cd] mb-6">
           Log in
@@ -82,9 +86,6 @@ const Login = () => {
           </Link>
         </p>
       </form>
-      <aside className="hidden md:block">
-        <img className="h-100" src="/donate.png" alt="" />
-      </aside>
     </div>
   );
 };

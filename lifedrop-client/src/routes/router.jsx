@@ -21,6 +21,8 @@ import PublicAllRequest from "../dashboard/dashboardPage/PublicAllRequest";
 import SearchPage from "../dashboard/dashboardPage/SearchPage";
 import EditRequest from "../dashboard/dashboardPage/EditRequest";
 import Donate from "../pages/donate/Donate";
+import About from "../pages/about/About";
+import Faq from "../pages/faq/Faq";
 
 const router = createBrowserRouter([
   {
@@ -51,6 +53,14 @@ const router = createBrowserRouter([
       {
         path: "/donate",
         element: <Donate></Donate>,
+      },
+      {
+        path: "/about",
+        element: <About></About>,
+      },
+      {
+        path: "/faq",
+        element: <Faq></Faq>,
       },
 
       {

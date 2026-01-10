@@ -86,7 +86,7 @@ const CreateRequest = () => {
           Create Donation Request
         </h2>
 
-        <img className="h-10 " src="/lifedrop.jpeg" alt="LifeDrop" />
+        <img className="h-10 " src="/lifedrop.png" alt="LifeDrop" />
       </div>
 
       <form

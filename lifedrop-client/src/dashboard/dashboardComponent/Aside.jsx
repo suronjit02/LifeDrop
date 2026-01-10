@@ -37,7 +37,7 @@ const Aside = ({ isOpen, setOpen }) => {
           <Link to={"/"}>
             <img
               className="h-6 rounded-xs "
-              src="/lifedrop.jpeg"
+              src="/lifedrop.png"
               alt="LifeDrop"
             />
           </Link>

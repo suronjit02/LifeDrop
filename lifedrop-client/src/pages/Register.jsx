@@ -110,7 +110,7 @@ const Register = () => {
         </h2>
 
         <figure className="flex justify-center">
-          <img className="h-8 mb-5" src="/lifedrop.jpeg" alt="" />
+          <img className="h-8 mb-5" src="/lifedrop.png" alt="" />
         </figure>
 
         <div className="flex flex-col gap-4">
