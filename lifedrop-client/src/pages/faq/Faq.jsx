@@ -54,9 +54,7 @@ const faqs = [
 const Faq = () => {
   return (
     <div className="max-w-4xl mx-auto px-4 py-12">
-      <figure className="flex justify-center mb-10">
-        <img className="h-12 " src="/public/lifedrop.png" alt="" />
-      </figure>
+      
       <h1 className="text-2xl sm:text-3xl font-bold text-center mb-4">
         Frequently Asked Questions
       </h1>

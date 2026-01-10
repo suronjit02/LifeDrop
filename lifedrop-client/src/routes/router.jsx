@@ -23,6 +23,8 @@ import EditRequest from "../dashboard/dashboardPage/EditRequest";
 import Donate from "../pages/donate/Donate";
 import About from "../pages/about/About";
 import Faq from "../pages/faq/Faq";
+import Charity from "../pages/charity/Charity";
+import TermsConditions from "../pages/terms&condition/TermsCondition";
 
 const router = createBrowserRouter([
   {
@@ -61,6 +63,14 @@ const router = createBrowserRouter([
       {
         path: "/faq",
         element: <Faq></Faq>,
+      },
+      {
+        path: "/charity",
+        element: <Charity></Charity>,
+      },
+      {
+        path: "/terms-&-condition",
+        element: <TermsConditions></TermsConditions>,
       },
 
       {

@@ -10,6 +10,7 @@ const Register = () => {
   const location = useLocation();
   const [error, setError] = useState("");
   const [showPass, setShowPass] = useState(false);
+  const [showConfirmPass, setConfirmPass] = useState(false);
 
   const [upazilas, setUpazilas] = useState([]);
   const [districts, setDistricts] = useState([]);
@@ -77,7 +78,7 @@ const Register = () => {
       upazila,
     };
 
-    console.log(formData);
+    // console.log(formData);
 
     if (res.data.success == true) {
       createUser(email, password, name, mainPhotoUrl)
@@ -232,17 +233,17 @@ const Register = () => {
               <div className="relative">
                 <input
                   required
-                  type={showPass ? "text" : "password"}
+                  type={showConfirmPass ? "text" : "password"}
                   name="confirmPassword"
                   placeholder="Password here"
                   className="input input-bordered focus:outline-none w-full pr-10"
                   onChange={() => setError("")}
                 />
                 <span
-                  onClick={() => setShowPass(!showPass)}
+                  onClick={() => setConfirmPass(!showConfirmPass)}
                   className="absolute right-3 top-1/2 -translate-y-1/2 cursor-pointer text-gray-500 z-50"
                 >
-                  {showPass ? <FaRegEyeSlash /> : <FaRegEye />}
+                  {showConfirmPass ? <FaRegEyeSlash /> : <FaRegEye />}
                 </span>
               </div>
             </div>

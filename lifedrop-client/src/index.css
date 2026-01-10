@@ -10,3 +10,20 @@
 .text-primary {
   color: #c6414c;
 }
+
+.navbar a:hover {
+  /* font-weight: 500; */
+  color: #c6414c;
+}
+.navbar a:focus {
+  font-weight: 500;
+  color: #c6414c;
+}
+
+.loginBtn:hover {
+  color: white !important;
+}
+
+.loginBtn:focus {
+  color: white !important;
+}

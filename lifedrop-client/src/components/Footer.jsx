@@ -29,10 +29,10 @@ const Footer = () => {
 
         <div className="flex flex-col gap-2">
           <h6 className="footer-title">Quick Links</h6>
-          <Link className="link link-hover">About us</Link>
-          <Link className="link link-hover">Charity</Link>
-          <Link className="link link-hover">FAQ</Link>
-          <Link className="link link-hover">Terms & Condition</Link>
+          <Link to={'/about'} className="link link-hover">About us</Link>
+          <Link to={'/charity'} className="link link-hover">Charity</Link>
+          <Link to={'/faq'} className="link link-hover">FAQ</Link>
+          <Link to={'/terms-&-condition'} className="link link-hover">Terms & Condition</Link>
         </div>
 
         <div className="flex flex-col gap-2">

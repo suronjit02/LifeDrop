@@ -2,10 +2,9 @@ import React, { useContext, useState } from "react";
 import { Link, useLocation, useNavigate } from "react-router";
 import { FaRegEye, FaRegEyeSlash } from "react-icons/fa";
 import { AuthContext } from "../provider/AuthProvider";
-import { CgPassword } from "react-icons/cg";
 
 const Login = () => {
-  const { logIn } = useContext(AuthContext);
+  const { logIn, error } = useContext(AuthContext);
   const [showPass, setShowPass] = useState(false);
 
   const navigate = useNavigate();
@@ -34,7 +33,7 @@ const Login = () => {
         <figure className="flex justify-center">
           <img className="h-10 mb-10" src="/lifedrop.png" alt="" />
         </figure>
-        <h2 className="text-2xl sm:text-3xl font-semibold text-center text-[#05b4cd] mb-6">
+        <h2 className="text-2xl sm:text-3xl font-bold text-center text-[#05b4cd] mb-6">
           Log in
         </h2>
         <div className="flex flex-col gap-4">
@@ -65,6 +64,7 @@ const Login = () => {
                 {showPass ? <FaRegEyeSlash /> : <FaRegEye />}
               </span>
             </div>
+            <p>{error}</p>
           </div>
 
           <p className="text-sm cursor-pointer text-right hover:underline">

@@ -3,6 +3,7 @@ import { Link, NavLink } from "react-router";
 import { AuthContext } from "../provider/AuthProvider";
 import { HiOutlineUserCircle } from "react-icons/hi";
 import useAxiosSecure from "../hooks/useAxiosSecure";
+import { RxDropdownMenu } from "react-icons/rx";
 
 const Navbar = () => {
   const { user, logOut } = useContext(AuthContext);
@@ -29,13 +30,17 @@ const Navbar = () => {
           <img className="h-10 " src="/lifedrop.png" alt="LifeDrop" />
         </Link>
       </div>
-      <div className="navbar-center hidden lg:flex w-full max-w-100">
-        <ul className="flex justify-center items-center gap-4 font-semibold">
+
+      <div className="navbar-center hidden lg:flex justify-end w-full max-w-200 ">
+        <ul className="flex justify-center items-center gap-8 ">
           <li>
-            <NavLink to={"/donation-requests"}>Donation-Requests</NavLink>
+            <NavLink to={"/"}>Home</NavLink>
           </li>
-          <li className="">
-            <NavLink to={"/search-donors"}>Search-Donors</NavLink>
+          <li>
+            <NavLink to={"/donation-requests"}>Donation Requests</NavLink>
+          </li>
+          <li>
+            <NavLink to={"/search-donors"}>Search Donors</NavLink>
           </li>
           <li>
             <NavLink to={"/donate"}>Donate</NavLink>
@@ -43,11 +48,29 @@ const Navbar = () => {
           <li>
             <NavLink to={"/about"}>About</NavLink>
           </li>
-          <li>
-            <NavLink to={"/faq"}>FAQ</NavLink>
-          </li>
+
+          <div className="dropdown dropdown-center">
+            <div tabIndex={0} role="button" className="cursor-pointer m-1">
+              <RxDropdownMenu />
+            </div>
+            <ul
+              tabIndex="-1"
+              className="dropdown-content menu bg-base-100 mt-4 shadow rounded-md z-1 w-52 p-2"
+            >
+              <li>
+                <NavLink to={"/faq"}>FAQ</NavLink>
+              </li>
+              <li>
+                <NavLink to={"/charity"}>Charity</NavLink>
+              </li>
+              <li>
+                <NavLink to={"/terms-&-condition"}>Terms & Condition</NavLink>
+              </li>
+            </ul>
+          </div>
         </ul>
       </div>
+
       <div className="navbar-end gap-2">
         {user ? (
           <>
@@ -107,7 +130,10 @@ const Navbar = () => {
             </div>
           </>
         ) : (
-          <Link to={"/login"} className="btn primary text-white">
+          <Link
+            to={"/login"}
+            className="loginBtn btn primary text-white"
+          >
             Login
           </Link>
         )}
