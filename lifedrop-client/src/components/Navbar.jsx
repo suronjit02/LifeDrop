@@ -4,6 +4,7 @@ import { AuthContext } from "../provider/AuthProvider";
 import { HiOutlineUserCircle } from "react-icons/hi";
 import useAxiosSecure from "../hooks/useAxiosSecure";
 import { RxDropdownMenu } from "react-icons/rx";
+import { HiOutlineBars3 } from "react-icons/hi2";
 
 const Navbar = () => {
   const { user, logOut } = useContext(AuthContext);
@@ -24,14 +25,83 @@ const Navbar = () => {
     logOut();
   };
   return (
-    <div className="navbar bg-base-100 shadow-sm px-2 md:px-30 sticky top-0 z-50">
-      <div className="navbar-start">
-        <Link to={"/"}>
-          <img className="h-10 " src="/lifedrop.png" alt="LifeDrop" />
-        </Link>
+    <div className="navbar flex justify-between gap-5 items-center h-15 bg-base-100 shadow-sm px-2 md:px-18 sticky top-0 z-50">
+      {/* nav start */}
+      <div className=" ">
+        <div className="hidden md:flex items-center">
+          <Link to={"/"}>
+            <img className="h-10" src="/lifedrop.png" alt="LifeDrop" />
+          </Link>
+        </div>
+
+        {/* small device start nav */}
+        <div className="md:hidden flex items-center justify-start gap-2">
+          <div className="dropdown">
+            <div tabIndex={0} role="button" className=" m-1">
+              <HiOutlineBars3 className=" text-3xl " />
+            </div>
+            <ul
+              tabIndex="-1"
+              className="dropdown-content menu bg-base-100 rounded-box z-1 w-52 p-2 shadow-sm"
+            >
+              <li>
+                <NavLink to={"/"}>Home</NavLink>
+              </li>
+              <li>
+                <Link to={"/dashboard"}>Dashboard</Link>
+              </li>
+
+              <li>
+                <NavLink to={"/donation-requests"}>Donation Requests</NavLink>
+              </li>
+              <li>
+                <NavLink to={"/search-donors"}>Search Donors</NavLink>
+              </li>
+              <li>
+                <NavLink to={"/donate"}>Donate</NavLink>
+              </li>
+              <li>
+                <NavLink to={"/about"}>About</NavLink>
+              </li>
+              <li>
+                <div className="dropdown dropdown-right">
+                  <div tabIndex={0} role="button" className=" m-1">
+                    Others
+                  </div>
+                  <ul
+                    tabIndex="-1"
+                    className="dropdown-content menu bg-base-100 rounded-box z-1 w-52 p-2 shadow-sm"
+                  >
+                    <li>
+                      <NavLink to={"/faq"}>FAQ</NavLink>
+                    </li>
+                    <li>
+                      <NavLink to={"/charity"}>Charity</NavLink>
+                    </li>
+                    <li>
+                      <NavLink to={"/terms-&-condition"}>
+                        Terms & Condition
+                      </NavLink>
+                    </li>
+                  </ul>
+                </div>
+              </li>
+              <li>
+                <Link to={"/"} onClick={handleLogOut}>
+                  Logout
+                </Link>
+              </li>
+            </ul>
+          </div>
+
+          <Link to={"/"}>
+            <img className="h-8" src="/comonlogo.png" alt="LifeDrop" />
+          </Link>
+        </div>
       </div>
 
-      <div className="navbar-center hidden lg:flex justify-end w-full max-w-200 ">
+      {/* nav center */}
+      <div className=" hidden md:flex justify-end w-full">
         <ul className="flex justify-center items-center gap-8 ">
           <li>
             <NavLink to={"/"}>Home</NavLink>
@@ -71,10 +141,11 @@ const Navbar = () => {
         </ul>
       </div>
 
-      <div className="navbar-end gap-2">
+      {/* nav end */}
+      <div className="flex w-15 items-center justify-end gap-2">
         {user ? (
           <>
-            <div className="dropdown dropdown-end">
+            <Link to={"/dashboard/profile"}>
               <div tabIndex={0} role="button" className="m-1">
                 {user?.photoURL ? (
                   <img
@@ -86,54 +157,10 @@ const Navbar = () => {
                   <HiOutlineUserCircle className="text-3xl text-gray-700 cursor-pointer" />
                 )}
               </div>
-              <ul
-                tabIndex="-1"
-                className="dropdown-content  bg-base-100 rounded-md z-1 min-w-55 p-2 shadow-sm"
-              >
-                <div className="text-sm text-center mt-4">
-                  <li>
-                    <Link
-                      to={"/dashboard"}
-                      className=" btn hover:bg-amber-100 bg-amber-50 px-20 py-2 rounded-sm text-primary font-semibold border-none mb-2"
-                    >
-                      Dashboard
-                    </Link>
-                  </li>
-                  <li>
-                    <Link
-                      to={"/"}
-                      onClick={handleLogOut}
-                      className="btn hover:bg-amber-100 bg-amber-50 px-23 py-2 rounded-sm text-primary font-semibold border-none"
-                    >
-                      Logout
-                    </Link>
-                  </li>
-
-                  <hr className="my-3 " />
-
-                  <div className="text-center">
-                    <li className="font-semibold">{userData.name}</li>
-                    <li>{userData.email}</li>
-                  </div>
-                </div>
-              </ul>
-            </div>
-
-            <div className="hidden md:flex">
-              <Link
-                to={"/"}
-                onClick={handleLogOut}
-                className=" btn primary  text-white font-semibold "
-              >
-                Logout
-              </Link>
-            </div>
+            </Link>
           </>
         ) : (
-          <Link
-            to={"/login"}
-            className="loginBtn btn primary text-white"
-          >
+          <Link to={"/login"} className="loginLogoutBtn btn primary text-white">
             Login
           </Link>
         )}

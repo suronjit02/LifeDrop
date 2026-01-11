@@ -52,7 +52,7 @@ const Register = () => {
     }
 
     if (password !== confirmPassword) {
-      setError("Password did not match");
+      setError("Confirm password must match the password.");
       return;
     }
 

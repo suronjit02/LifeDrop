@@ -20,10 +20,10 @@
   color: #c6414c;
 }
 
-.loginBtn:hover {
+.loginLogoutBtn:hover {
   color: white !important;
 }
 
-.loginBtn:focus {
+.loginLogoutBtn:focus {
   color: white !important;
 }
