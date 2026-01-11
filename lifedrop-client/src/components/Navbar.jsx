@@ -63,6 +63,7 @@ const Navbar = () => {
               <li>
                 <NavLink to={"/about"}>About</NavLink>
               </li>
+
               <li>
                 <div className="dropdown dropdown-right">
                   <div tabIndex={0} role="button" className=" m-1">
@@ -112,9 +113,11 @@ const Navbar = () => {
           <li>
             <NavLink to={"/search-donors"}>Search Donors</NavLink>
           </li>
-          <li>
-            <NavLink to={"/dashboard"}>Dashboard</NavLink>
-          </li>
+          {user && (
+            <li>
+              <NavLink to={"/dashboard"}>Dashboard</NavLink>
+            </li>
+          )}
           <li>
             <NavLink to={"/donate"}>Donate</NavLink>
           </li>
@@ -141,6 +144,13 @@ const Navbar = () => {
               </li>
             </ul>
           </div>
+          {user && (
+            <li>
+              <Link to={"/"} onClick={handleLogOut}>
+                Logout
+              </Link>
+            </li>
+          )}
         </ul>
       </div>
 
