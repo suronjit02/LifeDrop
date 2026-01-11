@@ -113,6 +113,9 @@ const Navbar = () => {
             <NavLink to={"/search-donors"}>Search Donors</NavLink>
           </li>
           <li>
+            <NavLink to={"/dashboard"}>Dashboard</NavLink>
+          </li>
+          <li>
             <NavLink to={"/donate"}>Donate</NavLink>
           </li>
           <li>
