@@ -2,6 +2,7 @@ import React from "react";
 import {
   FaFacebookSquare,
   FaInstagramSquare,
+  FaLinkedin,
   FaPhoneAlt,
   FaYoutube,
 } from "react-icons/fa";
@@ -20,19 +21,38 @@ const Footer = () => {
             easier for everyone.
           </p>
           <div className="flex gap-2">
-            <FaFacebookSquare className="text-2xl text-primary" />
-            <FaSquareXTwitter className="text-2xl text-primary" />
-            <FaInstagramSquare className="text-2xl text-primary" />
-            <FaYoutube className="text-2xl text-primary" />
+            <Link to={"https://www.linkedin.com/in/suronjit02/"}>
+              <FaLinkedin className="text-2xl text-primary" />
+            </Link>
+            <Link to={"https://www.facebook.com/suronjit02"}>
+              <FaFacebookSquare className="text-2xl text-primary" />
+            </Link>
+            <Link to={""}>
+              <FaSquareXTwitter className="text-2xl text-primary" />
+            </Link>
+            <Link to={"https://www.instagram.com/suronjit02/"}>
+              <FaInstagramSquare className="text-2xl text-primary" />
+            </Link>
+            <Link to={""}>
+              <FaYoutube className="text-2xl text-primary" />
+            </Link>
           </div>
         </aside>
 
         <div className="flex flex-col gap-2">
           <h6 className="footer-title">Quick Links</h6>
-          <Link to={'/about'} className="link link-hover">About us</Link>
-          <Link to={'/charity'} className="link link-hover">Charity</Link>
-          <Link to={'/faq'} className="link link-hover">FAQ</Link>
-          <Link to={'/terms-&-condition'} className="link link-hover">Terms & Condition</Link>
+          <Link to={"/about"} className="link link-hover">
+            About us
+          </Link>
+          <Link to={"/charity"} className="link link-hover">
+            Charity
+          </Link>
+          <Link to={"/faq"} className="link link-hover">
+            FAQ
+          </Link>
+          <Link to={"/terms-&-condition"} className="link link-hover">
+            Terms & Condition
+          </Link>
         </div>
 
         <div className="flex flex-col gap-2">
@@ -43,11 +63,11 @@ const Footer = () => {
           </Link>
           <Link className="link link-hover flex items-center gap-1">
             <FaPhoneAlt className="text-primary" />
-            Phone: +880 123 456 789
+            Phone: +880 1739 145813
           </Link>
           <Link className="link link-hover flex items-center gap-1">
             <IoIosMail className="text-primary" />
-            Email: contact@lifedrop.com
+            Email: suronjit02@gmail.com
           </Link>
         </div>
 
