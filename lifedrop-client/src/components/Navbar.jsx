@@ -5,6 +5,7 @@ import { HiOutlineUserCircle } from "react-icons/hi";
 import useAxiosSecure from "../hooks/useAxiosSecure";
 import { RxDropdownMenu } from "react-icons/rx";
 import { HiOutlineBars3 } from "react-icons/hi2";
+import { CiLogout } from "react-icons/ci";
 
 const Navbar = () => {
   const { user, logOut } = useContext(AuthContext);
@@ -34,7 +35,7 @@ const Navbar = () => {
           </Link>
         </div>
 
-        {/* small device start nav */}
+        {/* dropdown small device start nav */}
         <div className="md:hidden flex items-center justify-start gap-2">
           <div className="dropdown">
             <div tabIndex={0} role="button" className=" m-1">
@@ -147,8 +148,13 @@ const Navbar = () => {
           </div>
           {user && (
             <li>
-              <Link to={"/"} onClick={handleLogOut}>
-                Logout
+              <Link
+                to={"/"}
+                onClick={handleLogOut}
+                className="
+              flex justify-center items-center gap-1 text-primary font-semibold"
+              >
+                Logout <CiLogout />
               </Link>
             </li>
           )}

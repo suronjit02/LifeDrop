@@ -11,10 +11,10 @@ const HeroSection = () => {
       />
 
       <div className="absolute bottom-0 md:top-0 md:right-0 w-full md:w-1/2  h-full flex flex-col justify-center items-center md:items-start bg-white/80 px-5 md:px-10 md:text-left text-center">
-        <h1 className="text-4xl md:text-6xl font-bold text-gray-900 mb-2">
+        <h1 className="text-4xl md:text-6xl font-bold text-gray-800 mb-2">
           Join Hands to Save Lives
         </h1>
-        <p className="text-md md:text-xl text-gray-800 mb-4 max-w-lg">
+        <p className="text-md font-semibold md:text-xl text-gray-800 mb-4 max-w-lg">
           "Donate Your Blood to Us, Save More Life Together"
         </p>
 
