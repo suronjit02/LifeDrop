@@ -107,17 +107,18 @@ const Navbar = () => {
           <li>
             <NavLink to={"/"}>Home</NavLink>
           </li>
+          {user && (
+            <li>
+              <NavLink to={"/dashboard"}>Dashboard</NavLink>
+            </li>
+          )}
           <li>
             <NavLink to={"/donation-requests"}>Donation Requests</NavLink>
           </li>
           <li>
             <NavLink to={"/search-donors"}>Search Donors</NavLink>
           </li>
-          {user && (
-            <li>
-              <NavLink to={"/dashboard"}>Dashboard</NavLink>
-            </li>
-          )}
+
           <li>
             <NavLink to={"/donate"}>Donate</NavLink>
           </li>
