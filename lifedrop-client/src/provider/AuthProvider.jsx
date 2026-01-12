@@ -20,6 +20,7 @@ const AuthProvider = ({ children }) => {
   const [loading, setLoading] = useState(true);
   const [role, setRole] = useState("");
   const [userStatus, setUserStatus] = useState("");
+  const [error, setError] = useState("");
 
   const createUser = (email, password, name, photoURL) => {
     setLoading(true);
@@ -41,9 +42,13 @@ const AuthProvider = ({ children }) => {
 
   const logIn = (email, password) => {
     setLoading(true);
-    return signInWithEmailAndPassword(auth, email, password).finally(() =>
-      setLoading(false)
-    );
+    setError(""); // Clear previous errors
+    return signInWithEmailAndPassword(auth, email, password)
+      .catch((err) => {
+        setError(err.message);
+        throw err; // Re-throw to maintain promise chain
+      })
+      .finally(() => setLoading(false));
   };
 
   const logOut = () => {
@@ -90,6 +95,7 @@ const AuthProvider = ({ children }) => {
         logOut,
         role,
         userStatus,
+        error,
       }}
     >
       {children}

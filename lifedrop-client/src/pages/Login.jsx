@@ -16,9 +16,13 @@ const Login = () => {
     const email = e.target.email.value;
     const password = e.target.password.value;
 
-    logIn(email, password).then(() => {
-      navigate(location.state?.from || "/");
-    });
+    logIn(email, password)
+      .then(() => {
+        navigate(location.state?.from || "/");
+      })
+      .catch(() => {
+        // Error is already handled in AuthProvider
+      });
   };
   return (
     <div className="w-full min-h-screen flex items-center justify-center px-4 gap-10">
@@ -38,7 +42,12 @@ const Login = () => {
         </h2>
         <div className="flex flex-col gap-4">
           <div className="flex flex-col">
-            <label className="font-semibold mb-1">Email</label>
+            <label className="font-semibold mb-1">
+              Email{" "}
+              <span className="text-sm text-gray-500">
+                (Test Email: donor@gmail.com)
+              </span>
+            </label>
             <input
               type="email"
               name="email"
@@ -48,7 +57,12 @@ const Login = () => {
           </div>
 
           <div className="flex flex-col">
-            <label className="font-semibold mb-1">Password</label>
+            <label className="font-semibold mb-1">
+              Password{" "}
+              <span className="text-sm text-gray-500">
+                (Test Password: donorPass1)
+              </span>
+            </label>
             <div className="relative">
               <input
                 required
@@ -64,7 +78,11 @@ const Login = () => {
                 {showPass ? <FaRegEyeSlash /> : <FaRegEye />}
               </span>
             </div>
-            <p>{error}</p>
+            {error && (
+              <p className="text-red-500 text-sm mt-2 font-medium">
+                {error}
+              </p>
+            )}
           </div>
 
           <p className="text-sm cursor-pointer text-right hover:underline">
