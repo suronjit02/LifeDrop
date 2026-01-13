@@ -40,6 +40,7 @@ const AuthProvider = ({ children }) => {
       });
   };
 
+  // login
   const logIn = (email, password) => {
     setLoading(true);
     setError(""); // Clear previous errors
@@ -51,6 +52,7 @@ const AuthProvider = ({ children }) => {
       .finally(() => setLoading(false));
   };
 
+  // log out
   const logOut = () => {
     setLoading(true);
     return signOut(auth).finally(() => setLoading(false));
