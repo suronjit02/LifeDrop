@@ -1,4 +1,5 @@
 import React from "react";
+import { IoIosArrowDown } from "react-icons/io";
 
 const faqs = [
   {
@@ -54,7 +55,6 @@ const faqs = [
 const Faq = () => {
   return (
     <div className="max-w-4xl mx-auto px-4 py-12">
-      
       <h1 className="text-2xl sm:text-3xl font-bold text-center mb-4">
         Frequently Asked Questions
       </h1>
@@ -70,7 +70,9 @@ const Faq = () => {
           >
             <summary className="cursor-pointer font-medium text-lg flex justify-between items-center">
               {faq.question}
-              <span className="transition group-open:rotate-180">⌄</span>
+              <span className="transition group-open:rotate-180">
+                <IoIosArrowDown />
+              </span>
             </summary>
             <p className="mt-3 text-gray-600">{faq.answer}</p>
           </details>
