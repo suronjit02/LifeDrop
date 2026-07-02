@@ -26,7 +26,7 @@ const Navbar = () => {
     logOut();
   };
   return (
-    <div className="navbar flex justify-between gap-5 items-center h-15 bg-base-100 shadow-sm px-2 md:px-18 sticky top-0 z-50">
+    <div className="navbar flex justify-between gap-8 items-center h-15 bg-base-100 shadow-sm px-2 md:px-18 sticky top-0 z-50">
       {/* nav start */}
       <div className=" ">
         <div className="hidden md:flex items-center">
@@ -88,11 +88,6 @@ const Navbar = () => {
                   </ul>
                 </div>
               </li>
-              <li>
-                <Link to={"/"} onClick={handleLogOut}>
-                  Logout
-                </Link>
-              </li>
             </ul>
           </div>
 
@@ -126,38 +121,9 @@ const Navbar = () => {
           <li>
             <NavLink to={"/about"}>About</NavLink>
           </li>
-
-          <div className="dropdown dropdown-center">
-            <div tabIndex={0} role="button" className="cursor-pointer m-1">
-              <RxDropdownMenu />
-            </div>
-            <ul
-              tabIndex="-1"
-              className="dropdown-content menu bg-base-100 mt-4 shadow rounded-md z-1 w-52 p-2"
-            >
-              <li>
-                <NavLink to={"/faq"}>FAQ</NavLink>
-              </li>
-              <li>
-                <NavLink to={"/charity"}>Charity</NavLink>
-              </li>
-              <li>
-                <NavLink to={"/terms-&-condition"}>Terms & Condition</NavLink>
-              </li>
-            </ul>
-          </div>
-          {user && (
-            <li>
-              <Link
-                to={"/"}
-                onClick={handleLogOut}
-                className="
-              flex justify-center items-center gap-1 text-primary font-semibold"
-              >
-                Logout <CiLogout />
-              </Link>
-            </li>
-          )}
+          <li>
+            <NavLink to={"/faq"}>FAQ</NavLink>
+          </li>
         </ul>
       </div>
 
