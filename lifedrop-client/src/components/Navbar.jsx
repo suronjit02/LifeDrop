@@ -8,7 +8,7 @@ import { HiOutlineBars3 } from "react-icons/hi2";
 import { CiLogout } from "react-icons/ci";
 
 const Navbar = () => {
-  const { user, logOut } = useContext(AuthContext);
+  const { user } = useContext(AuthContext);
   const axiosSecure = useAxiosSecure();
 
   const [userData, setUserData] = useState({});
@@ -22,11 +22,8 @@ const Navbar = () => {
   }, [user, axiosSecure]);
   // console.log(userData);
 
-  const handleLogOut = () => {
-    logOut();
-  };
   return (
-    <div className="navbar flex justify-between gap-8 items-center h-15 bg-base-100 shadow-sm px-2 md:px-18 sticky top-0 z-50">
+    <div className="navbar flex justify-between gap-8 items-center h-15 bg-base-100 shadow-sm px-2 md:px-20 sticky top-0 z-50">
       {/* nav start */}
       <div className=" ">
         <div className="hidden md:flex items-center">

@@ -24,6 +24,21 @@ const Login = () => {
         // Error is already handled in AuthProvider
       });
   };
+
+  // Demo User Login
+  const handleDemoLogin = () => {
+    const demoEmail = "donor@gmail.com";
+    const demoPassword = "donorPass1";
+
+    logIn(demoEmail, demoPassword)
+      .then(() => {
+        navigate(location.state?.from || "/");
+      })
+      .catch(() => {
+        // Error is already handled in AuthProvider
+      });
+  };
+
   return (
     <div className="w-full min-h-screen flex items-center justify-center px-4 gap-10">
       <aside className="hidden md:block">
@@ -37,17 +52,25 @@ const Login = () => {
         <figure className="flex justify-center">
           <img className="h-10 mb-10" src="/lifedrop.png" alt="" />
         </figure>
-        <h2 className="text-2xl sm:text-3xl font-bold text-center text-[#05b4cd] mb-6">
-          Log in
+
+        {/* Demo User Login  */}
+        <Link
+          to="#"
+          onClick={handleDemoLogin}
+          className="text-center flex justify-center border border-[#05b4cd] text-sm font-semibold p-1 rounded-sm hover:border-[#c6414c]"
+        >
+          Click for Login as demo User
+        </Link>
+
+        <h2 className="text-2xl sm:text-3xl font-bold text-center text-[#05b4cd] mt-4">
+          Login to LifeDrop
         </h2>
+        <p className="text-center text-gray-600 mb-6">
+          Welcome back! Please sign in to continue
+        </p>
         <div className="flex flex-col gap-4">
           <div className="flex flex-col">
-            <label className="font-semibold mb-1">
-              Email{" "}
-              <span className="text-sm text-gray-500">
-                (Test Email: donor@gmail.com)
-              </span>
-            </label>
+            <label className="font-semibold mb-1">Email </label>
             <input
               type="email"
               name="email"
@@ -57,12 +80,7 @@ const Login = () => {
           </div>
 
           <div className="flex flex-col">
-            <label className="font-semibold mb-1">
-              Password{" "}
-              <span className="text-sm text-gray-500">
-                (Test Password: donorPass1)
-              </span>
-            </label>
+            <label className="font-semibold mb-1">Password </label>
             <div className="relative">
               <input
                 required
@@ -79,9 +97,7 @@ const Login = () => {
               </span>
             </div>
             {error && (
-              <p className="text-red-500 text-sm mt-2 font-medium">
-                {error}
-              </p>
+              <p className="text-red-500 text-sm mt-2 font-medium">{error}</p>
             )}
           </div>
 
