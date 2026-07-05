@@ -57,15 +57,15 @@ const Footer = () => {
 
         <div className="flex flex-col gap-2">
           <h6 className="footer-title">Contact Info</h6>
-          <Link className="link link-hover flex items-center gap-1">
+          <Link className="flex items-center gap-1">
             <FaLocationDot className="text-primary" />
             Address: Dhaka, Bangladesh
           </Link>
-          <Link className="link link-hover flex items-center gap-1">
+          <Link className="flex items-center gap-1">
             <FaPhoneAlt className="text-primary" />
             Phone: +880 1739 145813
           </Link>
-          <Link className="link link-hover flex items-center gap-1">
+          <Link className="flex items-center gap-1">
             <IoIosMail className="text-primary" />
             Email: suronjit02@gmail.com
           </Link>
