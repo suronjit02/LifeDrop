@@ -21,13 +21,13 @@ const HeroSection = () => {
         <div className="flex gap-2 sm:gap-4">
           <Link
             to={"/register"}
-            className="btn bg-[#c6414c] hover:bg-[#e04f5b] text-white sm:px-6 transition-all duration-500 ease-in-out"
+            className="btn bg-[#c6414c] hover:bg-white hover:border hover:border-[#c6414c]  text-white hover:text-[#c6414c] sm:px-6 transition-all duration-500 ease-in-out"
           >
             Join as a Donor
           </Link>
           <Link
             to={"/search-donors"}
-            className="btn bg-white hover:bg-[#c6414c] text-[#c6414c] hover:text-white border border-[#c6414c] transition-all duration-500 ease-in-out"
+            className="btn bg-[#c6414c] hover:bg-white hover:border hover:border-[#c6414c]  text-white hover:text-[#c6414c] sm:px-6 transition-all duration-500 ease-in-out"
           >
             Search Donors
           </Link>
