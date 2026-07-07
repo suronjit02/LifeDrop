@@ -82,8 +82,8 @@ const Footer = () => {
       </nav>
 
       <aside className="w-full">
-        <hr className="w-full text-primary" />
-        <p>
+        <hr className="w-full text-primary " />
+        <p className=" text-gray-500">
           Copyright © {new Date().getFullYear()} - All right reserved by
           LifeDrop.
         </p>
