@@ -53,7 +53,6 @@ const Donate = () => {
   return (
     <div className="min-h-screen bg-gray-50 flex items-center justify-center px-4 py-12">
       <div className="w-full max-w-md">
-
         {/* Hero */}
         <div className="text-center mb-8">
           <div className="inline-flex items-center justify-center mb-4">
@@ -71,7 +70,6 @@ const Donate = () => {
 
         {/* Card */}
         <div className="bg-white rounded-2xl border border-gray-200 p-6 shadow-sm">
-
           {/* Preset amounts */}
           <p className="text-xs font-medium text-gray-400 uppercase tracking-wide mb-3">
             Select an amount
@@ -156,7 +154,7 @@ const Donate = () => {
             <button
               type="submit"
               disabled={loading || !amount || amount < 1}
-              className="w-full py-3.5 bg-red-700 hover:bg-red-800 active:scale-[0.99] disabled:opacity-50 disabled:cursor-not-allowed text-white rounded-lg font-medium text-sm transition-all duration-300 flex items-center justify-center gap-2"
+              className="w-full py-3.5 bg-[#c6414c] hover:bg-[#a83540] active:scale-[0.99] disabled:opacity-50 disabled:cursor-not-allowed text-white rounded-lg font-medium text-sm transition-all duration-300 flex items-center justify-center gap-2"
             >
               {loading ? (
                 <>
