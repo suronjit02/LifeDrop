@@ -18,13 +18,13 @@ import DonorRouter from "../provider/DonorRouter";
 import VolunteerAdminRouter from "../provider/VolunteerAdminRouter";
 import DonationRequestDetails from "../dashboard/dashboardPage/DonationRequestDetails";
 import PublicAllRequest from "../dashboard/dashboardPage/PublicAllRequest";
-import SearchPage from "../dashboard/dashboardPage/SearchPage";
 import EditRequest from "../dashboard/dashboardPage/EditRequest";
 import Donate from "../pages/donate/Donate";
 import About from "../pages/about/About";
 import Faq from "../pages/faq/Faq";
 import Charity from "../pages/charity/Charity";
 import TermsConditions from "../pages/terms&condition/TermsCondition";
+import SearchPage from "../pages/search-donor/SearchPage";
 
 const router = createBrowserRouter([
   {
