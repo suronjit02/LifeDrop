@@ -95,7 +95,7 @@ const LiveStats = () => {
   }, []);
 
   return (
-    <section ref={sectionRef} className="py-16 px-4 text-center bg-gray-50">
+    <section ref={sectionRef} className="py-16 px-4 text-center bg-slate-50">
       <p className="text-xs font-medium tracking-widest uppercase text-primary mb-2">
         Live impact
       </p>
