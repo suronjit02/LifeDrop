@@ -115,7 +115,7 @@ const About = () => {
           </p>
           <Link
             to={"/register"}
-            className="btn bg-[#c6414c] hover:bg-[#e04f5b] text-white sm:px-6 transition-all duration-500 ease-in-out"
+            className="btn bg-[#c6414c] hover:bg-white hover:border hover:border-[#c6414c]  text-white hover:text-[#c6414c] sm:px-6 transition-all duration-500 ease-in-out"
           >
             Join as a Donor
           </Link>
