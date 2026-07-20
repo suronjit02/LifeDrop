@@ -97,7 +97,7 @@ const Navbar = () => {
 
         {/* nav center */}
         <div className=" hidden md:flex justify-end w-full">
-          <ul className="flex justify-center items-center gap-8 ">
+          <ul className="flex justify-center items-center gap-8">
             <li>
               <NavLink to={"/"}>Home</NavLink>
             </li>

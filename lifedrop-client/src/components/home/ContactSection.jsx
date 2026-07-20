@@ -22,7 +22,7 @@ const ContactSection = () => {
             className="textarea textarea-bordered w-full"
           ></textarea>
 
-          <button className="btn bg-[#c6414c] hover:bg-red-700 text-white w-full transition-all duration-500 ease-in-out">
+          <button className="btn bg-[#c6414c] hover:bg-white text-white  hover:text-[#c6414c] hover:border-[#c6414c] w-full transition-all duration-500 ease-in-out">
             Send Message
           </button>
         </form>
