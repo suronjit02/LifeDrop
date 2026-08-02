@@ -19,15 +19,15 @@ const Register = () => {
 
   useEffect(() => {
     axios.get("/upazila.json").then((res) => {
-      setUpazilas(res.data.upazilas);
+      setUpazilas(res.data);
     });
 
     axios.get("/district.json").then((res) => {
-      setDistricts(res.data.districts);
+      setDistricts(res.data);
     });
   }, []);
 
-  // console.log(district);
+  // console.log(districts);
   // console.log(upazila);
 
   const handleSignUp = async (event) => {
@@ -46,7 +46,7 @@ const Register = () => {
 
     if (!passwordRegex.test(password)) {
       setError(
-        "Password must be at least 6 characters long and include both uppercase and lowercase letters"
+        "Password must be at least 6 characters long and include both uppercase and lowercase letters",
       );
       return;
     }
@@ -64,7 +64,7 @@ const Register = () => {
         headers: {
           "Content-Type": "multipart/form-data",
         },
-      }
+      },
     );
     const mainPhotoUrl = res.data.data.display_url;
 
@@ -166,7 +166,6 @@ const Register = () => {
                 className="select w-full"
               >
                 <option disabled={true}>Chose Your District</option>
-
                 {districts.map((district) => (
                   <option value={district.name} key={district.id}>
                     {district?.name}
