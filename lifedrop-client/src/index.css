@@ -27,6 +27,9 @@
 .text-primary {
   color: #c6414c;
 }
+.text-secondary {
+  color: #05b4cd;
+}
 
 .navbar a:hover {
   /* font-weight: 500; */
