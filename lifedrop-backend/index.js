@@ -13,13 +13,13 @@ app.use(
   cors({
     origin: ["https://lifedrop-donation.netlify.app"],
     credentials: true,
-  })
+  }),
 );
 app.use(express.json());
 
 const admin = require("firebase-admin");
 const decoded = Buffer.from(process.env.FB_SERVICE_KEY, "base64").toString(
-  "utf8"
+  "utf8",
 );
 const serviceAccount = JSON.parse(decoded);
 
@@ -264,7 +264,7 @@ async function run() {
       const result = await userCollections.findOneAndUpdate(
         { email },
         { $set: updatedData },
-        { returnDocument: "after" }
+        { returnDocument: "after" },
       );
       console.log(result);
       res.send(result);
@@ -277,7 +277,7 @@ async function run() {
 
       const result = await requestCollections.updateOne(
         { _id: new ObjectId(id) },
-        { $set: { status } }
+        { $set: { status } },
       );
 
       res.send(result);
@@ -291,7 +291,7 @@ async function run() {
       try {
         const result = await requestCollections.updateOne(
           { _id: new ObjectId(id) },
-          { $set: updatedData }
+          { $set: updatedData },
         );
 
         if (result.modifiedCount > 0) {
@@ -343,7 +343,7 @@ async function run() {
             donorEmail,
             donatedAt: new Date(),
           },
-        }
+        },
       );
 
       res.send(result);
@@ -397,8 +397,50 @@ async function run() {
       }
     });
 
+    // verify payment
+    app.get("/verify-payment", async (req, res) => {
+      try {
+        const { session_id } = req.query;
+
+        if (!session_id) {
+          return res
+            .status(400)
+            .send({ success: false, message: "session_id required" });
+        }
+
+        const session = await stripe.checkout.sessions.retrieve(session_id);
+
+        if (session.payment_status === "paid") {
+
+        //  donation record insert
+
+          // const donationsCollection = database.collection("donations");
+          // await donationsCollection.insertOne({
+          //   sessionId: session.id,
+          //   amount: session.amount_total / 100,
+          //   donorEmail: session.customer_email,
+          //   donorName: session.metadata.donorName,
+          //   createdAt: new Date(),
+          // });
+
+          return res.send({
+            success: true,
+            amount: session.amount_total / 100,
+            email: session.customer_email,
+          });
+        } else {
+          return res.send({ success: false, message: "Payment not completed" });
+        }
+      } catch (err) {
+        console.error(err);
+        res
+          .status(500)
+          .send({ success: false, message: "Internal Server Error" });
+      }
+    });
+
     console.log(
-      "Pinged your deployment. You successfully connected to MongoDB!"
+      "Pinged your deployment. You successfully connected to MongoDB!",
     );
   } finally {
     // Ensures that the client will close when you finish/error
