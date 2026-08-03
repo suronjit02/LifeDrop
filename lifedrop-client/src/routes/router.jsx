@@ -25,6 +25,7 @@ import Faq from "../pages/faq/Faq";
 import Charity from "../pages/charity/Charity";
 import TermsConditions from "../pages/terms&condition/TermsCondition";
 import SearchPage from "../pages/search-donor/SearchPage";
+import PaymentSuccess from "../components/PaymentSuccess";
 
 const router = createBrowserRouter([
   {
@@ -55,6 +56,10 @@ const router = createBrowserRouter([
       {
         path: "/donate",
         element: <Donate></Donate>,
+      },
+      {
+        path: "/payment-success",
+        element: <PaymentSuccess></PaymentSuccess>,
       },
       {
         path: "/about",
