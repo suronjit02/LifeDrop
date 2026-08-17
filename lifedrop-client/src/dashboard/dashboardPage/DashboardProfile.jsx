@@ -22,7 +22,7 @@ const DashboardProfile = () => {
       });
     }
   }, [user, axiosSecure]);
-  console.log(userData);
+  // console.log(userData);
   if (!userData) return <Loader />;
 
   const handleChange = (e) => {
@@ -86,8 +86,8 @@ const DashboardProfile = () => {
               userData.role === "admin"
                 ? "bg-[#c6414c] text-white"
                 : userData.role === "volunteer"
-                ? "bg-[#00684d] text-white"
-                : "bg-[#05b4cd] text-white"
+                  ? "bg-[#00684d] text-white"
+                  : "bg-[#05b4cd] text-white"
             }`}
           >
             {userData.role}

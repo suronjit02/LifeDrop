@@ -3,7 +3,7 @@ import { useContext, useEffect } from "react";
 import { AuthContext } from "../provider/AuthProvider";
 
 const axiosSecure = axios.create({
-  baseURL: "https://lifedrop-backend.vercel.app",
+  baseURL: import.meta.env.VITE_API_URL,
 });
 
 const useAxiosSecure = () => {
@@ -23,7 +23,7 @@ const useAxiosSecure = () => {
       (error) => {
         console.log(error);
         return Promise.reject(error);
-      }
+      },
     );
 
     return () => {

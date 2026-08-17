@@ -92,7 +92,7 @@ const Register = () => {
       createUser(email, password, name, mainPhotoUrl)
         .then(() => {
           axios
-            .post("https://lifedrop-backend.vercel.app/users", formData)
+            .post(`${import.meta.env.VITE_API_URL}/users`, formData)
             .then((res) => {
               console.log(res.data);
             })

@@ -28,7 +28,7 @@ const DashboardHome = () => {
       });
     }
   }, [user, axiosSecure]);
-  console.log(userData);
+  // console.log(userData);
 
   useEffect(() => {
     if (role === "admin" || role === "volunteer") {
@@ -52,7 +52,7 @@ const DashboardHome = () => {
     const res = await axiosSecure.patch(`/requests/status/${id}`, { status });
     if (res.data.modifiedCount > 0) {
       setRecentRequests((prev) =>
-        prev.map((req) => (req._id === id ? { ...req, status } : req))
+        prev.map((req) => (req._id === id ? { ...req, status } : req)),
       );
     }
   };
@@ -154,10 +154,10 @@ const DashboardHome = () => {
                             req.status === "pending"
                               ? "badge-warning"
                               : req.status === "inprogress"
-                              ? "badge-info"
-                              : req.status === "done"
-                              ? "badge-success"
-                              : "badge-error"
+                                ? "badge-info"
+                                : req.status === "done"
+                                  ? "badge-success"
+                                  : "badge-error"
                           }`}
                         >
                           {req.status}

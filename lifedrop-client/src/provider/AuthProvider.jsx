@@ -32,7 +32,7 @@ const AuthProvider = ({ children }) => {
           () => {
             setUser({ ...res.user });
             return res;
-          }
+          },
         );
       })
       .finally(() => {
@@ -65,11 +65,11 @@ const AuthProvider = ({ children }) => {
       if (currentUser?.email) {
         try {
           const res = await axios.get(
-            `https://lifedrop-backend.vercel.app/users/role/${currentUser.email}`
+            `${import.meta.env.VITE_API_URL}/users/role/${currentUser.email}`,
           );
           setRole(res.data.role);
 
-          console.log(role);
+          // console.log(role);
 
           setUserStatus(res.data.status);
         } catch (err) {
