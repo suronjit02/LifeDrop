@@ -111,10 +111,10 @@ const DonationRequestDetails = () => {
                   request.status === "pending"
                     ? "bg-yellow-100 text-yellow-800"
                     : request.status === "inprogress"
-                    ? "bg-blue-100 text-blue-800"
-                    : request.status === "done"
-                    ? "bg-green-100 text-green-800"
-                    : "bg-red-100 text-red-800"
+                      ? "bg-blue-100 text-blue-800"
+                      : request.status === "done"
+                        ? "bg-green-100 text-green-800"
+                        : "bg-red-100 text-red-800"
                 }`}
               >
                 {request.status}
@@ -132,7 +132,7 @@ const DonationRequestDetails = () => {
             onClick={handleBack}
             className="btn bg-[#05b4cd] text-white w-full md:w-auto text-center"
           >
-            Back
+            All Pending Request
           </button>
 
           {request.status === "pending" &&
@@ -147,9 +147,10 @@ const DonationRequestDetails = () => {
         </div>
       </div>
 
+      {/* modals */}
       {open && (
-        <div className="fixed inset-0 bg-black bg-opacity-40 flex items-center justify-center z-50">
-          <div className="bg-white p-6 rounded-md w-full max-w-md">
+        <div className="fixed inset-0 flex items-center justify-center z-50">
+          <div className="bg-white shadow-2xl border border-accent p-6 rounded-md w-full max-w-md">
             <h3 className="text-lg font-semibold mb-4 text-[#05b4cd]">
               Confirm Donation
             </h3>

@@ -3,7 +3,6 @@ import { AuthContext } from "../../provider/AuthProvider";
 import axios from "axios";
 import { toast } from "react-toastify";
 import useAxiosSecure from "../../hooks/useAxiosSecure";
-// import { toast } from "react-toastify";
 
 const CreateRequest = () => {
   const { user } = useContext(AuthContext);
@@ -23,6 +22,17 @@ const CreateRequest = () => {
       setDistricts(res.data);
     });
   }, []);
+
+  // Filter upazilas based on selected district
+  const filteredUpazilas = district
+    ? upazilas.filter((u) => u.district_id === district)
+    : [];
+
+  // Handle district change
+  const handleDistrictChange = (e) => {
+    setDistrict(e.target.value);
+    setUpazila("");
+  };
 
   const handleSubmit = async (event) => {
     event.preventDefault();
@@ -74,16 +84,14 @@ const CreateRequest = () => {
     console.log(formData);
   };
 
-  // console.log(user);
-
   return (
     <div className="max-w-4xl mx-auto p-6 border border-[#05b4cd] rounded-md shadow-md">
-      <div className=" flex flex-col md:flex-row items-center justify-between mb-6 ">
+      <div className="flex flex-col md:flex-row items-center justify-between mb-6">
         <h2 className="text-lg md:text-2xl font-bold">
           Create Donation Request
         </h2>
 
-        <img className="h-10 " src="/lifedrop.png" alt="LifeDrop" />
+        <img className="h-10" src="/lifedrop.png" alt="LifeDrop" />
       </div>
 
       <form
@@ -132,39 +140,48 @@ const CreateRequest = () => {
           />
         </div>
 
+        {/* District */}
         <div>
           <label className="font-semibold">District</label>
+
           <select
-            onChange={(e) => setDistrict(e.target.value)}
+            onChange={handleDistrictChange}
             required
             name="district"
-            defaultValue="Chose Your District"
+            value={district}
             className="select w-full"
           >
-            <option disabled={true}>Chose Your District</option>
+            <option value="" disabled>
+              Choose Your District
+            </option>
 
             {districts.map((district) => (
-              <option value={district.name} key={district.id}>
-                {district?.name}
+              <option value={district.id} key={district.id}>
+                {district.name}
               </option>
             ))}
           </select>
         </div>
 
+        {/* Upazila */}
         <div>
           <label className="font-semibold">Upazila</label>
+
           <select
             onChange={(e) => setUpazila(e.target.value)}
             required
             name="upazila"
-            defaultValue="Chose Your Upazila"
+            value={upazila}
+            disabled={!district}
             className="select w-full"
           >
-            <option disabled={true}>Chose Your Upazila</option>
+            <option value="" disabled>
+              Choose Your Upazila
+            </option>
 
-            {upazilas.map((upazila) => (
-              <option value={upazila.name} key={upazila.id}>
-                {upazila?.name}
+            {filteredUpazilas.map((upazila) => (
+              <option value={upazila.id} key={upazila.id}>
+                {upazila.name}
               </option>
             ))}
           </select>
@@ -189,6 +206,7 @@ const CreateRequest = () => {
             className="select select-bordered w-full"
           >
             <option value="">Select</option>
+
             {["A+", "A-", "B+", "B-", "AB+", "AB-", "O+", "O-"].map((bg) => (
               <option key={bg} value={bg}>
                 {bg}

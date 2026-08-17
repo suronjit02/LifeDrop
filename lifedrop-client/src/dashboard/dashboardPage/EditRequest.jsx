@@ -27,12 +27,20 @@ const EditRequest = () => {
   useEffect(() => {
     fetch("/upazila.json")
       .then((res) => res.json())
-      .then((data) => setUpazilas(data.upazilas));
+      .then((data) => setUpazilas(data));
 
     fetch("/district.json")
       .then((res) => res.json())
-      .then((data) => setDistricts(data.districts));
+      .then((data) => setDistricts(data));
   }, []);
+
+  const selectedDistrict = districts.find(
+    (d) => d.name === formData.recipientDistrict,
+  );
+
+  const filteredUpazilas = selectedDistrict
+    ? upazilas.filter((u) => u.district_id === selectedDistrict.id)
+    : [];
 
   useEffect(() => {
     axiosSecure
@@ -50,6 +58,7 @@ const EditRequest = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+
     try {
       const updateData = {
         recipientName: formData.recipientName,
@@ -78,35 +87,79 @@ const EditRequest = () => {
   if (loading) return <Loader />;
 
   return (
-    <div className="p-4 md:p-6 border border-[#05b4cd] rounded-md">
-      <h2 className="text-xl md:text-2xl text-[#05b4cd] font-bold mb-4">
-        Edit Donation Request
-      </h2>
-      <form onSubmit={handleSubmit} className="space-y-4">
-        <input
-          type="text"
-          name="recipientName"
-          value={formData.recipientName}
-          onChange={handleChange}
-          placeholder="Recipient Name"
-          className="input input-bordered w-full"
-          required
-        />
-        <div className="flex gap-2">
-          <select
+    <div className="max-w-4xl mx-auto p-6 border border-[#05b4cd] rounded-md shadow-md">
+      {/* Header */}
+      <div className="flex flex-col md:flex-row items-center justify-between mb-6">
+        <h2 className="text-lg md:text-2xl font-bold">Edit Donation Request</h2>
+
+        <img className="h-10" src="/lifedrop.png" alt="LifeDrop" />
+      </div>
+
+      {/* Form */}
+      <form
+        onSubmit={handleSubmit}
+        className="grid grid-cols-1 md:grid-cols-2 gap-4"
+      >
+        {/* Recipient Name */}
+        <div>
+          <label className="label">Recipient Name</label>
+
+          <input
+            type="text"
+            name="recipientName"
+            value={formData.recipientName}
             onChange={handleChange}
+            placeholder="Recipient Name"
+            className="input input-bordered w-full"
+            required
+          />
+        </div>
+
+        {/* Hospital Name */}
+        <div>
+          <label className="label">Hospital Name</label>
+
+          <input
+            type="text"
+            name="hospitalName"
+            value={formData.hospitalName}
+            onChange={handleChange}
+            placeholder="Hospital Name"
+            className="input input-bordered w-full"
+            required
+          />
+        </div>
+
+        {/* District */}
+        <div>
+          <label className="font-semibold">District</label>
+
+          <select
+            onChange={(e) => {
+              setFormData((prev) => ({
+                ...prev,
+                recipientDistrict: e.target.value,
+                recipientUpazila: "",
+              }));
+            }}
             value={formData.recipientDistrict}
             name="recipientDistrict"
             className="select w-full"
             required
           >
             <option value="">Choose Your District</option>
+
             {districts.map((d) => (
               <option key={d.id} value={d.name}>
                 {d.name}
               </option>
             ))}
           </select>
+        </div>
+
+        {/* Upazila */}
+        <div>
+          <label className="font-semibold">Upazila</label>
 
           <select
             onChange={handleChange}
@@ -114,9 +167,11 @@ const EditRequest = () => {
             name="recipientUpazila"
             className="select w-full"
             required
+            disabled={!formData.recipientDistrict}
           >
             <option value="">Choose Your Upazila</option>
-            {upazilas.map((u) => (
+
+            {filteredUpazilas.map((u) => (
               <option key={u.id} value={u.name}>
                 {u.name}
               </option>
@@ -124,43 +179,46 @@ const EditRequest = () => {
           </select>
         </div>
 
-        <input
-          type="text"
-          name="hospitalName"
-          value={formData.hospitalName}
-          onChange={handleChange}
-          placeholder="Hospital Name"
-          className="input input-bordered w-full"
-          required
-        />
-        <input
-          type="text"
-          name="fullAddress"
-          value={formData.fullAddress}
-          onChange={handleChange}
-          placeholder="Full Address"
-          className="input input-bordered w-full"
-          required
-        />
-        <select
-          name="bloodGroup"
-          value={formData.bloodGroup}
-          onChange={handleChange}
-          className="input input-bordered w-full"
-          required
-        >
-          <option value="">Select Blood Group</option>
-          <option value="A+">A+</option>
-          <option value="A-">A-</option>
-          <option value="B+">B+</option>
-          <option value="B-">B-</option>
-          <option value="AB+">AB+</option>
-          <option value="AB-">AB-</option>
-          <option value="O+">O+</option>
-          <option value="O-">O-</option>
-        </select>
+        {/* Full Address */}
+        <div>
+          <label className="label">Full Address</label>
 
-        <div className="flex gap-2">
+          <input
+            type="text"
+            name="fullAddress"
+            value={formData.fullAddress}
+            onChange={handleChange}
+            placeholder="Full Address"
+            className="input input-bordered w-full"
+            required
+          />
+        </div>
+
+        {/* Blood Group */}
+        <div>
+          <label className="label">Blood Group</label>
+
+          <select
+            name="bloodGroup"
+            value={formData.bloodGroup}
+            onChange={handleChange}
+            className="select select-bordered w-full"
+            required
+          >
+            <option value="">Select</option>
+
+            {["A+", "A-", "B+", "B-", "AB+", "AB-", "O+", "O-"].map((bg) => (
+              <option key={bg} value={bg}>
+                {bg}
+              </option>
+            ))}
+          </select>
+        </div>
+
+        {/* Donation Date */}
+        <div>
+          <label className="label">Donation Date</label>
+
           <input
             type="date"
             name="donationDate"
@@ -169,6 +227,12 @@ const EditRequest = () => {
             className="input input-bordered w-full"
             required
           />
+        </div>
+
+        {/* Donation Time */}
+        <div>
+          <label className="label">Donation Time</label>
+
           <input
             type="time"
             name="donationTime"
@@ -179,17 +243,30 @@ const EditRequest = () => {
           />
         </div>
 
-        <textarea
-          name="requestMessage"
-          value={formData.requestMessage}
-          onChange={handleChange}
-          placeholder="Request Message"
-          className="textarea textarea-bordered w-full"
-          required
-        />
-        <button type="submit" className="btn bg-[#05b4cd] text-white w-full">
-          Update Request
-        </button>
+        {/* Request Message */}
+        <div className="md:col-span-2">
+          <label className="label">Request Message</label>
+
+          <textarea
+            name="requestMessage"
+            value={formData.requestMessage}
+            onChange={handleChange}
+            placeholder="Request Message"
+            className="textarea textarea-bordered w-full"
+            rows="4"
+            required
+          ></textarea>
+        </div>
+
+        {/* Submit */}
+        <div className="md:col-span-2 text-right">
+          <button
+            type="submit"
+            className="btn bg-[#05b4cd] hover:bg-[#049caf] border-none text-white"
+          >
+            Update Request
+          </button>
+        </div>
       </form>
     </div>
   );

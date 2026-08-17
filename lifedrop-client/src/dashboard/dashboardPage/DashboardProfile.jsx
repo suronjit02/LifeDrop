@@ -7,7 +7,7 @@ import useAxiosSecure from "../../hooks/useAxiosSecure";
 import { toast } from "react-toastify";
 
 const DashboardProfile = () => {
-  const { user } = useContext(AuthContext);
+  const { user, updateUserProfile } = useContext(AuthContext);
   const axiosSecure = useAxiosSecure();
 
   const [userData, setUserData] = useState(null);
@@ -36,6 +36,8 @@ const DashboardProfile = () => {
     }
   }, [user, axiosSecure]);
   // console.log(userData);
+
+  // loader
   if (!userData) return <Loader />;
 
   const handleChange = (e) => {
@@ -46,7 +48,13 @@ const DashboardProfile = () => {
     try {
       const { _id, ...data } = formData;
       // console.log(data);
+
+      // MongoDB update
       const res = await axiosSecure.patch("/update/profile", data);
+
+      // Firebase update
+      await updateUserProfile(formData.name);
+
       // console.log(res.data);
       setUserData(res.data);
       setFormData(res.data);

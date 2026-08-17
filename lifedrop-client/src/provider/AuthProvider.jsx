@@ -58,6 +58,21 @@ const AuthProvider = ({ children }) => {
     return signOut(auth).finally(() => setLoading(false));
   };
 
+  // firebase displayName update
+  const updateUserProfile = async (name) => {
+    if (!auth.currentUser) return;
+
+    await updateProfile(auth.currentUser, {
+      displayName: name,
+    });
+
+    await auth.currentUser.reload();
+
+    setUser(auth.currentUser);
+
+    // console.log("Firebase updated name:", auth.currentUser.displayName);
+  };
+
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, async (currentUser) => {
       setUser(currentUser);
@@ -98,6 +113,7 @@ const AuthProvider = ({ children }) => {
         role,
         userStatus,
         error,
+        updateUserProfile,
       }}
     >
       {children}
