@@ -24,8 +24,13 @@ router.get("/users/role/:email", async (req, res) => {
   const userCollections = getDB().collection("users");
   const { email } = req.params;
 
+  console.log("Requested email:", email);
+
   const query = { email: email };
   const result = await userCollections.findOne(query);
+
+  console.log("Found user:", result);
+
   res.send(result);
 });
 
