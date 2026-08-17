@@ -30,6 +30,15 @@ const Register = () => {
   // console.log(districts);
   // console.log(upazila);
 
+  const filteredUpazilas = district
+    ? upazilas.filter((u) => u.district_id === district)
+    : [];
+
+  const handleDistrictChange = (e) => {
+    setDistrict(e.target.value);
+    setUpazila("");
+  };
+
   const handleSignUp = async (event) => {
     event.preventDefault();
     const name = event.target.name.value;
@@ -39,9 +48,7 @@ const Register = () => {
     const confirmPassword = event.target.confirmPassword.value;
     const photoUrl = event.target.photoUrl;
     const file = photoUrl.files[0];
-
     // console.log(blood);
-
     const passwordRegex = /^(?=.*[a-z])(?=.*[A-Z]).{6,}$/;
 
     if (!passwordRegex.test(password)) {
@@ -68,18 +75,19 @@ const Register = () => {
     );
     const mainPhotoUrl = res.data.data.display_url;
 
+    const districtName = districts.find((d) => d.id === district)?.name;
+    const upazilaName = filteredUpazilas.find((u) => u.id === upazila)?.name;
+
     const formData = {
       name,
       email,
       password,
       mainPhotoUrl,
       blood,
-      district,
-      upazila,
+      district: districtName,
+      upazila: upazilaName,
     };
-
     // console.log(formData);
-
     if (res.data.success == true) {
       createUser(email, password, name, mainPhotoUrl)
         .then(() => {
@@ -159,16 +167,18 @@ const Register = () => {
             <div>
               <label className="font-semibold">District</label>
               <select
-                onChange={(e) => setDistrict(e.target.value)}
+                onChange={handleDistrictChange}
                 required
                 name="district"
-                defaultValue="Chose Your District"
+                value={district}
                 className="select w-full"
               >
-                <option disabled={true}>Chose Your District</option>
-                {districts.map((district) => (
-                  <option value={district.name} key={district.id}>
-                    {district?.name}
+                <option value="" disabled>
+                  Chose Your District
+                </option>
+                {districts.map((d) => (
+                  <option value={d.id} key={d.id}>
+                    {d.name}
                   </option>
                 ))}
               </select>
@@ -180,14 +190,17 @@ const Register = () => {
                 onChange={(e) => setUpazila(e.target.value)}
                 required
                 name="upazila"
-                defaultValue="Chose Your Upazila"
+                value={upazila}
+                disabled={!district}
                 className="select w-full"
               >
-                <option disabled={true}>Chose Your Upazila</option>
+                <option value="" disabled>
+                  Chose Your Upazila
+                </option>
 
-                {upazilas.map((upazila) => (
-                  <option value={upazila.name} key={upazila.id}>
-                    {upazila?.name}
+                {filteredUpazilas.map((u) => (
+                  <option value={u.id} key={u.id}>
+                    {u.name}
                   </option>
                 ))}
               </select>
@@ -204,7 +217,6 @@ const Register = () => {
               className="input input-bordered focus:outline-none w-full"
             />
           </div>
-
           {/* password field */}
           <div className="flex gap-4">
             <div className="flex flex-col">
