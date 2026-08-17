@@ -16,16 +16,13 @@ const CreateRequest = () => {
 
   useEffect(() => {
     axios.get("/upazila.json").then((res) => {
-      setUpazilas(res.data.upazilas);
+      setUpazilas(res.data);
     });
 
     axios.get("/district.json").then((res) => {
-      setDistricts(res.data.districts);
+      setDistricts(res.data);
     });
   }, []);
-
-  console.log(upazila);
-  console.log(district);
 
   const handleSubmit = async (event) => {
     event.preventDefault();
@@ -77,7 +74,7 @@ const CreateRequest = () => {
     console.log(formData);
   };
 
-  console.log(user);
+  // console.log(user);
 
   return (
     <div className="max-w-4xl mx-auto p-6 border border-[#05b4cd] rounded-md shadow-md">

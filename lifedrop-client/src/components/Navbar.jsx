@@ -46,9 +46,11 @@ const Navbar = () => {
                 <li>
                   <NavLink to={"/"}>Home</NavLink>
                 </li>
-                <li>
-                  <Link to={"/dashboard"}>Dashboard</Link>
-                </li>
+                {user && (
+                  <li>
+                    <Link to={"/dashboard"}>Dashboard</Link>
+                  </li>
+                )}
 
                 <li>
                   <NavLink to={"/donation-requests"}>Donation Requests</NavLink>
@@ -56,15 +58,17 @@ const Navbar = () => {
                 <li>
                   <NavLink to={"/search-donors"}>Search Donors</NavLink>
                 </li>
-                <li>
-                  <NavLink to={"/donate"}>Donate</NavLink>
-                </li>
+                {user && (
+                  <li>
+                    <NavLink to={"/donate"}>Donate</NavLink>
+                  </li>
+                )}
                 <li>
                   <NavLink to={"/about"}>About</NavLink>
                 </li>
 
                 <li>
-                  <div className="dropdown dropdown-right">
+                  <div className="dropdown dropdown-down">
                     <div tabIndex={0} role="button" className=" m-1">
                       Others
                     </div>
@@ -113,9 +117,11 @@ const Navbar = () => {
               <NavLink to={"/search-donors"}>Search Donors</NavLink>
             </li>
 
-            <li>
-              <NavLink to={"/donate"}>Donate</NavLink>
-            </li>
+            {user && (
+              <li>
+                <NavLink to={"/donate"}>Donate</NavLink>
+              </li>
+            )}
             <li>
               <NavLink to={"/about"}>About</NavLink>
             </li>
