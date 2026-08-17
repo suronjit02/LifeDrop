@@ -6,8 +6,10 @@ import { AuthContext } from "../provider/AuthProvider";
 
 const Register = () => {
   const { createUser } = useContext(AuthContext);
+
   const navigate = useNavigate();
   const location = useLocation();
+
   const [error, setError] = useState("");
   const [showPass, setShowPass] = useState(false);
   const [showConfirmPass, setConfirmPass] = useState(false);
@@ -17,18 +19,26 @@ const Register = () => {
   const [district, setDistrict] = useState("");
   const [upazila, setUpazila] = useState("");
 
+  // Load district and upazila data
   useEffect(() => {
-    axios.get("/upazila.json").then((res) => {
-      setUpazilas(res.data);
-    });
+    axios
+      .get("/upazila.json")
+      .then((res) => {
+        setUpazilas(res.data);
+      })
+      .catch((err) => {
+        console.error("Upazila fetch error:", err);
+      });
 
-    axios.get("/district.json").then((res) => {
-      setDistricts(res.data);
-    });
+    axios
+      .get("/district.json")
+      .then((res) => {
+        setDistricts(res.data);
+      })
+      .catch((err) => {
+        console.error("District fetch error:", err);
+      });
   }, []);
-
-  // console.log(districts);
-  // console.log(upazila);
 
   const filteredUpazilas = district
     ? upazilas.filter((u) => u.district_id === district)
@@ -41,14 +51,27 @@ const Register = () => {
 
   const handleSignUp = async (event) => {
     event.preventDefault();
-    const name = event.target.name.value;
-    const blood = event.target.blood.value;
-    const email = event.target.email.value;
-    const password = event.target.password.value;
-    const confirmPassword = event.target.confirmPassword.value;
-    const photoUrl = event.target.photoUrl;
-    const file = photoUrl.files[0];
-    // console.log(blood);
+    setError("");
+
+    const form = event.target;
+
+    const name = form.name.value;
+    const blood = form.blood.value;
+    const email = form.email.value;
+    const password = form.password.value;
+    const confirmPassword = form.confirmPassword.value;
+
+    const file = form.photoUrl.files[0];
+
+    // =========================
+    // Validation
+    // =========================
+
+    if (!file) {
+      setError("Please select a profile photo.");
+      return;
+    }
+
     const passwordRegex = /^(?=.*[a-z])(?=.*[A-Z]).{6,}$/;
 
     if (!passwordRegex.test(password)) {
@@ -63,48 +86,88 @@ const Register = () => {
       return;
     }
 
-    const res = await axios.post(
-      `https://api.imgbb.com/1/upload?expiration=600&key=96c9ca8c8f54ca0770ab6f539a3b5d5a`,
-      { image: file },
+    try {
+      // =========================
+      // 1. Upload image to ImgBB
+      // =========================
 
-      {
-        headers: {
-          "Content-Type": "multipart/form-data",
-        },
-      },
-    );
-    const mainPhotoUrl = res.data.data.display_url;
+      const imageFormData = new FormData();
 
-    const districtName = districts.find((d) => d.id === district)?.name;
-    const upazilaName = filteredUpazilas.find((u) => u.id === upazila)?.name;
+      imageFormData.append("image", file);
 
-    const formData = {
-      name,
-      email,
-      password,
-      mainPhotoUrl,
-      blood,
-      district: districtName,
-      upazila: upazilaName,
-    };
-    // console.log(formData);
-    if (res.data.success == true) {
-      createUser(email, password, name, mainPhotoUrl)
-        .then(() => {
-          axios
-            .post(`${import.meta.env.VITE_API_URL}/users`, formData)
-            .then((res) => {
-              console.log(res.data);
-            })
-            .catch((err) => {
-              console.log(err);
-            });
+      const imageResponse = await axios.post(
+        `https://api.imgbb.com/1/upload?expiration=600&key=96c9ca8c8f54ca0770ab6f539a3b5d5a`,
+        imageFormData,
+      );
 
-          navigate(location.state?.from || "/");
-        })
-        .catch((error) => {
-          setError(error.code);
-        });
+      console.log("ImgBB response:", imageResponse.data);
+
+      const mainPhotoUrl = imageResponse.data.data.display_url;
+
+      // =========================
+      // 2. Get district & upazila name
+      // =========================
+
+      const districtName = districts.find((d) => d.id === district)?.name;
+
+      const upazilaName = filteredUpazilas.find((u) => u.id === upazila)?.name;
+
+      // =========================
+      // 3. Prepare MongoDB data
+      // =========================
+
+      const userData = {
+        name,
+        email,
+        password,
+        mainPhotoUrl,
+        blood,
+        district: districtName,
+        upazila: upazilaName,
+      };
+
+      console.log("User data:", userData);
+
+      // =========================
+      // 4. Create Firebase user
+      // =========================
+
+      const firebaseResponse = await createUser(
+        email,
+        password,
+        name,
+        mainPhotoUrl,
+      );
+
+      console.log("Firebase user created:", firebaseResponse.user);
+
+      // =========================
+      // 5. Save user to MongoDB
+      // =========================
+
+      const mongoResponse = await axios.post(
+        `${import.meta.env.VITE_API_URL}/users`,
+        userData,
+      );
+
+      console.log("MongoDB response:", mongoResponse.data);
+
+      // =========================
+      // 6. Navigate
+      // =========================
+
+      navigate(location.state?.from || "/");
+    } catch (err) {
+      console.error("Registration error:", err);
+
+      // Firebase error
+      if (err.code?.startsWith("auth/")) {
+        setError(err.code);
+      } else if (err.response?.data?.error) {
+        setError(err.response.data.error);
+      } else {
+        setError(err.message || "Registration failed");
+      }
     }
   };
 
@@ -113,8 +176,9 @@ const Register = () => {
       <aside className="hidden md:block">
         <img className="h-100" src="/donate.png" alt="" />
       </aside>
+
       <form onSubmit={handleSignUp} className="w-full sm:max-w-lg p-6 sm:p-8">
-        <h2 className="text-2xl sm:text-2xl font-semibold text-center text-[#05b4cd] mb-2 border p-1 ">
+        <h2 className="text-2xl sm:text-2xl font-semibold text-center text-[#05b4cd] mb-2 border p-1">
           Join For Humanity
         </h2>
 
@@ -123,8 +187,10 @@ const Register = () => {
         </figure>
 
         <div className="flex flex-col gap-4">
+          {/* Name */}
           <div className="flex flex-col">
             <label className="font-semibold mb-1">Name</label>
+
             <input
               required
               type="text"
@@ -134,24 +200,33 @@ const Register = () => {
             />
           </div>
 
+          {/* Photo */}
           <div className="flex flex-col">
             <label className="font-semibold mb-1">Choose Photo</label>
+
             <input
+              required
               type="file"
               name="photoUrl"
+              accept="image/*"
               className="file-input file-input-bordered w-full cursor-pointer focus:outline-none focus:ring-0 active:outline-none"
             />
           </div>
 
+          {/* Blood Group */}
           <div>
             <label className="font-semibold">Blood Group</label>
+
             <select
               required
               name="blood"
-              defaultValue="Chose Blood Group"
+              defaultValue=""
               className="select w-full font-semibold"
             >
-              <option disabled>Chose Blood Group</option>
+              <option value="" disabled>
+                Choose Blood Group
+              </option>
+
               <option value="A+">A+</option>
               <option value="A-">A-</option>
               <option value="B+">B+</option>
@@ -163,9 +238,12 @@ const Register = () => {
             </select>
           </div>
 
+          {/* District & Upazila */}
           <div className="flex gap-4">
-            <div>
+            {/* District */}
+            <div className="w-1/2">
               <label className="font-semibold">District</label>
+
               <select
                 onChange={handleDistrictChange}
                 required
@@ -174,8 +252,9 @@ const Register = () => {
                 className="select w-full"
               >
                 <option value="" disabled>
-                  Chose Your District
+                  Choose Your District
                 </option>
+
                 {districts.map((d) => (
                   <option value={d.id} key={d.id}>
                     {d.name}
@@ -184,8 +263,10 @@ const Register = () => {
               </select>
             </div>
 
-            <div>
+            {/* Upazila */}
+            <div className="w-1/2">
               <label className="font-semibold">Upazila</label>
+
               <select
                 onChange={(e) => setUpazila(e.target.value)}
                 required
@@ -195,7 +276,7 @@ const Register = () => {
                 className="select w-full"
               >
                 <option value="" disabled>
-                  Chose Your Upazila
+                  Choose Your Upazila
                 </option>
 
                 {filteredUpazilas.map((u) => (
@@ -207,8 +288,10 @@ const Register = () => {
             </div>
           </div>
 
+          {/* Email */}
           <div className="flex flex-col">
             <label className="font-semibold mb-1">Email</label>
+
             <input
               required
               type="email"
@@ -217,10 +300,13 @@ const Register = () => {
               className="input input-bordered focus:outline-none w-full"
             />
           </div>
-          {/* password field */}
+
+          {/* Password */}
           <div className="flex gap-4">
-            <div className="flex flex-col">
+            {/* Password */}
+            <div className="flex flex-col w-1/2">
               <label className="font-semibold mb-1">Password</label>
+
               <div className="relative">
                 <input
                   required
@@ -230,6 +316,7 @@ const Register = () => {
                   className="input input-bordered focus:outline-none w-full pr-10"
                   onChange={() => setError("")}
                 />
+
                 <span
                   onClick={() => setShowPass(!showPass)}
                   className="absolute right-3 top-1/2 -translate-y-1/2 cursor-pointer text-gray-500 z-50"
@@ -239,8 +326,10 @@ const Register = () => {
               </div>
             </div>
 
-            <div className="flex flex-col">
+            {/* Confirm Password */}
+            <div className="flex flex-col w-1/2">
               <label className="font-semibold mb-1">Confirm Password</label>
+
               <div className="relative">
                 <input
                   required
@@ -250,6 +339,7 @@ const Register = () => {
                   className="input input-bordered focus:outline-none w-full pr-10"
                   onChange={() => setError("")}
                 />
+
                 <span
                   onClick={() => setConfirmPass(!showConfirmPass)}
                   className="absolute right-3 top-1/2 -translate-y-1/2 cursor-pointer text-gray-500 z-50"
@@ -261,16 +351,19 @@ const Register = () => {
           </div>
         </div>
 
+        {/* Error */}
         {error && <p className="text-red-600 text-sm mt-2">{error}</p>}
 
+        {/* Submit */}
         <button className="btn border-none mt-6 w-full bg-[#05b4cd] text-white transition">
           Sign Up
         </button>
 
+        {/* Login */}
         <p className="mt-6 sm:mt-10 text-center text-sm">
           Already have a membership?{" "}
           <Link
-            to={"/login"}
+            to="/login"
             className="hover:underline text-[#05b4cd] font-bold"
           >
             Log in

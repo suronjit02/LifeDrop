@@ -16,10 +16,23 @@ const DashboardProfile = () => {
 
   useEffect(() => {
     if (user?.email) {
-      axiosSecure.get(`/users/role/${user.email}`).then((res) => {
-        setUserData(res.data);
-        setFormData(res.data);
-      });
+      // console.log("User:", user);
+      // console.log("Email:", user.email);
+
+      axiosSecure
+        .get(`/users/role/${user.email}`)
+        .then((res) => {
+          // console.log("Response:", res);
+          // console.log("Status:", res.status);
+          // console.log("Data:", res.data);
+          // console.log("Data type:", typeof res.data);
+
+          setUserData(res.data);
+          setFormData(res.data);
+        })
+        .catch((err) => {
+          console.error("Profile fetch error:", err);
+        });
     }
   }, [user, axiosSecure]);
   // console.log(userData);
