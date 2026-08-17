@@ -55,7 +55,7 @@ const Login = () => {
 
         {/* Demo User Login  */}
         <Link
-          to="#"
+          to="/"
           onClick={handleDemoLogin}
           className="text-center flex justify-center border border-[#05b4cd] text-sm font-semibold p-1 rounded-sm hover:border-[#c6414c]"
         >
