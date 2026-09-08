@@ -94,7 +94,7 @@ const Aside = ({ isOpen, setOpen }) => {
                     alt="profile"
                     className="h-12 rounded-full object-cover cursor-pointer border"
                   />
-                  <h3 className="capitalize font-bold ">{role}</h3>
+                  {/* <h3 className="capitalize font-bold ">{role}</h3> */}
                 </div>
               ) : (
                 <FaUserCircle className="text-4xl" />
