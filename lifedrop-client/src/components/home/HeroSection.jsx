@@ -1,7 +1,10 @@
-import React from "react";
+import React, { useContext } from "react";
 import { Link } from "react-router";
+import { AuthContext } from "../../provider/AuthProvider";
 
 const HeroSection = () => {
+  const { user } = useContext(AuthContext);
+  // console.log(user);
   return (
     <section className="relative w-full h-[90vh]">
       <img
@@ -19,12 +22,14 @@ const HeroSection = () => {
         </p>
 
         <div className="flex gap-2 sm:gap-4">
-          <Link
-            to={"/register"}
-            className="btn bg-[#c6414c] hover:bg-white hover:border hover:border-[#c6414c]  text-white hover:text-[#c6414c] sm:px-6 transition-all duration-500 ease-in-out"
-          >
-            Join as a Donor
-          </Link>
+          {!user && (
+            <Link
+              to={"/register"}
+              className="btn bg-[#c6414c] hover:bg-white hover:border hover:border-[#c6414c]  text-white hover:text-[#c6414c] sm:px-6 transition-all duration-500 ease-in-out"
+            >
+              Join as a Donor
+            </Link>
+          )}
           <Link
             to={"/search-donors"}
             className="btn bg-[#c6414c] hover:bg-white hover:border hover:border-[#c6414c]  text-white hover:text-[#c6414c] sm:px-6 transition-all duration-500 ease-in-out"

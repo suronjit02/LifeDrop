@@ -92,7 +92,7 @@ const Aside = ({ isOpen, setOpen }) => {
                   <img
                     src={user.photoURL}
                     alt="profile"
-                    className="h-12 rounded-full object-cover cursor-pointer border"
+                    className="h-12 w-12 rounded-full object-cover cursor-pointer border"
                   />
                   {/* <h3 className="capitalize font-bold ">{role}</h3> */}
                 </div>

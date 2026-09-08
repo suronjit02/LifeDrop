@@ -87,16 +87,14 @@ const Register = () => {
     }
 
     try {
-      // =========================
       // 1. Upload image to ImgBB
-      // =========================
 
       const imageFormData = new FormData();
 
       imageFormData.append("image", file);
 
       const imageResponse = await axios.post(
-        `https://api.imgbb.com/1/upload?expiration=600&key=96c9ca8c8f54ca0770ab6f539a3b5d5a`,
+        `https://api.imgbb.com/1/upload?expiration=600&key=${import.meta.env.VITE_Imgbb_ApiKey}`,
         imageFormData,
       );
 
@@ -104,17 +102,13 @@ const Register = () => {
 
       const mainPhotoUrl = imageResponse.data.data.display_url;
 
-      // =========================
       // 2. Get district & upazila name
-      // =========================
 
       const districtName = districts.find((d) => d.id === district)?.name;
 
       const upazilaName = filteredUpazilas.find((u) => u.id === upazila)?.name;
 
-      // =========================
       // 3. Prepare MongoDB data
-      // =========================
 
       const userData = {
         name,
