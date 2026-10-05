@@ -3,6 +3,7 @@ import { FaUsers } from "react-icons/fa";
 import { BiSolidDonateBlood } from "react-icons/bi";
 import { GiEternalLove } from "react-icons/gi";
 import { FaLocationDot } from "react-icons/fa6";
+import { motion } from "framer-motion";
 
 const STATS = [
   {
@@ -96,25 +97,55 @@ const LiveStats = () => {
 
   return (
     <section ref={sectionRef} className="py-16 px-4 text-center bg-slate-50">
-      <p className="text-xs font-medium tracking-widest uppercase text-primary mb-2">
+      <motion.p
+        className="text-xs font-medium tracking-widest uppercase text-primary mb-2"
+        initial={{ opacity: 0, y: 20 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        viewport={{ once: true, amount: 0.5 }}
+        transition={{ duration: 0.5 }}
+      >
         Live impact
-      </p>
-      <h2 className="text-2xl font-semibold text-gray-900 mb-2">
+      </motion.p>
+      <motion.h2
+        className="text-2xl font-semibold text-gray-900 mb-2"
+        initial={{ opacity: 0, y: 20 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        viewport={{ once: true, amount: 0.5 }}
+        transition={{ duration: 0.5, delay: 0.1 }}
+      >
         Every drop counts
-      </h2>
-      <p className="text-sm text-gray-500 mb-10">
+      </motion.h2>
+      <motion.p
+        className="text-sm text-gray-500 mb-10"
+        initial={{ opacity: 0, y: 20 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        viewport={{ once: true, amount: 0.5 }}
+        transition={{ duration: 0.5, delay: 0.2 }}
+      >
         Real-time numbers from the LifeDrop network
-      </p>
+      </motion.p>
 
       {/* Stats grid */}
-      <div className="grid grid-cols-2 md:grid-cols-4 border border-gray-200 rounded-2xl overflow-hidden divide-x divide-y divide-gray-200 max-w-2xl mx-auto mb-10">
+      <motion.div
+        className="grid grid-cols-2 md:grid-cols-4 border border-gray-200 rounded-2xl overflow-hidden divide-x divide-y divide-gray-200 max-w-2xl mx-auto mb-10"
+        initial={{ opacity: 0, scale: 0.95 }}
+        whileInView={{ opacity: 1, scale: 1 }}
+        viewport={{ once: true, amount: 0.3 }}
+        transition={{ duration: 0.6, delay: 0.2 }}
+      >
         {STATS.map((s) => (
           <StatCard key={s.id} {...s} animate={animate} />
         ))}
-      </div>
+      </motion.div>
 
       {/* Blood group availability */}
-      <div className="flex flex-wrap justify-center gap-2 max-w-lg mx-auto">
+      <motion.div
+        className="flex flex-wrap justify-center gap-2 max-w-lg mx-auto"
+        initial={{ opacity: 0, y: 20 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        viewport={{ once: true, amount: 0.3 }}
+        transition={{ duration: 0.5, delay: 0.3 }}
+      >
         {BLOOD_GROUPS.map(({ group, status }) => (
           <div
             key={group}
@@ -124,7 +155,7 @@ const LiveStats = () => {
             {group}
           </div>
         ))}
-      </div>
+      </motion.div>
 
       {/* Legend */}
       <div className="flex items-center justify-center gap-5 mt-3 text-xs text-gray-400">

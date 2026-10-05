@@ -1,5 +1,6 @@
 import React from "react";
 import { BiDonateBlood } from "react-icons/bi";
+import { motion } from "framer-motion";
 
 const stories = [
   {
@@ -23,7 +24,7 @@ const stories = [
     name: "Sabbir Hossain",
     blood: "B+",
     story:
-      "Blood donation should be easy for everyone. I’m glad to be part of a community that truly cares about lives.",
+      "Blood donation should be easy for everyone. I'm glad to be part of a community that truly cares about lives.",
     date: "January 2025",
   },
 ];
@@ -31,19 +32,29 @@ const stories = [
 const RecentDonationStories = () => {
   return (
     <section className="primary w-full mx-auto py-20 ">
-      <h2 className="text-3xl font-bold text-center mb-10 text-white">
+      <motion.h2
+        className="text-3xl font-bold text-center mb-10 text-white"
+        initial={{ opacity: 0, y: 30 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        viewport={{ once: true, amount: 0.5 }}
+        transition={{ duration: 0.6 }}
+      >
         Our Recent Donation Stories
-      </h2>
+      </motion.h2>
 
       <div className="grid gap-4 grid-cols-1 md:grid-cols-3  max-w-7xl mx-auto px-2 sm:px-5">
-        {stories.map((item) => (
-          <div
+        {stories.map((item, i) => (
+          <motion.div
             key={item.id}
             className="bg-white shadow-md rounded-md p-6 hover:shadow-lg transition-transform duration-300 hover:-translate-y-3"
+            initial={{ opacity: 0, y: 50 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, amount: 0.2 }}
+            transition={{ duration: 0.5, delay: i * 0.15 }}
           >
             <div className="text-center">
               <BiDonateBlood className="text-5xl mx-auto mb-5 text-primary" />
-              <p className="italic text-gray-700 mb-4">“{item.story}”</p>
+              <p className="italic text-gray-700 mb-4">"{item.story}"</p>
             </div>
 
             <div className="mt-4">
@@ -53,7 +64,7 @@ const RecentDonationStories = () => {
               </p>
               <p className="text-sm text-gray-400">{item.date}</p>
             </div>
-          </div>
+          </motion.div>
         ))}
       </div>
     </section>
