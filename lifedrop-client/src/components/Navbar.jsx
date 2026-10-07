@@ -152,7 +152,7 @@ const Navbar = () => {
           ) : (
             <Link
               to={"/login"}
-              className="loginLogoutBtn btn primary text-white"
+              className="loginLogoutBtn btn bg-primary text-white"
             >
               Login
             </Link>

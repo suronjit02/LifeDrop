@@ -75,7 +75,7 @@ const Footer = () => {
           <h6 className="footer-title">Work Hours</h6>
           <p className="">24 Hour 7 Days</p>
           <p className="text-xl font-semibold">Need For Help? Call Us</p>
-          <Link className="btn primary text-white gap-2">
+          <Link className="btn bg-primary text-white gap-2">
             <FaPhoneAlt /> Contact Us
           </Link>
         </div>

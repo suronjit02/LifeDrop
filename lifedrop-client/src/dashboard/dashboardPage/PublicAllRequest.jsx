@@ -57,7 +57,7 @@ const PublicAllRequest = () => {
   return (
     <div className="min-h-screen bg-gray-50">
       {/* Hero Banner */}
-      <div className="primary py-14 px-4 text-center">
+      <div className="bg-primary py-14 px-4 text-center">
         <motion.div
           initial={{ opacity: 0, y: -20 }}
           animate={{ opacity: 1, y: 0 }}
@@ -132,7 +132,7 @@ const PublicAllRequest = () => {
                   whileHover={{ y: -4 }}
                 >
                   {/* Top accent bar */}
-                  <div className="primary h-1.5 w-full flex-shrink-0" />
+                  <div className="bg-primary h-1.5 w-full flex-shrink-0" />
 
                   <div className="p-5 flex flex-col flex-1">
                     {/* Recipient + Blood Group */}

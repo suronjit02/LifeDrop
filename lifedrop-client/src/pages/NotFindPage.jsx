@@ -12,7 +12,7 @@ const NotFindPage = () => {
           The page you looking for <br />
           dose not exist.
         </p>
-        <Link to={"/"} className="btn text-primary bg-white border-[#c6414c]">
+        <Link to={"/"} className="btn text-primary bg-white border-primary">
           {" "}
           Back Home
         </Link>

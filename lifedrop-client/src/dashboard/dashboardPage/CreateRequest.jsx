@@ -246,7 +246,7 @@ const CreateRequest = () => {
         </div>
 
         <div className="md:col-span-2 text-right">
-          <button type="submit" className="btn primary text-white">
+          <button type="submit" className="btn bg-primary text-white">
             Request Donation
           </button>
         </div>

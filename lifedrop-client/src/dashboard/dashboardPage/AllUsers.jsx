@@ -44,7 +44,7 @@ const AllUsers = () => {
       <div className="overflow-x-auto md:overflow-hidden rounded-md border border-[#05b4cd]">
         <table className="table w-full ">
           <thead>
-            <tr className="bg-[#05b4cd] text-white ">
+            <tr className="bg-secondary text-white ">
               <th>#</th>
               <th>User</th>
 

@@ -92,7 +92,7 @@ const SearchPage = () => {
   return (
     <div className="min-h-screen bg-gray-50">
       {/* Hero Banner */}
-      <div className="primary py-14 px-4 text-center">
+      <div className="bg-primary py-14 px-4 text-center">
         <motion.div
           initial={{ opacity: 0, y: -20 }}
           animate={{ opacity: 1, y: 0 }}
@@ -263,7 +263,9 @@ const SearchPage = () => {
           <>
             <div className="flex items-center justify-between mb-6">
               <h3 className="text-lg font-semibold text-gray-700">
-                <span className="text-[#c6414c] font-bold">{donors.length}</span>{" "}
+                <span className="text-[#c6414c] font-bold">
+                  {donors.length}
+                </span>{" "}
                 {donors.length === 1 ? "donor" : "donors"} found
               </h3>
             </div>
@@ -280,7 +282,7 @@ const SearchPage = () => {
                     whileHover={{ y: -4 }}
                   >
                     {/* Card Top Bar */}
-                    <div className="primary h-1.5 w-full" />
+                    <div className="bg-primary h-1.5 w-full" />
 
                     <div className="p-5">
                       {/* Avatar + Name */}

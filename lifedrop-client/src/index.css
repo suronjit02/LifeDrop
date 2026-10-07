@@ -5,8 +5,15 @@
   themes: light --default;
 }
 
-/* font */
+@plugin "daisyui/theme" {
+  name: "light";
+  default: true;
+  color-scheme: light;
+  --color-primary: #c6414c;
+  --color-secondary: #05b4cd;
+}
 
+/* font */
 .young-serif-regular {
   font-family: "Young Serif", serif;
   /* font-weight: 400; */
@@ -19,17 +26,6 @@
 }
 
 /* ------------------------------------------------ */
-
-.primary {
-  background-color: #c6414c;
-}
-
-.text-primary {
-  color: #c6414c;
-}
-.text-secondary {
-  color: #05b4cd;
-}
 
 .navbar a:hover {
   /* font-weight: 500; */
