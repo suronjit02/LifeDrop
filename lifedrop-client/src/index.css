@@ -27,21 +27,40 @@
 
 /* ------------------------------------------------ */
 
-.navbar a:hover {
-  /* font-weight: 500; */
-  color: #c6414c;
+.navbar a:hover,
+.navbar a.active {
+  color: var(--color-primary);
 }
-.navbar a:focus {
+
+.navbar a.active {
   font-weight: 500;
-  color: #c6414c;
 }
 
-.loginLogoutBtn:hover {
-  color: #c6414c !important;
-  background: white;
-  border: 1px solid #c6414c;
-}
+@utility btn-slide {
+  position: relative;
+  z-index: 0;
+  overflow: hidden;
+  background-color: var(--color-primary);
+  color: white;
+  border: 1px solid var(--color-primary);
+  transition: color 300ms;
 
-.loginLogoutBtn:focus {
-  color: #c6414c !important;
+  &::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    z-index: -1;
+    background: white;
+    transform: scaleX(0);
+    transform-origin: left;
+    transition: transform 300ms;
+  }
+
+  &:hover {
+    color: var(--color-primary);
+  }
+
+  &:hover::before {
+    transform: scaleX(1);
+  }
 }
