@@ -135,7 +135,7 @@ const Navbar = () => {
         <div className="flex w-15 items-center justify-end gap-2">
           {user ? (
             <>
-              <Link to={"/dashboard/profile"}>
+              <Link to={"/dashboard"}>
                 <div tabIndex={0} role="button" className="m-1">
                   {user?.photoURL ? (
                     <img
