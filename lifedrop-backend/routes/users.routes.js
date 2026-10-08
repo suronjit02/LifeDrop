@@ -24,12 +24,12 @@ router.get("/users/role/:email", async (req, res) => {
   const userCollections = getDB().collection("users");
   const { email } = req.params;
 
-  console.log("Requested email:", email);
+  // console.log("Requested email:", email);
 
   const query = { email: email };
   const result = await userCollections.findOne(query);
 
-  console.log("Found user:", result);
+  // console.log("Found user:", result);
 
   res.send(result);
 });
@@ -72,7 +72,7 @@ router.patch("/update/profile", verifyFBToken, async (req, res) => {
     { $set: updatedData },
     { returnDocument: "after" },
   );
-  console.log(result);
+  // console.log(result);
   res.send(result);
 });
 
