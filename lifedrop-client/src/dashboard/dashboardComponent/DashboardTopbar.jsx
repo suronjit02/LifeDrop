@@ -1,12 +1,29 @@
 import { MdMenu } from "react-icons/md";
+import { BiSolidDonateBlood } from "react-icons/bi";
+import logo from "/icon.png";
 
 const DashboardTopbar = ({ setOpen }) => {
   return (
-    <div className="md:hidden flex items-center gap-4 bg-[#05b4cd] text-white p-4">
-      <button onClick={() => setOpen(true)}>
-        <MdMenu className="text-3xl" />
-      </button>
-      <h2 className="text-lg font-bold">Dashboard</h2>
+    <div className="md:hidden flex items-center justify-between bg-[#05b4cd] text-white px-4 py-3 border-b border-white/20">
+      <div className="flex items-center gap-3">
+        <button
+          onClick={() => setOpen(true)}
+          className="w-9 h-9 rounded-xl bg-white/15 hover:bg-white/25 flex items-center justify-center transition-colors"
+        >
+          <MdMenu className="text-xl" />
+        </button>
+        <div className="flex items-center gap-2">
+          <div className="w-7 h-7 rounded-lg bg-white flex items-center justify-center">
+            <img className="h-4" src={logo} alt="LifeDrop" />
+          </div>
+          <span className="font-bold text-base text-white">
+            Life<span className="text-[#c6414c]">Drop</span>
+          </span>
+        </div>
+      </div>
+      <span className="text-xs font-semibold uppercase tracking-widest text-white/50">
+        Dashboard
+      </span>
     </div>
   );
 };
