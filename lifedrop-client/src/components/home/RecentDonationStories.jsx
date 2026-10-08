@@ -46,34 +46,35 @@ const bloodGroupColor = (bg) => {
 
 const RecentDonationStories = () => {
   return (
-    <section className="py-20 bg-primary overflow-hidden">
-      <div className="max-w-7xl mx-auto px-5 sm:px-10">
+    <section className="py-24 bg-[#c6414c] overflow-hidden relative">
+      {/* Background decoration */}
+      <div className="absolute inset-0 opacity-5 pointer-events-none">
+        <div className="absolute top-10 left-10 w-64 h-64 rounded-full border-4 border-white" />
+        <div className="absolute bottom-10 right-10 w-96 h-96 rounded-full border-4 border-white" />
+        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] rounded-full border border-white" />
+      </div>
+
+      <div className="max-w-7xl mx-auto px-6 sm:px-10 relative z-10">
         {/* Header */}
-        <div className="text-center mb-12">
+        <div className="text-center mb-14">
           <motion.p
-            className="text-xs font-semibold uppercase tracking-widest text-white/60 mb-2"
-            initial={{ opacity: 0, y: 16 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true, amount: 0.5 }}
-            transition={{ duration: 0.5 }}
+            className="text-xs font-semibold uppercase tracking-widest text-white/50 mb-2"
+            initial={{ opacity: 0, y: 16 }} whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }} transition={{ duration: 0.5 }}
           >
             Real Stories
           </motion.p>
           <motion.h2
-            className="text-3xl font-bold text-white mb-3"
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true, amount: 0.5 }}
-            transition={{ duration: 0.6 }}
+            className="text-3xl md:text-4xl font-bold text-white mb-3"
+            initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }} transition={{ duration: 0.6 }}
           >
             Recent Donation Stories
           </motion.h2>
           <motion.p
-            className="text-white/70 text-sm max-w-lg mx-auto"
-            initial={{ opacity: 0, y: 16 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true, amount: 0.5 }}
-            transition={{ duration: 0.6, delay: 0.1 }}
+            className="text-white/60 text-sm max-w-lg mx-auto"
+            initial={{ opacity: 0, y: 16 }} whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }} transition={{ duration: 0.6, delay: 0.1 }}
           >
             Hear from donors who made a difference. Every story is a life
             touched.
@@ -83,32 +84,30 @@ const RecentDonationStories = () => {
         {/* Cards */}
         <div className="grid gap-6 grid-cols-1 md:grid-cols-3">
           {stories.map((item, i) => (
-            // single card
             <motion.div
               key={item.id}
-              className="bg-white rounded-2xl shadow-lg p-6 flex flex-col gap-4 relative overflow-hidden group"
+              className="bg-white rounded-2xl shadow-xl p-7 flex flex-col gap-5 relative overflow-hidden group"
               initial={{ opacity: 0, y: 50 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true, amount: 0.2 }}
               transition={{ duration: 0.5, delay: i * 0.15 }}
-              whileHover={{ y: -5 }}
+              whileHover={{ y: -6 }}
             >
-              {/* Decorative quote mark */}
-              <span className="absolute top-4 right-5 text-6xl font-serif text-gray-100 leading-none select-none">
+              {/* Large decorative quote */}
+              <span className="absolute -top-2 right-5 text-8xl font-serif text-gray-100 leading-none select-none pointer-events-none">
                 "
               </span>
 
-              {/* Quote icon */}
-              <div className="w-10 h-10 rounded-full bg-red-50 flex items-center justify-center">
+              {/* Icon */}
+              <div className="w-11 h-11 rounded-2xl bg-red-50 flex items-center justify-center flex-shrink-0">
                 <BiSolidDonateBlood className="text-xl text-[#c6414c]" />
               </div>
 
-              {/* Story text */}
-              <p className="text-gray-600 text-sm leading-relaxed flex-1 italic">
+              {/* Story */}
+              <p className="text-gray-600 text-sm leading-relaxed flex-1 italic relative z-10">
                 "{item.story}"
               </p>
 
-              {/* Divider */}
               <hr className="border-gray-100" />
 
               {/* Footer */}
@@ -118,18 +117,17 @@ const RecentDonationStories = () => {
                     <FiUser className="text-gray-400" />
                   </div>
                   <div>
-                    <p className="font-semibold text-gray-800 text-sm">
-                      {item.name}
-                    </p>
+                    <p className="font-semibold text-gray-800 text-sm">{item.name}</p>
                     <p className="text-xs text-gray-400">{item.date}</p>
                   </div>
                 </div>
-                <span
-                  className={`text-xs font-bold px-3 py-1 rounded-full border ${bloodGroupColor(item.blood)}`}
-                >
+                <span className={`text-xs font-bold px-3 py-1 rounded-full border ${bloodGroupColor(item.blood)}`}>
                   {item.blood}
                 </span>
               </div>
+
+              {/* Bottom accent */}
+              <div className="absolute bottom-0 left-0 h-0.5 w-0 group-hover:w-full bg-[#c6414c] transition-all duration-500" />
             </motion.div>
           ))}
         </div>

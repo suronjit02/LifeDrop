@@ -53,7 +53,7 @@ const STATUS_STYLE = {
     pill: "bg-amber-50 border-amber-200 text-amber-700",
   },
   critical: {
-    dot: "bg-red-600",
+    dot: "bg-[#c6414c]",
     pill: "bg-red-50 border-red-200 text-red-700",
   },
 };
@@ -74,27 +74,25 @@ function useCountUp(target, duration = 1800, trigger = true) {
   return count;
 }
 
-// stat card
 function StatCard({ icon, label, target, animate, index }) {
   const count = useCountUp(target, 1800, animate);
   return (
     <motion.div
-      className="flex flex-col items-center gap-2 py-8 px-4 bg-white relative group"
+      className="flex flex-col items-center gap-3 py-10 px-6 bg-white relative group overflow-hidden"
       initial={{ opacity: 0, y: 24 }}
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true, amount: 0.3 }}
       transition={{ duration: 0.5, delay: index * 0.1 }}
     >
-      {/* Top accent line on hover */}
-      <div className="absolute top-0 left-0 w-0 group-hover:w-full h-0.5 bg-[#c6414c] transition-all duration-500" />
-      <span className="w-11 h-11 rounded-full bg-red-50 flex items-center justify-center text-[#c6414c] text-xl">
+      <div className="absolute inset-0 bg-[#c6414c] translate-y-full group-hover:translate-y-0 transition-transform duration-500 ease-out -z-0" />
+      <span className="relative z-10 w-12 h-12 rounded-2xl bg-red-50 group-hover:bg-white/20 flex items-center justify-center text-[#c6414c] group-hover:text-white text-xl transition-colors duration-300">
         {icon}
       </span>
-      <span className="text-3xl font-bold text-gray-900">
+      <span className="relative z-10 text-4xl font-extrabold text-gray-900 group-hover:text-white transition-colors duration-300">
         {count.toLocaleString()}
         {target > 100 ? "+" : ""}
       </span>
-      <span className="text-xs text-gray-500 font-medium uppercase tracking-wider">
+      <span className="relative z-10 text-xs text-gray-400 group-hover:text-white/80 font-semibold uppercase tracking-wider transition-colors duration-300">
         {label}
       </span>
     </motion.div>
@@ -117,33 +115,33 @@ const LiveStats = () => {
   }, []);
 
   return (
-    <section ref={sectionRef} className="py-20 px-4 bg-gray-50">
+    <section ref={sectionRef} className="py-24 px-4 bg-white">
       <div className="max-w-5xl mx-auto">
         {/* Header */}
-        <div className="text-center mb-12">
+        <div className="text-center mb-14">
           <motion.p
             className="text-xs font-semibold tracking-widest uppercase text-[#c6414c] mb-2"
             initial={{ opacity: 0, y: 16 }}
             whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true, amount: 0.5 }}
+            viewport={{ once: true }}
             transition={{ duration: 0.5 }}
           >
             Live Impact
           </motion.p>
           <motion.h2
-            className="text-3xl font-bold text-gray-900 mb-3"
+            className="text-3xl md:text-4xl font-bold text-gray-900 mb-3"
             initial={{ opacity: 0, y: 16 }}
             whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true, amount: 0.5 }}
+            viewport={{ once: true }}
             transition={{ duration: 0.5, delay: 0.1 }}
           >
             Every Drop Counts
           </motion.h2>
           <motion.p
-            className="text-gray-500 text-sm max-w-md mx-auto"
+            className="text-gray-400 text-sm max-w-md mx-auto"
             initial={{ opacity: 0, y: 16 }}
             whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true, amount: 0.5 }}
+            viewport={{ once: true }}
             transition={{ duration: 0.5, delay: 0.2 }}
           >
             Real numbers from the LifeDrop network — growing every single day.
@@ -151,23 +149,30 @@ const LiveStats = () => {
         </div>
 
         {/* Stats Grid */}
-        <div className="grid grid-cols-2 md:grid-cols-4 border border-gray-200 rounded-2xl overflow-hidden divide-x divide-y divide-gray-200 shadow-sm mb-12">
+        <motion.div
+          className="grid grid-cols-2 md:grid-cols-4 border border-gray-100 rounded-3xl overflow-hidden shadow-sm mb-14"
+          initial={{ opacity: 0, scale: 0.97 }}
+          whileInView={{ opacity: 1, scale: 1 }}
+          viewport={{ once: true, amount: 0.3 }}
+          transition={{ duration: 0.6, delay: 0.2 }}
+        >
           {STATS.map((s, i) => (
             <StatCard key={s.id} {...s} animate={animate} index={i} />
           ))}
-        </div>
+        </motion.div>
 
         {/* Blood Availability */}
         <motion.div
+          className="bg-gray-50 rounded-3xl p-8 border border-gray-100"
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, amount: 0.3 }}
           transition={{ duration: 0.5, delay: 0.3 }}
         >
-          <p className="text-center text-xs font-semibold uppercase tracking-widest text-gray-400 mb-4">
+          <p className="text-center text-xs font-semibold uppercase tracking-widest text-gray-400 mb-5">
             Blood Group Availability
           </p>
-          <div className="flex flex-wrap justify-center gap-2 mb-4">
+          <div className="flex flex-wrap justify-center gap-2 mb-5">
             {BLOOD_GROUPS.map(({ group, status }) => (
               <div
                 key={group}
