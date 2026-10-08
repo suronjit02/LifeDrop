@@ -17,7 +17,7 @@ const DashboardTopbar = ({ setOpen }) => {
             <img className="h-4" src={logo} alt="LifeDrop" />
           </div>
           <span className="font-bold text-base text-white">
-            Life<span className="text-[#c6414c]">Drop</span>
+            Life<span className="text-primary">Drop</span>
           </span>
         </div>
       </div>

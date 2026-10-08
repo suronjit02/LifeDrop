@@ -53,7 +53,7 @@ const STATUS_STYLE = {
     pill: "bg-amber-50 border-amber-200 text-amber-700",
   },
   critical: {
-    dot: "bg-[#c6414c]",
+    dot: "bg-primary",
     pill: "bg-red-50 border-red-200 text-red-700",
   },
 };
@@ -84,8 +84,8 @@ function StatCard({ icon, label, target, animate, index }) {
       viewport={{ once: true, amount: 0.3 }}
       transition={{ duration: 0.5, delay: index * 0.1 }}
     >
-      <div className="absolute inset-0 bg-[#c6414c] translate-y-full group-hover:translate-y-0 transition-transform duration-500 ease-out -z-0" />
-      <span className="relative z-10 w-12 h-12 rounded-2xl bg-red-50 group-hover:bg-white/20 flex items-center justify-center text-[#c6414c] group-hover:text-white text-xl transition-colors duration-300">
+      <div className="absolute inset-0 bg-primary translate-y-full group-hover:translate-y-0 transition-transform duration-500 ease-out -z-0" />
+      <span className="relative z-10 w-12 h-12 rounded-2xl bg-red-50 group-hover:bg-white/20 flex items-center justify-center text-primary group-hover:text-white text-xl transition-colors duration-300">
         {icon}
       </span>
       <span className="relative z-10 text-4xl font-extrabold text-gray-900 group-hover:text-white transition-colors duration-300">
@@ -120,7 +120,7 @@ const LiveStats = () => {
         {/* Header */}
         <div className="text-center mb-14">
           <motion.p
-            className="text-xs font-semibold tracking-widest uppercase text-[#c6414c] mb-2"
+            className="text-xs font-semibold tracking-widest uppercase text-primary mb-2"
             initial={{ opacity: 0, y: 16 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}

@@ -23,7 +23,7 @@ import Donate from "../pages/donate/Donate";
 import About from "../pages/about/About";
 import Faq from "../pages/faq/Faq";
 import Charity from "../pages/charity/Charity";
-import TermsConditions from "../pages/terms&condition/TermsCondition";
+import TermsConditions from "../pages/terms-and-condition/TermsCondition";
 import SearchPage from "../pages/search-donor/SearchPage";
 import PaymentSuccess from "../components/PaymentSuccess";
 

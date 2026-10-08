@@ -27,20 +27,20 @@ import { FaLocationDot } from "react-icons/fa6";
 /* ─────────────────────────── helpers ─────────────────────────── */
 
 const statusStyle = {
-  pending:    "bg-amber-50 text-amber-600 border-amber-200",
+  pending: "bg-amber-50 text-amber-600 border-amber-200",
   inprogress: "bg-[#05b4cd]/10 text-[#05b4cd] border-[#05b4cd]/30",
-  done:       "bg-green-50 text-green-600 border-green-200",
-  canceled:   "bg-red-50 text-[#c6414c] border-red-200",
+  done: "bg-green-50 text-green-600 border-green-200",
+  canceled: "bg-red-50 text-primary border-red-200",
 };
 
 const bloodGroupColor = (bg) => {
   const map = {
-    "A+":  "bg-red-50 text-red-600 border-red-200",
-    "A-":  "bg-red-50 text-red-700 border-red-200",
-    "B+":  "bg-orange-50 text-orange-600 border-orange-200",
-    "B-":  "bg-orange-50 text-orange-700 border-orange-200",
-    "O+":  "bg-blue-50 text-blue-600 border-blue-200",
-    "O-":  "bg-blue-50 text-blue-700 border-blue-200",
+    "A+": "bg-red-50 text-red-600 border-red-200",
+    "A-": "bg-red-50 text-red-700 border-red-200",
+    "B+": "bg-orange-50 text-orange-600 border-orange-200",
+    "B-": "bg-orange-50 text-orange-700 border-orange-200",
+    "O+": "bg-blue-50 text-blue-600 border-blue-200",
+    "O-": "bg-blue-50 text-blue-700 border-blue-200",
     "AB+": "bg-purple-50 text-purple-600 border-purple-200",
     "AB-": "bg-purple-50 text-purple-700 border-purple-200",
   };
@@ -56,7 +56,9 @@ function StatCard({ icon, label, value, sub, iconBg, iconColor, delay }) {
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.5, delay }}
     >
-      <div className={`w-12 h-12 rounded-2xl flex items-center justify-center text-xl shrink-0 ${iconBg} ${iconColor}`}>
+      <div
+        className={`w-12 h-12 rounded-2xl flex items-center justify-center text-xl shrink-0 ${iconBg} ${iconColor}`}
+      >
         {icon}
       </div>
       <div className="min-w-0">
@@ -88,7 +90,9 @@ function QuickLink({ to, icon, title, desc, iconBg, iconColor, delay }) {
         className="bg-white rounded-2xl border border-gray-100 shadow-sm p-5 flex items-center justify-between hover:shadow-md hover:border-[#05b4cd]/30 transition-all duration-200 group"
       >
         <div className="flex items-center gap-3">
-          <div className={`w-11 h-11 rounded-xl flex items-center justify-center shrink-0 ${iconBg} ${iconColor}`}>
+          <div
+            className={`w-11 h-11 rounded-xl flex items-center justify-center shrink-0 ${iconBg} ${iconColor}`}
+          >
             {icon}
           </div>
           <div>
@@ -107,12 +111,12 @@ const DashboardHome = () => {
   const axiosSecure = useAxiosSecure();
   const { user, role } = useContext(AuthContext);
 
-  const [recentRequests, setRecentRequests]   = useState([]);
-  const [allRequests, setAllRequests]         = useState([]);
-  const [loading, setLoading]                 = useState(true);
-  const [totalUsers, setTotalUsers]           = useState(0);
-  const [totalRequests, setTotalRequests]     = useState(0);
-  const [userData, setUserData]               = useState({});
+  const [recentRequests, setRecentRequests] = useState([]);
+  const [allRequests, setAllRequests] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const [totalUsers, setTotalUsers] = useState(0);
+  const [totalRequests, setTotalRequests] = useState(0);
+  const [userData, setUserData] = useState({});
 
   useEffect(() => {
     axiosSecure.get("/users").then((res) => setTotalUsers(res.data.length));
@@ -120,7 +124,9 @@ const DashboardHome = () => {
 
   useEffect(() => {
     if (user?.email) {
-      axiosSecure.get(`/users/role/${user.email}`).then((res) => setUserData(res.data));
+      axiosSecure
+        .get(`/users/role/${user.email}`)
+        .then((res) => setUserData(res.data));
     }
   }, [user, axiosSecure]);
 
@@ -171,11 +177,12 @@ const DashboardHome = () => {
   };
 
   /* pending count for donor badge */
-  const pendingCount = recentRequests.filter((r) => r.status === "pending").length;
+  const pendingCount = recentRequests.filter(
+    (r) => r.status === "pending",
+  ).length;
 
   return (
     <div className="min-h-full bg-gray-50 rounded-xl p-4 md:p-8">
-
       {/* ════════════ Welcome Banner ════════════ */}
       <motion.div
         className="relative bg-[#05b4cd] rounded-3xl p-7 mb-8 overflow-hidden"
@@ -187,7 +194,7 @@ const DashboardHome = () => {
         <div className="absolute right-0 top-0 h-full w-72 pointer-events-none opacity-10">
           <div className="absolute -top-6 -right-6 w-48 h-48 rounded-full bg-white" />
           <div className="absolute bottom-0 right-16 w-32 h-32 rounded-full bg-white" />
-          <div className="absolute top-1/2 right-4 w-16 h-16 rounded-full bg-[#c6414c]" />
+          <div className="absolute top-1/2 right-4 w-16 h-16 rounded-full bg-primary" />
         </div>
 
         <div className="relative z-10 flex flex-col sm:flex-row sm:items-center justify-between gap-5">
@@ -212,7 +219,7 @@ const DashboardHome = () => {
                 {userData?.name || user?.displayName || "User"}
               </h1>
               <div className="flex items-center gap-2 mt-1.5">
-                <span className="text-xs font-semibold px-3 py-0.5 rounded-full bg-[#c6414c] text-white capitalize">
+                <span className="text-xs font-semibold px-3 py-0.5 rounded-full bg-primary text-white capitalize">
                   {role}
                 </span>
                 {role === "donor" && pendingCount > 0 && (
@@ -228,7 +235,7 @@ const DashboardHome = () => {
           {role === "donor" && (
             <Link
               to="/dashboard/create-request"
-              className="btn btn-sm bg-[#c6414c] hover:bg-white hover:text-[#c6414c] hover:border-[#c6414c] text-white border-transparent rounded-xl gap-2 transition-all duration-300 self-start sm:self-auto"
+              className="btn btn-sm bg-primary hover:bg-white hover:text-primary hover:border-primary text-white border-transparent rounded-xl gap-2 transition-all duration-300 self-start sm:self-auto"
             >
               <BiSolidDonateBlood /> New Request
             </Link>
@@ -236,7 +243,7 @@ const DashboardHome = () => {
           {(role === "admin" || role === "volunteer") && (
             <Link
               to="/dashboard/all-requests"
-              className="btn btn-sm bg-[#c6414c] hover:bg-white hover:text-[#c6414c] hover:border-[#c6414c] text-white border-transparent rounded-xl gap-2 transition-all duration-300 self-start sm:self-auto"
+              className="btn btn-sm bg-primary hover:bg-white hover:text-primary hover:border-primary text-white border-transparent rounded-xl gap-2 transition-all duration-300 self-start sm:self-auto"
             >
               <VscGitPullRequestGoToChanges /> Manage Requests
             </Link>
@@ -263,8 +270,8 @@ const DashboardHome = () => {
               label="Total Requests"
               value={totalRequests.toLocaleString()}
               sub="All-time submissions"
-              iconBg="bg-[#c6414c]/10"
-              iconColor="text-[#c6414c]"
+              iconBg="bg-primary/10"
+              iconColor="text-primary"
               delay={0.2}
             />
             <StatCard
@@ -285,8 +292,8 @@ const DashboardHome = () => {
               icon={<VscGitPullRequestGoToChanges />}
               title="Manage Requests"
               desc="View & update all donation requests"
-              iconBg="bg-[#c6414c]/10"
-              iconColor="text-[#c6414c]"
+              iconBg="bg-primary/10"
+              iconColor="text-primary"
               delay={0.35}
             />
             {role === "admin" && (
@@ -322,7 +329,9 @@ const DashboardHome = () => {
                 <h2 className="text-lg font-bold text-gray-800 flex items-center gap-2">
                   <FiActivity className="text-[#05b4cd]" /> Recent Activity
                 </h2>
-                <p className="text-xs text-gray-400 mt-0.5">Latest 5 donation requests in the system</p>
+                <p className="text-xs text-gray-400 mt-0.5">
+                  Latest 5 donation requests in the system
+                </p>
               </div>
               <Link
                 to="/dashboard/all-requests"
@@ -335,7 +344,9 @@ const DashboardHome = () => {
             {allRequests.length === 0 ? (
               <div className="bg-white rounded-2xl border border-gray-100 shadow-sm p-10 text-center">
                 <BiSolidDonateBlood className="text-4xl text-gray-200 mx-auto mb-3" />
-                <p className="text-gray-400 text-sm">No requests found in the system yet.</p>
+                <p className="text-gray-400 text-sm">
+                  No requests found in the system yet.
+                </p>
               </div>
             ) : (
               <div className="bg-white rounded-2xl border border-gray-100 shadow-sm overflow-hidden">
@@ -350,26 +361,39 @@ const DashboardHome = () => {
                       className={`flex items-center justify-between gap-4 px-5 py-4 hover:bg-gray-50 transition-colors ${!isLast ? "border-b border-gray-100" : ""}`}
                       initial={{ opacity: 0, x: -12 }}
                       animate={{ opacity: 1, x: 0 }}
-                      transition={{ duration: 0.35, delay: 0.55 + index * 0.07 }}
+                      transition={{
+                        duration: 0.35,
+                        delay: 0.55 + index * 0.07,
+                      }}
                     >
                       {/* Left: blood group + name */}
                       <div className="flex items-center gap-3 min-w-0">
-                        <span className={`text-xs font-bold px-2.5 py-1 rounded-full border shrink-0 ${bloodGroupColor(req.bloodGroup)}`}>
+                        <span
+                          className={`text-xs font-bold px-2.5 py-1 rounded-full border shrink-0 ${bloodGroupColor(req.bloodGroup)}`}
+                        >
                           {req.bloodGroup}
                         </span>
                         <div className="min-w-0">
-                          <p className="font-semibold text-gray-800 text-sm truncate">{req.recipientName}</p>
+                          <p className="font-semibold text-gray-800 text-sm truncate">
+                            {req.recipientName}
+                          </p>
                           <p className="text-xs text-gray-400 flex items-center gap-1">
-                            <FaLocationDot className="text-[#c6414c] shrink-0" />
-                            <span className="truncate">{req.recipientDistrict}, {req.recipientUpazila}</span>
+                            <FaLocationDot className="text-primary shrink-0" />
+                            <span className="truncate">
+                              {req.recipientDistrict}, {req.recipientUpazila}
+                            </span>
                           </p>
                         </div>
                       </div>
 
                       {/* Right: date + status */}
                       <div className="flex items-center gap-3 shrink-0">
-                        <span className="text-xs text-gray-400 hidden sm:block">{formattedDate}</span>
-                        <span className={`text-xs font-semibold px-2.5 py-1 rounded-full border capitalize ${statusStyle[req.status] || "bg-gray-100 text-gray-600 border-gray-200"}`}>
+                        <span className="text-xs text-gray-400 hidden sm:block">
+                          {formattedDate}
+                        </span>
+                        <span
+                          className={`text-xs font-semibold px-2.5 py-1 rounded-full border capitalize ${statusStyle[req.status] || "bg-gray-100 text-gray-600 border-gray-200"}`}
+                        >
                           {req.status}
                         </span>
                         <Link
@@ -399,13 +423,14 @@ const DashboardHome = () => {
                 label: "Total Requests",
                 value: recentRequests.length,
                 icon: <BiSolidDonateBlood />,
-                iconBg: "bg-[#c6414c]/10",
-                iconColor: "text-[#c6414c]",
+                iconBg: "bg-primary/10",
+                iconColor: "text-primary",
                 delay: 0.1,
               },
               {
                 label: "Pending",
-                value: recentRequests.filter((r) => r.status === "pending").length,
+                value: recentRequests.filter((r) => r.status === "pending")
+                  .length,
                 icon: <FiClock />,
                 iconBg: "bg-amber-50",
                 iconColor: "text-amber-500",
@@ -413,7 +438,8 @@ const DashboardHome = () => {
               },
               {
                 label: "In Progress",
-                value: recentRequests.filter((r) => r.status === "inprogress").length,
+                value: recentRequests.filter((r) => r.status === "inprogress")
+                  .length,
                 icon: <FiActivity />,
                 iconBg: "bg-[#05b4cd]/10",
                 iconColor: "text-[#05b4cd]",
@@ -435,7 +461,9 @@ const DashboardHome = () => {
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.45, delay: s.delay }}
               >
-                <div className={`w-9 h-9 rounded-xl flex items-center justify-center text-base ${s.iconBg} ${s.iconColor}`}>
+                <div
+                  className={`w-9 h-9 rounded-xl flex items-center justify-center text-base ${s.iconBg} ${s.iconColor}`}
+                >
                   {s.icon}
                 </div>
                 <div>
@@ -453,8 +481,8 @@ const DashboardHome = () => {
               icon={<VscGitPullRequestGoToChanges />}
               title="My Donation Requests"
               desc="View and manage all your requests"
-              iconBg="bg-[#c6414c]/10"
-              iconColor="text-[#c6414c]"
+              iconBg="bg-primary/10"
+              iconColor="text-primary"
               delay={0.3}
             />
             <QuickLink
@@ -476,8 +504,12 @@ const DashboardHome = () => {
           >
             <div className="flex items-center justify-between mb-5">
               <div>
-                <h2 className="text-lg font-bold text-gray-800">Recent Requests</h2>
-                <p className="text-xs text-gray-400 mt-0.5">Your latest 3 donation requests</p>
+                <h2 className="text-lg font-bold text-gray-800">
+                  Recent Requests
+                </h2>
+                <p className="text-xs text-gray-400 mt-0.5">
+                  Your latest 3 donation requests
+                </p>
               </div>
               <Link
                 to="/dashboard/my-requests"
@@ -489,16 +521,18 @@ const DashboardHome = () => {
 
             {recentRequests.length === 0 ? (
               <div className="bg-white rounded-2xl border border-gray-100 shadow-sm p-14 text-center">
-                <div className="w-16 h-16 rounded-2xl bg-[#c6414c]/10 flex items-center justify-center mx-auto mb-4">
-                  <BiSolidDonateBlood className="text-[#c6414c] text-3xl" />
+                <div className="w-16 h-16 rounded-2xl bg-primary/10 flex items-center justify-center mx-auto mb-4">
+                  <BiSolidDonateBlood className="text-primary text-3xl" />
                 </div>
-                <h3 className="font-semibold text-gray-700 mb-1">No requests yet</h3>
+                <h3 className="font-semibold text-gray-700 mb-1">
+                  No requests yet
+                </h3>
                 <p className="text-sm text-gray-400 mb-6">
                   Create your first blood donation request to get started.
                 </p>
                 <Link
                   to="/dashboard/create-request"
-                  className="btn btn-sm bg-[#c6414c] hover:bg-white hover:text-[#c6414c] hover:border-[#c6414c] text-white border-transparent rounded-xl transition-all duration-300"
+                  className="btn btn-sm bg-primary hover:bg-white hover:text-primary hover:border-primary text-white border-transparent rounded-xl transition-all duration-300"
                 >
                   Create Request
                 </Link>
@@ -540,7 +574,9 @@ const DashboardHome = () => {
                               {req.recipientName}
                             </h4>
                           </div>
-                          <span className={`text-xs font-bold px-3 py-1 rounded-full border shrink-0 ${bloodGroupColor(req.bloodGroup)}`}>
+                          <span
+                            className={`text-xs font-bold px-3 py-1 rounded-full border shrink-0 ${bloodGroupColor(req.bloodGroup)}`}
+                          >
                             {req.bloodGroup}
                           </span>
                         </div>
@@ -550,7 +586,7 @@ const DashboardHome = () => {
                         {/* Info rows */}
                         <div className="flex flex-col gap-2 flex-1 mb-4">
                           <div className="flex items-center gap-2 text-xs text-gray-500">
-                            <FaLocationDot className="text-[#c6414c] shrink-0" />
+                            <FaLocationDot className="text-primary shrink-0" />
                             <span className="truncate">
                               {req.recipientDistrict}, {req.recipientUpazila}
                             </span>
@@ -569,7 +605,9 @@ const DashboardHome = () => {
 
                         {/* Footer: status + actions */}
                         <div className="flex items-center justify-between pt-3 border-t border-gray-100 gap-2">
-                          <span className={`text-xs font-semibold px-2.5 py-1 rounded-full border capitalize shrink-0 ${statusStyle[req.status] || "bg-gray-100 text-gray-600 border-gray-200"}`}>
+                          <span
+                            className={`text-xs font-semibold px-2.5 py-1 rounded-full border capitalize shrink-0 ${statusStyle[req.status] || "bg-gray-100 text-gray-600 border-gray-200"}`}
+                          >
                             {req.status}
                           </span>
 
@@ -577,16 +615,20 @@ const DashboardHome = () => {
                             {req.status === "inprogress" && (
                               <>
                                 <button
-                                  onClick={() => handleStatusUpdate(req._id, "done")}
+                                  onClick={() =>
+                                    handleStatusUpdate(req._id, "done")
+                                  }
                                   title="Mark as done"
                                   className="btn btn-xs bg-green-50 text-green-600 border-green-200 hover:bg-green-500 hover:text-white border rounded-lg gap-1"
                                 >
                                   <FiCheckCircle /> Done
                                 </button>
                                 <button
-                                  onClick={() => handleStatusUpdate(req._id, "canceled")}
+                                  onClick={() =>
+                                    handleStatusUpdate(req._id, "canceled")
+                                  }
                                   title="Cancel"
-                                  className="btn btn-xs bg-red-50 text-[#c6414c] border-red-200 hover:bg-[#c6414c] hover:text-white border rounded-lg gap-1"
+                                  className="btn btn-xs bg-red-50 text-primary border-red-200 hover:bg-primary hover:text-white border rounded-lg gap-1"
                                 >
                                   <FiXCircle /> Cancel
                                 </button>
@@ -610,7 +652,7 @@ const DashboardHome = () => {
                             <button
                               onClick={() => handleDeleteRequest(req._id)}
                               title="Delete"
-                              className="w-7 h-7 rounded-lg bg-red-50 hover:bg-[#c6414c] text-[#c6414c] hover:text-white flex items-center justify-center transition-all duration-200"
+                              className="w-7 h-7 rounded-lg bg-red-50 hover:bg-primary text-primary hover:text-white flex items-center justify-center transition-all duration-200"
                             >
                               <FiTrash2 className="text-xs" />
                             </button>

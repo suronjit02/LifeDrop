@@ -12,34 +12,45 @@ import { BiSolidDonateBlood } from "react-icons/bi";
 import { Link } from "react-router";
 
 const socialLinks = [
-  { icon: <FaLinkedin />,       href: "https://www.linkedin.com/in/suronjit02/", label: "LinkedIn"  },
-  { icon: <FaFacebookSquare />, href: "https://www.facebook.com/suronjit02",    label: "Facebook"  },
-  { icon: <FaSquareXTwitter />, href: "",                                        label: "Twitter"   },
-  { icon: <FaInstagramSquare />,href: "https://www.instagram.com/suronjit02/",  label: "Instagram" },
-  { icon: <FaYoutube />,        href: "",                                        label: "YouTube"   },
+  {
+    icon: <FaLinkedin />,
+    href: "https://www.linkedin.com/in/suronjit02/",
+    label: "LinkedIn",
+  },
+  {
+    icon: <FaFacebookSquare />,
+    href: "https://www.facebook.com/suronjit02",
+    label: "Facebook",
+  },
+  { icon: <FaSquareXTwitter />, href: "", label: "Twitter" },
+  {
+    icon: <FaInstagramSquare />,
+    href: "https://www.instagram.com/suronjit02/",
+    label: "Instagram",
+  },
+  { icon: <FaYoutube />, href: "", label: "YouTube" },
 ];
 
 const quickLinks = [
-  { label: "About Us",          to: "/about"            },
-  { label: "Charity",           to: "/charity"          },
-  { label: "FAQ",               to: "/faq"              },
-  { label: "Terms & Condition", to: "/terms-&-condition"},
-  { label: "Search Donors",     to: "/search-donors"    },
-  { label: "Donate Now",        to: "/donate"           },
+  { label: "About Us", to: "/about" },
+  { label: "Charity", to: "/charity" },
+  { label: "FAQ", to: "/faq" },
+  { label: "Terms & Condition", to: "/terms-&-condition" },
+  { label: "Search Donors", to: "/search-donors" },
+  { label: "Donate Now", to: "/donate" },
 ];
 
 const contactInfo = [
-  { icon: <FaLocationDot />, text: "Dhaka, Bangladesh"      },
-  { icon: <FaPhoneAlt />,    text: "+880 1739 145813"       },
-  { icon: <IoIosMail />,     text: "suronjit02@gmail.com"   },
+  { icon: <FaLocationDot />, text: "Dhaka, Bangladesh" },
+  { icon: <FaPhoneAlt />, text: "+880 1739 145813" },
+  { icon: <IoIosMail />, text: "suronjit02@gmail.com" },
 ];
 
 const Footer = () => {
   return (
     <footer className="bg-gray-900 text-gray-300">
-
       {/* ── Top CTA strip ── */}
-      <div className="bg-[#c6414c]">
+      <div className="bg-primary">
         <div className="max-w-7xl mx-auto px-6 sm:px-10 py-8 flex flex-col sm:flex-row items-center justify-between gap-4">
           <div className="flex items-center gap-3">
             <div className="w-10 h-10 rounded-xl bg-white/15 flex items-center justify-center shrink-0">
@@ -57,7 +68,7 @@ const Footer = () => {
           <div className="flex gap-3 shrink-0">
             <Link
               to="/register"
-              className="btn btn-sm bg-white text-[#c6414c] hover:bg-gray-100 border-transparent rounded-xl font-semibold transition-all duration-300"
+              className="btn btn-sm bg-white text-primary hover:bg-gray-100 border-transparent rounded-xl font-semibold transition-all duration-300"
             >
               Join as Donor
             </Link>
@@ -74,7 +85,6 @@ const Footer = () => {
       {/* ── Main footer body ── */}
       <div className="max-w-7xl mx-auto px-6 sm:px-10 py-14">
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-10">
-
           {/* Brand column */}
           <div className="lg:col-span-1">
             <Link to="/" className="inline-block mb-4">
@@ -91,7 +101,7 @@ const Footer = () => {
                   key={s.label}
                   to={s.href}
                   aria-label={s.label}
-                  className="w-9 h-9 rounded-xl bg-white/8 hover:bg-[#c6414c] text-gray-400 hover:text-white flex items-center justify-center text-base transition-all duration-300"
+                  className="w-9 h-9 rounded-xl bg-white/8 hover:bg-primary text-gray-400 hover:text-white flex items-center justify-center text-base transition-all duration-300"
                 >
                   {s.icon}
                 </Link>
@@ -102,7 +112,7 @@ const Footer = () => {
           {/* Quick links */}
           <div>
             <h6 className="text-white font-semibold text-sm uppercase tracking-widest mb-5 flex items-center gap-2">
-              <span className="w-4 h-0.5 bg-[#c6414c] inline-block" />
+              <span className="w-4 h-0.5 bg-primary inline-block" />
               Quick Links
             </h6>
             <ul className="flex flex-col gap-2.5">
@@ -123,16 +133,18 @@ const Footer = () => {
           {/* Contact info */}
           <div>
             <h6 className="text-white font-semibold text-sm uppercase tracking-widest mb-5 flex items-center gap-2">
-              <span className="w-4 h-0.5 bg-[#c6414c] inline-block" />
+              <span className="w-4 h-0.5 bg-primary inline-block" />
               Contact Info
             </h6>
             <ul className="flex flex-col gap-4">
               {contactInfo.map((c) => (
                 <li key={c.text} className="flex items-start gap-3">
-                  <div className="w-8 h-8 rounded-lg bg-[#c6414c]/15 flex items-center justify-center text-[#c6414c] text-sm shrink-0 mt-0.5">
+                  <div className="w-8 h-8 rounded-lg bg-primary/15 flex items-center justify-center text-primary text-sm shrink-0 mt-0.5">
                     {c.icon}
                   </div>
-                  <span className="text-gray-400 text-sm leading-relaxed">{c.text}</span>
+                  <span className="text-gray-400 text-sm leading-relaxed">
+                    {c.text}
+                  </span>
                 </li>
               ))}
             </ul>
@@ -141,26 +153,27 @@ const Footer = () => {
           {/* Work hours */}
           <div>
             <h6 className="text-white font-semibold text-sm uppercase tracking-widest mb-5 flex items-center gap-2">
-              <span className="w-4 h-0.5 bg-[#c6414c] inline-block" />
+              <span className="w-4 h-0.5 bg-primary inline-block" />
               Work Hours
             </h6>
             <div className="bg-white/5 rounded-2xl border border-white/10 p-5 flex flex-col gap-4">
               <div className="flex items-center gap-3">
                 <span className="w-2.5 h-2.5 rounded-full bg-green-400 animate-pulse shrink-0" />
-                <span className="text-white font-semibold text-sm">Available 24 / 7</span>
+                <span className="text-white font-semibold text-sm">
+                  Available 24 / 7
+                </span>
               </div>
               <p className="text-gray-400 text-xs leading-relaxed">
                 Our team is always online. Reach out anytime — day or night.
               </p>
               <Link
                 to="/"
-                className="btn btn-sm bg-[#c6414c] hover:bg-white hover:text-[#c6414c] hover:border-[#c6414c] text-white border-transparent rounded-xl gap-2 w-full transition-all duration-300"
+                className="btn btn-sm bg-primary hover:bg-white hover:text-primary hover:border-primary text-white border-transparent rounded-xl gap-2 w-full transition-all duration-300"
               >
                 <FaPhoneAlt className="text-xs" /> Contact Us
               </Link>
             </div>
           </div>
-
         </div>
       </div>
 
@@ -172,12 +185,11 @@ const Footer = () => {
           </p>
           <div className="flex items-center gap-1 text-xs text-gray-600">
             <span>Made with</span>
-            <span className="text-[#c6414c]">♥</span>
+            <span className="text-primary">♥</span>
             <span>to save lives</span>
           </div>
         </div>
       </div>
-
     </footer>
   );
 };

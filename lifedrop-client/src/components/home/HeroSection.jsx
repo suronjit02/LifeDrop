@@ -44,14 +44,14 @@ const HeroSection = () => {
           {!user && (
             <Link
               to={"/register"}
-              className="btn bg-[#c6414c] hover:bg-white hover:border hover:border-[#c6414c]  text-white hover:text-[#c6414c] sm:px-6 transition-all duration-500 ease-in-out"
+              className="btn bg-primary hover:bg-white hover:border hover:border-primary  text-white hover:text-primary sm:px-6 transition-all duration-500 ease-in-out"
             >
               Join as a Donor
             </Link>
           )}
           <Link
             to={"/search-donors"}
-            className="btn bg-[#c6414c] hover:bg-white hover:border hover:border-[#c6414c]  text-white hover:text-[#c6414c] sm:px-6 transition-all duration-500 ease-in-out"
+            className="btn bg-primary hover:bg-white hover:border hover:border-primary  text-white hover:text-primary sm:px-6 transition-all duration-500 ease-in-out"
           >
             Search Donors
           </Link>

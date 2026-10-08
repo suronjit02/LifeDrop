@@ -97,7 +97,7 @@ const PublicAllRequest = () => {
         {requests.length > 0 && (
           <div className="flex items-center justify-between mb-6">
             <p className="text-gray-600 text-sm">
-              <span className="text-[#c6414c] font-bold text-base">
+              <span className="text-primary font-bold text-base">
                 {requests.length}
               </span>{" "}
               {requests.length === 1 ? "request" : "requests"} waiting for a
@@ -157,17 +157,17 @@ const PublicAllRequest = () => {
                     {/* Info rows */}
                     <div className="flex flex-col gap-2 text-sm text-gray-600 flex-1">
                       <div className="flex items-center gap-2">
-                        <FaLocationDot className="text-[#c6414c] flex-shrink-0" />
+                        <FaLocationDot className="text-primary flex-shrink-0" />
                         <span className="truncate">
                           {req.recipientDistrict}, {req.recipientUpazila}
                         </span>
                       </div>
                       <div className="flex items-center gap-2">
-                        <FiCalendar className="text-[#c6414c] flex-shrink-0" />
+                        <FiCalendar className="text-primary flex-shrink-0" />
                         <span>{formattedDate}</span>
                       </div>
                       <div className="flex items-center gap-2">
-                        <FiClock className="text-[#c6414c] flex-shrink-0" />
+                        <FiClock className="text-primary flex-shrink-0" />
                         <span>{formattedTime}</span>
                       </div>
                     </div>
@@ -179,7 +179,7 @@ const PublicAllRequest = () => {
                       </span>
                       <button
                         onClick={() => handleView(req._id)}
-                        className="btn btn-sm bg-[#c6414c] hover:bg-white hover:text-[#c6414c] hover:border-[#c6414c] text-white transition-all duration-300 flex items-center gap-1"
+                        className="btn btn-sm bg-primary hover:bg-white hover:text-primary hover:border-primary text-white transition-all duration-300 flex items-center gap-1"
                       >
                         <FiEye />
                         View

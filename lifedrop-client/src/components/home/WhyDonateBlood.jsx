@@ -47,23 +47,29 @@ const WhyDonateBlood = () => {
         {/* Header */}
         <div className="text-center mb-14">
           <motion.p
-            className="text-xs font-semibold uppercase tracking-widest text-[#c6414c] mb-2"
-            initial={{ opacity: 0, y: 16 }} whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }} transition={{ duration: 0.5 }}
+            className="text-xs font-semibold uppercase tracking-widest text-primary mb-2"
+            initial={{ opacity: 0, y: 16 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.5 }}
           >
             Why It Matters
           </motion.p>
           <motion.h2
             className="text-3xl md:text-4xl font-bold text-gray-900 mb-3"
-            initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }} transition={{ duration: 0.6 }}
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.6 }}
           >
             Why Donate Blood?
           </motion.h2>
           <motion.p
             className="text-gray-400 max-w-lg mx-auto text-sm"
-            initial={{ opacity: 0, y: 16 }} whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }} transition={{ duration: 0.6, delay: 0.1 }}
+            initial={{ opacity: 0, y: 16 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.6, delay: 0.1 }}
           >
             A small step from you can save a life. Blood donation is safe,
             simple, and more powerful than you think.
@@ -89,8 +95,12 @@ const WhyDonateBlood = () => {
                 {item.icon}
               </div>
               <div>
-                <h3 className="font-bold text-gray-800 text-base mb-2">{item.title}</h3>
-                <p className="text-gray-500 text-sm leading-relaxed">{item.desc}</p>
+                <h3 className="font-bold text-gray-800 text-base mb-2">
+                  {item.title}
+                </h3>
+                <p className="text-gray-500 text-sm leading-relaxed">
+                  {item.desc}
+                </p>
               </div>
               {/* Bottom accent line */}
               <div

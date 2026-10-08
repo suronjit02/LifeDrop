@@ -19,7 +19,7 @@ const Aside = ({ isOpen, setOpen }) => {
   const linkClass = ({ isActive }) =>
     `flex items-center gap-3 px-3 py-2.5 rounded-xl text-sm font-medium transition-all duration-200 ${
       isActive
-        ? "bg-white text-[#c6414c] shadow-sm font-semibold"
+        ? "bg-white text-primary shadow-sm font-semibold"
         : "text-white/80 hover:bg-white/15 hover:text-white"
     }`;
 
@@ -50,7 +50,7 @@ const Aside = ({ isOpen, setOpen }) => {
             className="flex justify-center w-full bg-white p-2 rounded-md"
           >
             <span className="font-bold text-lg text-secondary">
-              Life<span className="text-[#c6414c]">Drop</span>
+              Life<span className="text-primary">Drop</span>
             </span>
           </Link>
         </div>

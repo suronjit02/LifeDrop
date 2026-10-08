@@ -118,7 +118,7 @@ const SearchPage = () => {
           transition={{ duration: 0.6, delay: 0.2 }}
         >
           <h2 className="text-lg font-semibold text-gray-700 mb-5 flex items-center gap-2">
-            <FiSearch className="text-[#c6414c]" />
+            <FiSearch className="text-primary" />
             Filter Donors
           </h2>
 
@@ -126,10 +126,10 @@ const SearchPage = () => {
             {/* Blood Group */}
             <div className="flex flex-col gap-1">
               <label className="text-xs font-semibold text-gray-500 uppercase tracking-wider flex items-center gap-1">
-                <FiDroplet className="text-[#c6414c]" /> Blood Group
+                <FiDroplet className="text-primary" /> Blood Group
               </label>
               <select
-                className="select select-bordered focus:border-[#c6414c] focus:outline-none w-full"
+                className="select select-bordered focus:border-primary focus:outline-none w-full"
                 value={bloodGroup}
                 onChange={(e) => setBloodGroup(e.target.value)}
               >
@@ -145,10 +145,10 @@ const SearchPage = () => {
             {/* Division */}
             <div className="flex flex-col gap-1">
               <label className="text-xs font-semibold text-gray-500 uppercase tracking-wider flex items-center gap-1">
-                <FaLocationDot className="text-[#c6414c]" /> Division
+                <FaLocationDot className="text-primary" /> Division
               </label>
               <select
-                className="select select-bordered focus:border-[#c6414c] focus:outline-none w-full"
+                className="select select-bordered focus:border-primary focus:outline-none w-full"
                 value={division}
                 onChange={handleDivisionChange}
               >
@@ -164,10 +164,10 @@ const SearchPage = () => {
             {/* District */}
             <div className="flex flex-col gap-1">
               <label className="text-xs font-semibold text-gray-500 uppercase tracking-wider flex items-center gap-1">
-                <FiMapPin className="text-[#c6414c]" /> District
+                <FiMapPin className="text-primary" /> District
               </label>
               <select
-                className="select select-bordered focus:border-[#c6414c] focus:outline-none w-full"
+                className="select select-bordered focus:border-primary focus:outline-none w-full"
                 value={district}
                 onChange={handleDistrictChange}
                 disabled={!division}
@@ -186,10 +186,10 @@ const SearchPage = () => {
             {/* Upazila */}
             <div className="flex flex-col gap-1">
               <label className="text-xs font-semibold text-gray-500 uppercase tracking-wider flex items-center gap-1">
-                <FiMapPin className="text-[#c6414c]" /> Upazila
+                <FiMapPin className="text-primary" /> Upazila
               </label>
               <select
-                className="select select-bordered focus:border-[#c6414c] focus:outline-none w-full"
+                className="select select-bordered focus:border-primary focus:outline-none w-full"
                 value={upazila}
                 onChange={(e) => setUpazila(e.target.value)}
                 disabled={!district}
@@ -208,7 +208,7 @@ const SearchPage = () => {
 
           <button
             onClick={handleSearch}
-            className="btn bg-[#c6414c] hover:bg-white hover:text-[#c6414c] hover:border-[#c6414c] text-white w-full md:w-auto px-10 transition-all duration-300"
+            className="btn bg-primary hover:bg-white hover:text-primary hover:border-primary text-white w-full md:w-auto px-10 transition-all duration-300"
           >
             <FiSearch className="text-lg" />
             Search Donors
@@ -221,7 +221,7 @@ const SearchPage = () => {
         {/* Loading */}
         {loading && (
           <div className="flex flex-col items-center justify-center py-20 gap-4">
-            <span className="loading loading-spinner loading-lg text-[#c6414c]"></span>
+            <span className="loading loading-spinner loading-lg text-primary"></span>
             <p className="text-gray-500 text-sm">Searching for donors...</p>
           </div>
         )}
@@ -263,9 +263,7 @@ const SearchPage = () => {
           <>
             <div className="flex items-center justify-between mb-6">
               <h3 className="text-lg font-semibold text-gray-700">
-                <span className="text-[#c6414c] font-bold">
-                  {donors.length}
-                </span>{" "}
+                <span className="text-primary font-bold">{donors.length}</span>{" "}
                 {donors.length === 1 ? "donor" : "donors"} found
               </h3>
             </div>
@@ -287,7 +285,7 @@ const SearchPage = () => {
                     <div className="p-5">
                       {/* Avatar + Name */}
                       <div className="flex items-center gap-3 mb-4">
-                        <div className="w-12 h-12 rounded-full bg-red-50 border-2 border-[#c6414c]/20 flex items-center justify-center flex-shrink-0 overflow-hidden">
+                        <div className="w-12 h-12 rounded-full bg-red-50 border-2 border-primary/20 flex items-center justify-center flex-shrink-0 overflow-hidden">
                           {donor.mainPhotoUrl ? (
                             <img
                               src={donor.mainPhotoUrl}
@@ -295,7 +293,7 @@ const SearchPage = () => {
                               className="w-full h-full object-cover"
                             />
                           ) : (
-                            <FiUser className="text-xl text-[#c6414c]" />
+                            <FiUser className="text-xl text-primary" />
                           )}
                         </div>
                         <div className="min-w-0">
@@ -303,7 +301,7 @@ const SearchPage = () => {
                             {donor.name}
                           </h4>
                           <p className="text-xs text-gray-400 flex items-center gap-1">
-                            <FaLocationDot className="text-[#c6414c] flex-shrink-0" />
+                            <FaLocationDot className="text-primary flex-shrink-0" />
                             <span className="truncate">
                               {donor.district}
                               {donor.upazila ? `, ${donor.upazila}` : ""}

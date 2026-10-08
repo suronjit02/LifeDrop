@@ -46,7 +46,7 @@ const bloodGroupColor = (bg) => {
 
 const RecentDonationStories = () => {
   return (
-    <section className="py-24 bg-[#c6414c] overflow-hidden relative">
+    <section className="py-24 bg-primary overflow-hidden relative">
       {/* Background decoration */}
       <div className="absolute inset-0 opacity-5 pointer-events-none">
         <div className="absolute top-10 left-10 w-64 h-64 rounded-full border-4 border-white" />
@@ -59,22 +59,28 @@ const RecentDonationStories = () => {
         <div className="text-center mb-14">
           <motion.p
             className="text-xs font-semibold uppercase tracking-widest text-white/50 mb-2"
-            initial={{ opacity: 0, y: 16 }} whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }} transition={{ duration: 0.5 }}
+            initial={{ opacity: 0, y: 16 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.5 }}
           >
             Real Stories
           </motion.p>
           <motion.h2
             className="text-3xl md:text-4xl font-bold text-white mb-3"
-            initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }} transition={{ duration: 0.6 }}
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.6 }}
           >
             Recent Donation Stories
           </motion.h2>
           <motion.p
             className="text-white/60 text-sm max-w-lg mx-auto"
-            initial={{ opacity: 0, y: 16 }} whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }} transition={{ duration: 0.6, delay: 0.1 }}
+            initial={{ opacity: 0, y: 16 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.6, delay: 0.1 }}
           >
             Hear from donors who made a difference. Every story is a life
             touched.
@@ -100,7 +106,7 @@ const RecentDonationStories = () => {
 
               {/* Icon */}
               <div className="w-11 h-11 rounded-2xl bg-red-50 flex items-center justify-center flex-shrink-0">
-                <BiSolidDonateBlood className="text-xl text-[#c6414c]" />
+                <BiSolidDonateBlood className="text-xl text-primary" />
               </div>
 
               {/* Story */}
@@ -117,17 +123,21 @@ const RecentDonationStories = () => {
                     <FiUser className="text-gray-400" />
                   </div>
                   <div>
-                    <p className="font-semibold text-gray-800 text-sm">{item.name}</p>
+                    <p className="font-semibold text-gray-800 text-sm">
+                      {item.name}
+                    </p>
                     <p className="text-xs text-gray-400">{item.date}</p>
                   </div>
                 </div>
-                <span className={`text-xs font-bold px-3 py-1 rounded-full border ${bloodGroupColor(item.blood)}`}>
+                <span
+                  className={`text-xs font-bold px-3 py-1 rounded-full border ${bloodGroupColor(item.blood)}`}
+                >
                   {item.blood}
                 </span>
               </div>
 
               {/* Bottom accent */}
-              <div className="absolute bottom-0 left-0 h-0.5 w-0 group-hover:w-full bg-[#c6414c] transition-all duration-500" />
+              <div className="absolute bottom-0 left-0 h-0.5 w-0 group-hover:w-full bg-primary transition-all duration-500" />
             </motion.div>
           ))}
         </div>

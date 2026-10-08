@@ -105,7 +105,7 @@ const DashboardProfile = () => {
           <span
             className={`badge mt-1 rounded-sm capitalize ${
               userData.role === "admin"
-                ? "bg-[#c6414c] text-white"
+                ? "bg-primary text-white"
                 : userData.role === "volunteer"
                   ? "bg-[#00684d] text-white"
                   : "bg-[#05b4cd] text-white"

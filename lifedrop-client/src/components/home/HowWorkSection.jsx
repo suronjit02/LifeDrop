@@ -8,7 +8,7 @@ const steps = [
     icon: <FiSearch />,
     title: "Quick Search",
     desc: "Filter donors by blood group, district, and upazila in seconds.",
-    color: "text-[#c6414c]",
+    color: "text-primary",
     bg: "bg-red-50",
     border: "border-red-100",
   },
@@ -36,11 +36,10 @@ const HowWorkSection = () => {
   return (
     <section className="py-20 bg-white">
       <div className="max-w-7xl mx-auto px-5 sm:px-10">
-
         {/* Header */}
         <div className="text-center mb-14">
           <motion.p
-            className="text-xs font-semibold uppercase tracking-widest text-[#c6414c] mb-2"
+            className="text-xs font-semibold uppercase tracking-widest text-primary mb-2"
             initial={{ opacity: 0, y: 16 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true, amount: 0.5 }}
@@ -89,16 +88,19 @@ const HowWorkSection = () => {
               </span>
 
               {/* Icon circle */}
-              <div className={`w-14 h-14 rounded-2xl flex items-center justify-center text-2xl mb-5 bg-white shadow-sm ${s.color} group-hover:scale-110 transition-transform duration-300`}>
+              <div
+                className={`w-14 h-14 rounded-2xl flex items-center justify-center text-2xl mb-5 bg-white shadow-sm ${s.color} group-hover:scale-110 transition-transform duration-300`}
+              >
                 {s.icon}
               </div>
 
-              <h3 className="font-bold text-gray-800 text-lg mb-2">{s.title}</h3>
+              <h3 className="font-bold text-gray-800 text-lg mb-2">
+                {s.title}
+              </h3>
               <p className="text-gray-500 text-sm leading-relaxed">{s.desc}</p>
             </motion.div>
           ))}
         </div>
-
       </div>
     </section>
   );
